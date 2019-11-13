@@ -1,5 +1,5 @@
 <template>
-  <div class="navigation">
+  <div class="adminnavigation">
     <nav>
       <router-link class="router-link" v-for="routes in links" 
       v-bind:key="routes.id"
@@ -10,29 +10,19 @@
 
 <script>
 export default {
-  name: 'Navigation',
+  name: 'AdminNavigation',
   data() {
     return {
       links: [
         {
           id: 0,
-          text: 'home',
+          text: 'user',
           page:'/'
         },
         {
           id: 1,
-          text: 'about us',
-          page:'/about'
-        },
-        {
-          id: 2,
-          text: 'shop',
-          page:'/shop'
-        },
-        {
-          id: 3,
-          text: 'contact',
-          page:'/contact'
+          text: 'admin',
+          page:'/admin'
         },
       ]
     }
@@ -41,7 +31,7 @@ export default {
 </script>
 
 <style> 
-.navigation {
+.adminnavigation {
     display: inline-block;
     text-align: right;
     width: 100%;
