@@ -2,7 +2,7 @@
   <div class="body">
     <router-link class="body-link" to="/about">
       <div class="img-block">
-        <h1>About Us</h1>
+        <h1>About</h1>
           <a class="body-icon">
             <img src="@/assets/images/friendship.svg" alt="about us" />
           </a>
