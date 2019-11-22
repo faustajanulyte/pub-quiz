@@ -2,18 +2,21 @@
   <div class="user">
     <Navigation/>
     <Body/>
+    <Login/>
   </div>
 </template>
 
 <script>
 import Navigation from './header/navbar/Navigation.vue'
 import Body from './body/Body.vue'
+import Login from '@/components/login/Login'
 
 export default {
   name: 'User',
   components: {
     Navigation,
-    Body
+    Body,
+    Login
   }
 }
 </script>
