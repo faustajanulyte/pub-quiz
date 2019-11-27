@@ -17,8 +17,9 @@
           />
           <input
             v-model="password"
-            type="text"
+            type="password"
             id="inputPassword"
+            v-show="!showPass"
             class="form-control"
             placeholder="Password"
             required

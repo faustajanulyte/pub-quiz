@@ -1,5 +1,8 @@
 <template>
   <div class="admin-body">
+    <router-link class="router-link" v-for="routes in links" 
+      v-bind:key="routes.id"
+      :to="`${routes.page}`">{{routes.text}}</router-link>
     <div class="admin-login-overlay">
       <div class="admin-login-wrapper">
         <form class="admin-form-signin">
@@ -14,8 +17,9 @@
           />
           <input
             v-model="password"
-            type="text"
+            type="password"
             id="inputPassword"
+            v-show="!showPass"
             class="admin-form-control"
             placeholder="Password"
             required
@@ -54,9 +58,9 @@ export default {
         .then(response => {
           this.valid = response.data.valid
           if(this.valid) {
-            // route xyz
+            this.$router.push('Services');
           } else {
-            // failed
+            alert("Failed to sign in!");
           }
           console.log(this.valid)
         });

@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import User from '@/components/user/User'
 import Admin from '@/components/admin/Admin'
 import Quiz from '@/components/user/quiz/Quiz'
+import Services from '@/components/admin/adminservices/Services'
 
 Vue.use(VueRouter)
 
@@ -22,6 +23,11 @@ export default new VueRouter({
       path: '/quiz',
       name: 'Quiz',
       component: Quiz
+    },
+    {
+      path: '/services',
+      name: 'Services',
+      component: Services
     }
   ]
 })

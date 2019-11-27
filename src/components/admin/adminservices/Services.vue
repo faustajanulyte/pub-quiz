@@ -1,5 +1,5 @@
 <template>
-  <div class="quiz">
+  <div class="services">
   </div>
 </template>
 
@@ -8,7 +8,7 @@
 </script>
 
 <style scoped>
-.quiz {
+.services {
   background-image: url('~@/assets/images/questionmark.jpeg');
   width: 100%;
   height: 800px;
