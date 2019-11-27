@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import User from '@/components/user/User'
 import Admin from '@/components/admin/Admin'
-// import Login from '@/components/login/Login'
+import Quiz from '@/components/user/quiz/Quiz'
 
 Vue.use(VueRouter)
 
@@ -18,10 +18,10 @@ export default new VueRouter({
       name: 'Admin',
       component: Admin
     },
-    /* {
-      path: '/login',
-      name: 'Login',
-      component: Login
-    }, */
+    {
+      path: '/quiz',
+      name: 'Quiz',
+      component: Quiz
+    }
   ]
 })

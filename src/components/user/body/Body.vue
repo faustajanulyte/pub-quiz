@@ -1,5 +1,8 @@
 <template>
   <div class="body">
+    <router-link class="router-link" v-for="routes in links" 
+      v-bind:key="routes.id"
+      :to="`${routes.page}`">{{routes.text}}</router-link>
     <div class="login-overlay">
       <div class="login-wrapper">
         <form class="form-signin">
@@ -54,9 +57,9 @@ export default {
         .then(response => {
           this.valid = response.data.valid
           if(this.valid) {
-            // route xyz
+            this.$router.push('Quiz');
           } else {
-            // failed
+            alert("Failed to sign in!");
           }
           console.log(this.valid)
         });
