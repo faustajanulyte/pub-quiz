@@ -1,80 +1,110 @@
 <template>
-  <div class="adminbody">
-    <router-link class="body-link" to="/about">
-      <div class="img-block">
-        <h1>About Us</h1>
-          <a class="body-icon">
-            <img src="@/assets/images/friendship.svg" alt="about us" />
-          </a>
+  <div class="admin-body">
+    <div class="admin-login-overlay">
+      <div class="admin-login-wrapper">
+        <form class="admin-form-signin">
+          <h2 class="admin-form-signin-heading">Please sign in</h2>
+          <input
+            v-model="name"
+            type="text"
+            id="inputUserame"
+            class="admin-form-control"
+            placeholder="Username"
+            required
+          />
+          <input
+            v-model="password"
+            type="text"
+            id="inputPassword"
+            class="admin-form-control"
+            placeholder="Password"
+            required
+          />
+          <br />
+          <button type="submit" @click="authAdmin()">Sign in</button>
+        </form>
       </div>
-    </router-link>
-    <router-link class="body-link" to="/shop">
-      <div class="img-block">
-        <h1>Shop</h1>
-          <a class="body-icon">
-            <img src="@/assets/images/golf.svg" alt="shop" />
-          </a>
-      </div>
-    </router-link>
-    <router-link class="body-link" to="/contact">
-      <div class="img-block">
-        <h1>Contact Us</h1>
-          <a class="body-icon">
-            <img src="@/assets/images/contact.svg" alt="contact" />
-          </a>
-      </div>
-    </router-link>
+    </div>
   </div>
 </template>
 
 <script>
+import axios from "axios";
 
 export default {
-  name: 'Adminody',
+  name: "app",
   data() {
     return {
-      links: [
-        {
-          id: 1,
-          text: 'about us',
-          page:'/about'
-        },
-        {
-          id: 2,
-          text: 'shop',
-          page:'/shop'
-        },
-        {
-          id: 3,
-          text: 'contact',
-          page:'/contact'
-        },
-      ]
+      name: "",
+      password: "",
+      valid: ""
+    };
+  },
+  methods: {
+    authAdmin: function() {
+      console.log(this.name);
+      axios
+        .post(
+          "https://h9ek7b6qff.execute-api.eu-west-2.amazonaws.com/dev",
+          {
+            name: this.name,
+            password: this.password
+          }
+        )
+        .then(response => {
+          this.valid = response.data.valid
+          if(this.valid) {
+            // route xyz
+          } else {
+            // failed
+          }
+          console.log(this.valid)
+        });
     }
   }
-}
+};
 </script>
 
 <style>
-.body-link {
-  filter: invert(1.0);
+.admin-body {
+  width: 100%;
+  height: 750px;
 }
-.img-block {
-  display: inline-block;
-  text-align: right;
-  width: 250px;
-  padding-right: 100px;
-  padding-top: 200px;
-  padding-bottom: 300px;
+.admin-login-overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
 }
-.body-link:hover {
-  opacity: 0.7;
+.admin-login-wrapper {
+  background-color: rgba(255, 255, 255, 0.5);
+  width: 40%;
+  margin: 12% auto;
+  margin-top: 10%;
 }
-.adminbody {
-  margin: 0px;
+.admin-form-signin {
+  max-width: 330px;
+  padding: 10% 15px;
+  margin: 0 auto;
 }
-.img-block h1 {
+.admin-form-signin-heading {
   color: black;
-  text-align: center;
+}
+.admin-form-signin .admin-form-control {
+  position: relative;
+  height: auto;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 10px;
+  font-size: 16px;
+}
+.admin-form-signin input[type="username"] {
+  margin-bottom: 0px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.admin-form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
 }
 </style>

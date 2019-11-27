@@ -34,8 +34,8 @@ export default {
 .navigation {
     display: inline-block;
     text-align: right;
-    width: 100%;
-    padding-right: 100px;
+    width: 90%;
+    padding-left: 100px;
     padding-top: 20px;
 }
 
