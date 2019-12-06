@@ -35,24 +35,23 @@ so good luck.
 .welcome img {
     margin-top: 80px;
     position: relative;
-    left: 50px;
+    left: 90px;
     width: 500px;
     height: 700px
 }
 .message {
     position: absolute;
     top: 200px;
-    left: 170px;
-    right: 30px;
-    color: white;
+    left: 220px;
+    color: black;
     font-family: 'Satisfy', cursive;
     font-size: 27px
 }
 .parrot img {
     position: absolute;
     width: 350px;
-    top: 550px;
-    right: 780px;
+    top: 480px;
+    right: 700px;
     transform: scaleX(-1);
 }
 </style>
