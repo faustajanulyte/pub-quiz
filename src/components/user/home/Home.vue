@@ -10,6 +10,9 @@ so good luck.
         </p>
         </div>
     </div>
+        <div class="parrot">
+          <img src="@/assets/images/parrot.png" alt="parrot">
+        </div>
   </div>
 </template>
 
@@ -21,9 +24,9 @@ so good luck.
 @import url('https://fonts.googleapis.com/css?family=Satisfy&display=swap');
 
 .home {
-  background-image: url('~@/assets/images/questionmark.jpeg');
+  background-image: url('~@/assets/images/treasurehunt.gif');
   width: 100%;
-  height: 1000px;
+  height: 938px;
   background-size: 100%;
 }
 .welcome {
@@ -44,5 +47,12 @@ so good luck.
     color: white;
     font-family: 'Satisfy', cursive;
     font-size: 27px
+}
+.parrot img {
+    position: absolute;
+    width: 350px;
+    top: 550px;
+    right: 780px;
+    transform: scaleX(-1);
 }
 </style>
