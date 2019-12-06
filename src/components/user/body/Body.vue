@@ -58,7 +58,7 @@ export default {
         .then(response => {
           this.valid = response.data.valid
           if(this.valid) {
-            this.$router.push('Quiz');
+            this.$router.push('Home');
           } else {
             alert("Failed to sign in!");
           }

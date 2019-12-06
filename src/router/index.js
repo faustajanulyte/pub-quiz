@@ -4,6 +4,7 @@ import User from '@/components/user/User'
 import Admin from '@/components/admin/Admin'
 import Quiz from '@/components/user/quiz/Quiz'
 import Services from '@/components/admin/adminservices/Services'
+import Home from '@/components/user/home/Home'
 
 Vue.use(VueRouter)
 
@@ -28,6 +29,11 @@ export default new VueRouter({
       path: '/services',
       name: 'Services',
       component: Services
+    },
+    {
+      path: '/home',
+      name: 'Home',
+      component: Home
     }
   ]
 })
