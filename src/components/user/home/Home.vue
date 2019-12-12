@@ -26,7 +26,7 @@ so good luck.
 .home {
   background-image: url('~@/assets/images/treasurehunt.gif');
   width: 100%;
-  height: 938px;
+  height: 1000px;
   background-size: 100%;
 }
 .welcome {

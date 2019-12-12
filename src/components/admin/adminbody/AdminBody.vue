@@ -72,7 +72,7 @@ export default {
 <style>
 .admin-body {
   width: 100%;
-  height: 750px;
+  height: 950px;
 }
 .admin-login-overlay {
   position: absolute;

@@ -12,7 +12,7 @@
             type="text"
             id="inputName"
             class="form-control"
-            placeholder="Team name"
+            placeholder="Username"
             required
           />
           <input
@@ -25,7 +25,7 @@
             required
           />
           <br />
-          <button type="submit" @click="authTeam()">Sign in</button>
+          <button type="submit" @click="authUsers()">Sign in</button>
         </form>
       </div>
     </div>
@@ -41,23 +41,28 @@ export default {
     return {
       name: "",
       password: "",
+      admin: "",
       valid: ""
     };
   },
   methods: {
-    authTeam: function() {
+    authUsers: function() {
       console.log(this.name);
       axios
         .post(
-          "https://ayo669jcxd.execute-api.eu-west-2.amazonaws.com/dev/",
+          "https://ayo669jcxd.execute-api.eu-west-2.amazonaws.com/dev",
           {
             name: this.name,
-            password: this.password
+            password: this.password,
+            admin: this.admin
           }
         )
         .then(response => {
+          this.admin = response.data.admin,
           this.valid = response.data.valid
-          if(this.valid) {
+          if(this.admin) {
+            this.$router.push('Services');
+          } else if(this.valid) {
             this.$router.push('Home');
           } else {
             alert("Failed to sign in!");
@@ -72,7 +77,7 @@ export default {
 <style>
 .body {
   width: 100%;
-  height: 750px;
+  height: 950px;
 }
 .login-overlay {
   position: absolute;
