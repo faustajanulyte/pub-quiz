@@ -77,7 +77,7 @@ export default {
 <style>
 .body {
   width: 100%;
-  height: 950px;
+  height: 1000px;
 }
 .login-overlay {
   position: absolute;
