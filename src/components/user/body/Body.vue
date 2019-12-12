@@ -50,7 +50,7 @@ export default {
       console.log(this.name);
       axios
         .post(
-          "https://ayo669jcxd.execute-api.eu-west-2.amazonaws.com/dev",
+          "https://hghjfrvme8.execute-api.eu-west-2.amazonaws.com/dev",
           {
             name: this.name,
             password: this.password,

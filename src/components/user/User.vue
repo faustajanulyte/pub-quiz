@@ -1,18 +1,15 @@
 <template>
   <div class="user">
-    <Navigation/>
     <Body/>
   </div>
 </template>
 
 <script>
-import Navigation from './header/navbar/Navigation.vue'
 import Body from './body/Body.vue'
 
 export default {
   name: 'User',
   components: {
-    Navigation,
     Body
   }
 }
