@@ -61,9 +61,9 @@ export default {
           this.admin = response.data.admin,
           this.valid = response.data.valid
           if(this.admin) {
-            this.$router.push('services');
+            this.$router.push('Services');
           } else if(this.valid) {
-            this.$router.push('home');
+            this.$router.push('Home');
           } else {
             alert("Failed to sign in!");
           }
