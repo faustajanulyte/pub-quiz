@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import User from '@/components/user/User'
+import Login from '@/components/user/Login'
 import Services from '@/components/admin/Services'
 
 Vue.use(VueRouter)
@@ -9,8 +9,8 @@ export default new VueRouter({
   routes: [
     {
       path: '/',
-      name: 'User',
-      component: User
+      name: 'Login',
+      component: Login
     },
     {
       path: '/services',

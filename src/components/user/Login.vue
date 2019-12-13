@@ -1,12 +1,12 @@
 <template>
-  <div class="body">
+  <div class="login">
     <router-link class="router-link" v-for="routes in links" 
       v-bind:key="routes.id"
       :to="`${routes.page}`">{{routes.text}}</router-link>
     <div class="login-overlay">
       <div class="login-wrapper">
-        <form class="form-signin">
-          <h2 class="form-signin-heading">Please sign in</h2>
+        <form class="form-login">
+          <h2 class="form-login-heading">Please sign in</h2>
           <input
             v-model="name"
             type="text"
@@ -75,9 +75,12 @@ export default {
 </script>
 
 <style>
-.body {
+.login {
   width: 100%;
   height: 1000px;
+  background-image: url('~@/assets/images/questionmark.jpeg');
+  background-size: 100%;
+  margin: 0px;
 }
 .login-overlay {
   position: absolute;
@@ -90,15 +93,15 @@ export default {
   margin: 12% auto;
   margin-top: 10%;
 }
-.form-signin {
+.form-login {
   max-width: 330px;
   padding: 10% 15px;
   margin: 0 auto;
 }
-.form-signin-heading {
+.form-login-heading {
   color: black;
 }
-.form-signin .form-control {
+.form-login .form-control {
   position: relative;
   height: auto;
   -webkit-box-sizing: border-box;
@@ -106,12 +109,12 @@ export default {
   padding: 10px;
   font-size: 16px;
 }
-.form-signin input[type="team name"] {
+.form-login input[type="team name"] {
   margin-bottom: 0px;
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
 }
-.form-signin input[type="password"] {
+.form-login input[type="password"] {
   margin-bottom: 10px;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
