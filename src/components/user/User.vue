@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import Body from './body/Body.vue'
+import Body from './Body.vue'
 
 export default {
   name: 'User',

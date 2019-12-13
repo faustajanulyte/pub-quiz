@@ -16,22 +16,22 @@ export default {
     return {
       links: [
         {
-          id: 3,
+          id: 0,
           text: 'Quizes',
           page:'/quizes'
         },
         {
-          id: 4,
+          id: 1,
           text: 'Results',
           page:'/results'
         },
         {
-          id: 6,
+          id: 2,
           text: 'Add team',
           page:'/addteam'
         },
         {
-          id: 5,
+          id: 3,
           text: 'Add admin',
           page:'/addadmin'
         },

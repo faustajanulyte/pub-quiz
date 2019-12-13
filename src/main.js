@@ -1,13 +1,13 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
-// import BreakpointPlugin from 'vue-breakpoint'
-
+import BootstrapVue from 'bootstrap-vue'
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 import './assets/css/global.css'
 
-// const { BreakpointPlugin } = window.VueBreakpoint
-
+Vue.use(BootstrapVue)
 Vue.config.productionTip = false
 
 new Vue({
@@ -15,11 +15,3 @@ new Vue({
   render: h => h(App),
 }).$mount('#app')
 
-/* Vue.use(BreakpointPlugin, {
-  print: { print: true },
-  portrait: { orientation: "portrait" },
-  mobile: { maxWidth: "600px" },
-  mobilePortrait: { maxWidth: "600px", orientation: "portrait" },
-  tablet: { minWidth: "601px", maxWidth: "800px" },
-  desktop: { minWidth: "801px" },
-}); */
