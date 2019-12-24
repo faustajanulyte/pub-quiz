@@ -61,7 +61,7 @@
   position: absolute;
   top: 90px;
   right: 200px;
-  background-color:;
+  
   
 }
 .TeamName{
