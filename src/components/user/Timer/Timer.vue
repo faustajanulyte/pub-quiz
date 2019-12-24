@@ -1,38 +1,25 @@
 <template>
-<div>    
-        <div @click="set_time">Click me!
+<div >    
 
-        </div>
+        <countdown :end-time="new Date().getTime() + 15000">
+        <span
+        slot="process"
+        slot-scope="anyYouWantedScopName">{{ `Lefttime: ${anyYouWantedScopName.timeObj.ceil.s}` }}</span>
+        <span slot="finish" >Done!</span>
+        </countdown>
 
-        <div @click="check_time"> Click! 
-
-        </div>
+        
 </div>
 </template>
 
 
 
-<script>
+<script> 
 
-
-export default {
-  methods: {
-        set_time: function() {  
-        var time = new Date();
-        var end_time = new Date();
-        end_time.setSeconds(time.getSeconds() + 15 );
-
-        if(this.time == this.end_time) {
-        alert('times up')
-        }
-        else {
-        alert(end_time);
-        alert(time);
-        }
-    }
-  }
+function myFunction() {
+  setInterval(function(){ window.location.href = "/?#/Quiz_1_questions" }, 15000);
 }
-
+window.onload = myFunction;
 
 </script>
 
@@ -67,7 +54,7 @@ export default {
   word-wrap: break-word; /** makes the text wrap inside the div */
 }
 
-.timer {
+.countdown {
   position: relative;
   font-size: 100px;
   color: black; 
