@@ -1,11 +1,12 @@
 <template>
 <div >    
 
-        <countdown :end-time="new Date().getTime() + 15000">
-        <span
-        slot="process"
-        slot-scope="anyYouWantedScopName">{{ `Lefttime: ${anyYouWantedScopName.timeObj.ceil.s}` }}</span>
-        <span slot="finish" >Done!</span>
+        <countdown :end-time="new Date().getTime() + 5000">
+        
+          <span
+          slot="process"
+          slot-scope="anyYouWantedScopName">{{ `Lefttime: ${anyYouWantedScopName.timeObj.ceil.s}` }}</span>
+          <span slot="finish" >Done!</span>
         </countdown>
 
         
@@ -16,11 +17,14 @@
 
 <script> 
 
-function myFunction() {
-  setInterval(function(){ window.location.href = "/?#/Quiz_1_questions" }, 15000);
+/*function myFunction() {
+  setInterval(function(){ window.location.href = "/?#/Quiz_1_questions" }, 5000);
+  return;
 }
-window.onload = myFunction;
 
+window.onload = myFunction() 
+
+*/
 </script>
 
 <style scoped>

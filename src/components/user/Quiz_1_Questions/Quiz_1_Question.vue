@@ -6,21 +6,34 @@
         Question ( "1" ) 
         ...........................................................................................................................................
       </div>
-
-      <div class="timer">
-        00:00
-      </div>
-
       
-      }
+      <vac :left-time="5000" :auto-start="false" ref="vac2" >
+        <countdown :end-time="new Date().getTime() + 5000" class="timer">
+          <span 
+          slot="process"
+          slot-scope="anyYouWantedScopName">{{ `Lefttime: ${anyYouWantedScopName.timeObj.ceil.s}` }}</span>
+          <span slot="finish" >Done!</span>
+        </countdown>
+      </vac>      
     </div>
  </div>
-
- 
   
 </template>
 
 <script>
+
+export default {
+  data() {
+    return {}
+  },
+  methods: {
+    startCountdown() {
+      const vm = this
+      vm.$refs.vac2.startCountdown(true)
+    }
+  }
+}
+
 
 
 
@@ -60,11 +73,9 @@
 .timer{
   position:relative;
   text-align:right;
-  font-size: 30px;
+  font-size: 40px;
   color:white;
-  padding-right: 30px;
-  top: -14%;
-
+  padding-left: 80%;
 
 }
 

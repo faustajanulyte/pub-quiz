@@ -17,17 +17,27 @@ so good luck.
          <div class="pin-overlay">
       <div class="pin-wrapper" >
         <form class="form-access">
-          <h2 class="pin_heading">Please enter the pin</h2>
+          <h2 class="pin_heading">Please enter the Quiz Name</h2>
           <input
-            v-model="Quiz_Pin"
+            v-model="quizname"
             type="text"
-            id="inputName"
+            id="inputPIN"
             class="pin_input"
-            placeholder="Enter Quiz Pin"
+            placeholder="Please enter the Quiz Name"
             required
           />
           <br />
-          <button class="pin_button" type="submit">Submit</button>
+          <h2 class="pin_heading">Please enter the Quiz Pin</h2>
+          <input
+            v-model="PIN"
+            type="text"
+            id="inputquizname"
+            class="pin_input"
+            placeholder="Please enter the Quiz Pin"
+            required
+          />
+          <br />
+          <button class="pin_button"  type="submit" @click="authPIN()">Submit</button>
         </form>
       </div>  
     </div>        
@@ -36,6 +46,61 @@ so good luck.
 
 <script>
 
+import axios from "axios";
+
+export default {
+  name: "app",
+  data() {
+    return {
+      quizname: "",
+      PIN: "",
+      valid: ""
+    };
+  },
+  methods: {
+    authPIN: function() {
+      console.log(this.quizname);
+      axios
+        .post(
+          "https://kezmvb42ga.execute-api.eu-west-2.amazonaws.com/dev",
+          {
+            quizname: this.quizname,
+            PIN: this.PIN
+          }
+        )
+        .then(response => {
+          this.valid = response.data.valid
+          if(this.valid) {
+            if (this.quizname == "Quiz1"){
+              this.$router.push('quiz_1');
+            }
+            else if (this.quizname == "Quiz2"){
+              this.$router.push('quiz_2')
+            }
+            else if (this.quizname == "Quiz3"){
+              this.$router.push('quiz_3')
+            }
+            else if (this.quizname == "Quiz4"){
+              this.$router.push('quiz_4')
+            }
+          } else {
+            alert("Failed to sign in!");
+          }
+          console.log(this.valid)
+        });
+    }
+  }
+};
+
+/*.then(response => {
+          this.valid = response.data.valid
+          if(this.valid) {
+            this.$router.push('quiz_1');
+          } else {
+            alert("Failed to sign in!");
+          }
+          console.log(this.valid)
+*/
 </script>
 
 <style scoped>
