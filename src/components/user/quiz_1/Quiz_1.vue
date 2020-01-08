@@ -16,7 +16,7 @@
 
       <div>
 
-      <form method="get" action="/?#/Quiz_1_questions">
+      <form method="get" action="/?#/Quiz_1_questions" >
         <button type="submit" class="Start_button">Start</button>
       </form>
           
