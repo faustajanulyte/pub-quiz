@@ -5,7 +5,6 @@ import Services from '@/components/admin/Services'
 import Home from '@/components/user/Home'
 import Quiz_1 from '@/components/user/quiz_1/Quiz_1'
 import quiz_1_questions from '@/components/user/Quiz_1_Questions/Quiz_1_Question'
-import Timer from '@/components/user/Timer/Timer'
 
 Vue.use(VueRouter)
 
@@ -35,11 +34,6 @@ export default new VueRouter({
       path: '/Quiz_1_questions',
       name: 'Quiz_1_question',
       component: quiz_1_questions
-    },
-    {
-    path: '/Timer',
-      name: 'Timer',
-      component: Timer
     },
   ]
 })

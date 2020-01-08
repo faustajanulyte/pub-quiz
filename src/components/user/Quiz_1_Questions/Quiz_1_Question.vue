@@ -7,14 +7,14 @@
         ...........................................................................................................................................
       </div>
       
-      <vac :left-time="5000" :auto-start="false" ref="vac2" >
-        <countdown :end-time="new Date().getTime() + 5000" class="timer">
+      <vac :left-time="10000" :auto-start="true" >
+        <countdown :end-time="new Date().getTime() + 10000" class="timer">
           <span 
           slot="process"
           slot-scope="anyYouWantedScopName">{{ `Lefttime: ${anyYouWantedScopName.timeObj.ceil.s}` }}</span>
           <span slot="finish" >Done!</span>
         </countdown>
-      </vac>      
+      </vac>
     </div>
  </div>
   
@@ -22,20 +22,41 @@
 
 <script>
 
-export default {
-  data() {
-    return {}
-  },
-  methods: {
-    startCountdown() {
-      const vm = this
-      vm.$refs.vac2.startCountdown(true)
+function startCountdowns(seconds){
+  var counter = seconds;
+  //var counter_countdown = Number;
+
+  var interval = setInterval(() => {
+    console.log(counter);
+
+    counter--;
+    
+
+    if(counter < 0 ){
+      // The code here will run when
+      // the timer has reached zero.
+      clearInterval(interval);
+      console.log('Ding!');
+      startCountdowns(9.5);
+      alert("Works");
+      return;
     }
-  }
+    }, 1000);
 }
+var url = document.createElement('a');
+var currentUrl = window.location.pathname
+url.href = 'https://master.d20fwluev9xat5.amplifyapp.com/?#/Quiz_1_questions';
+console.log(url.host);      // stackoverflow.com
+console.log(currentUrl);
 
-
-
+if (currentUrl == "https://master.d20fwluev9xat5.amplifyapp.com/?#/Quiz_1_questions") {
+  console.log ("Works");
+  startCountdowns(9.5);
+} else {
+  console.log("does not work");
+  
+  
+}
 
 
 </script>
