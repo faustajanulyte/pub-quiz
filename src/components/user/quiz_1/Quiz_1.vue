@@ -16,7 +16,7 @@
 
       <div>
 
-      <form method="get" action="/?#/Quiz_1_questions" >
+      <form method="get" action="/?#/Quiz_1_Questions" >
         <button type="submit" class="Start_button">Start</button>
       </form>
           
@@ -61,8 +61,7 @@
   position: absolute;
   top: 90px;
   right: 200px;
-  
-  
+    
 }
 .TeamName{
   position: relative;
@@ -91,4 +90,5 @@
   border-color: white;
   font-family: 'Dosis', sans-serif;
 }
+
 </style>

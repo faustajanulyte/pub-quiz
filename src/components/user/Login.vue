@@ -47,7 +47,7 @@ export default {
   },
   methods: {
     authUsers: function() {
-      //console.log(this.name);
+      console.log(this.name);
       axios
         .post(
           "https://hghjfrvme8.execute-api.eu-west-2.amazonaws.com/dev",
@@ -67,7 +67,7 @@ export default {
           } else {
             alert("Failed to sign in!");
           }
-          //console.log(this.valid)
+          console.log(this.valid)
         });
     }
   }

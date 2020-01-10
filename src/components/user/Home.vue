@@ -58,33 +58,33 @@ export default {
     };
   },
   methods: {
-    authPIN: function() {
-      console.log(this.quizname);
+    authPIN: function() { //creates the function which activates by the button
+      console.log(this.quizname); 
       axios
         .post(
-          "https://kezmvb42ga.execute-api.eu-west-2.amazonaws.com/dev",
+          "https://kezmvb42ga.execute-api.eu-west-2.amazonaws.com/dev", //gets the data from the amazon database
           {
-            quizname: this.quizname,
-            PIN: this.PIN
+            quizname: this.quizname, //sets the variable quizname the same as the input quizname 
+            PIN: this.PIN //sets the variable PIN the same as the input PIN
           }
         )
         .then(response => {
-          this.valid = response.data.valid
-          if(this.valid) {
-            if (this.quizname == "Quiz1"){
+          this.valid = response.data.valid 
+          if(this.valid) { //checks the login is correct
+            if (this.quizname == "Quiz1"){ //checks which quiz to send the user to 
               this.$router.push('quiz_1');
             }
-            else if (this.quizname == "Quiz2"){
+            else if (this.quizname == "Quiz2"){ //checks which quiz to send the user to 
               this.$router.push('quiz_2')
             }
-            else if (this.quizname == "Quiz3"){
+            else if (this.quizname == "Quiz3"){ //checks which quiz to send the user to 
               this.$router.push('quiz_3')
             }
-            else if (this.quizname == "Quiz4"){
+            else if (this.quizname == "Quiz4"){ //checks which quiz to send the user to 
               this.$router.push('quiz_4')
             }
           } else {
-            alert("Failed to sign in!");
+            alert("Failed to sign in!"); // if wrong sends an alert
           }
           console.log(this.valid)
         });
@@ -92,15 +92,6 @@ export default {
   }
 };
 
-/*.then(response => {
-          this.valid = response.data.valid
-          if(this.valid) {
-            this.$router.push('quiz_1');
-          } else {
-            alert("Failed to sign in!");
-          }
-          console.log(this.valid)
-*/
 </script>
 
 <style scoped>
