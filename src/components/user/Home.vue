@@ -12,9 +12,7 @@ so good luck.
         </p>
         </div>
       </div>
-        <div class="parrot">
-          <img src="@/assets/images/parrot.png" alt="parrot">
-        </div>
+        
 
         <div class="pin-overlay">
           <div class="pin-wrapper" >
@@ -106,16 +104,17 @@ export default {
   position:fixed;
   width: 97%;
   height: 95%;
-  /*border-style: solid;
+  border-style: solid;
   border-width: 2px;
-  border-color: white;*/
+  border-color: white;
+  
 }
 
 .home {
   position: fixed;
   background-image: url('~@/assets/images/treasurehunt.gif');
   width: 100%;
-  height: 938px;
+  height: 100%;
   background-size: 100%;
 }
 .welcome {
@@ -132,12 +131,14 @@ export default {
     position: relative;
     top:-8%;
     width:100%;
-    height: 80%
+    height: 80%;
+    max-width: 800px;
 }
 .message {
     position: fixed;
     top: 8%;
     height: 45%;
+    max-height: 45%;
     width: 60%;
     right:15%;
     left: 20%;
@@ -145,6 +146,11 @@ export default {
     word-wrap:break-word;
     font-family: 'Satisfy', cursive;
     font-size: 4.9vw;
+    -webkit-box-ordinal-group: 2; /* iOS 6-, Safari, Opera*/
+    -moz-box-ordinal-group: 2; /* Firefox*/
+    -ms-flex-order: 2; /* IE 10 */
+    -webkit-order: 2; /* Chrome */
+    
     
 }
 .parrot img {
@@ -173,7 +179,7 @@ export default {
   width: 40%;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
-  padding: 10px;
+  padding: 2%;
   font-size: 5.5vw;;
 }
 .pin-overlay {
@@ -186,7 +192,7 @@ export default {
   background-color: rgba(100, 97, 97, 0.9);
   width: 70%;
   height: 30%;
-  margin-left:6%;
+  left:15%;
   bottom:13%;
   border-style: solid;
   border-width: 2px;
