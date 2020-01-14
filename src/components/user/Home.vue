@@ -1,6 +1,8 @@
 <template>
-  <div class="home">
-    <div class="welcome">
+  
+    <div class="home">
+      <div class="holder">
+      <div class="welcome">
         <img src="@/assets/images/paper.png" alt="paper">
         <div class="message">
         <p>Ahoy me hearties, welcome to the all new Treasure Hunt Quiz Hub!
@@ -9,38 +11,39 @@ One quiz per pub and to launch them you will need to have found the Password as 
 so good luck.
         </p>
         </div>
-    </div>
+      </div>
         <div class="parrot">
           <img src="@/assets/images/parrot.png" alt="parrot">
         </div>
 
-         <div class="pin-overlay">
-      <div class="pin-wrapper" >
-        <form class="form-access">
-          <h2 class="pin_heading">Please enter the Quiz Name</h2>
-          <input
-            v-model="quizname"
-            type="text"
-            id="inputPIN"
-            class="pin_input"
-            placeholder="Please enter the Quiz Name"
-            required
-          />
-          <br />
-          <h2 class="pin_heading">Please enter the Quiz Pin</h2>
-          <input
-            v-model="PIN"
-            type="text"
-            id="inputquizname"
-            class="pin_input"
-            placeholder="Please enter the Quiz Pin"
-            required
-          />
-          <br />
-          <button class="pin_button"  type="submit" @click="authPIN()">Submit</button>
-        </form>
-      </div>  
-    </div>        
+        <div class="pin-overlay">
+          <div class="pin-wrapper" >
+          <form class="form-access">
+            <h2 class="pin_heading">Please enter the Quiz Name</h2>
+            <input
+              v-model="quizname"
+              type="text"
+              id="inputPIN"
+              class="pin_input"
+              placeholder="Please enter the Quiz Name"
+              required
+            />
+            <br />
+            <h2 class="pin_heading">Please enter the Quiz Pin</h2>
+            <input
+              v-model="PIN"
+              type="text"
+              id="inputquizname"
+              class="pin_input"
+              placeholder="Please enter the Quiz Pin"
+              required
+            />
+            <br />
+            <button class="pin_button"  type="submit" @click="authPIN()">Submit</button>
+          </form>
+        </div>  
+      </div>        
+    </div>
   </div>
 </template>
 
@@ -97,7 +100,19 @@ export default {
 <style scoped>
 @import url('https://fonts.googleapis.com/css?family=Satisfy&display=swap');
 
+.holder{
+  top:2%;
+  left:1%;
+  position:fixed;
+  width: 97%;
+  height: 95%;
+  /*border-style: solid;
+  border-width: 2px;
+  border-color: white;*/
+}
+
 .home {
+  position: fixed;
   background-image: url('~@/assets/images/treasurehunt.gif');
   width: 100%;
   height: 938px;
@@ -105,49 +120,61 @@ export default {
 }
 .welcome {
   position: absolute;
+  width: 90%;
+  height: 70%;
+  margin: 5%;
+  /*border-style: solid;
+  border-width: 2px;
+  border-color: white;*/
 }
 .welcome img {
-    margin-top: 80px;
+    margin-top: 5%;
     position: relative;
-    left: 90px;
-    width: 500px;
-    height: 700px
+    top:-8%;
+    width:100%;
+    height: 80%
 }
 .message {
-    position: absolute;
-    top: 200px;
-    left: 220px;
+    position: fixed;
+    top: 8%;
+    height: 45%;
+    width: 60%;
+    right:15%;
+    left: 20%;
     color: black;
+    word-wrap:break-word;
     font-family: 'Satisfy', cursive;
-    font-size: 27px
+    font-size: 4.9vw;
+    
 }
 .parrot img {
     position: absolute;
-    width: 350px;
-    top: 480px;
-    right: 700px;
+    width: 35%;
+    top: 44%;
+    left: 71%;
     transform: scaleX(-1);
 }
 .pin_input {
+  position:relative;
   vertical-align:center;   
-  height: 35px;
-  width: 360px;
-  margin-top: -30px;
-  margin-right: 10px;
+  height: 10%;
+  width: 90%;
+  margin-top: -3%;
+  margin-right: 1%;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
-  padding: 5px;
-  font-size: 20px;
+  padding: 2%;
+  font-size: 5vw;;
 }
 .pin_button{  
-  margin-top: 15px;
-  margin-right: -270px;
-  height: 40px;
-  width: 80px;
+  margin-top: 10%;
+  margin-left: 0%;
+  height: 10%;
+  width: 40%;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   padding: 10px;
-  font-size: 16px;
+  font-size: 5.5vw;;
 }
 .pin-overlay {
   position: absolute;
@@ -155,18 +182,19 @@ export default {
   height: 100%;
 }
 .pin-wrapper {
+  position: absolute;
   background-color: rgba(100, 97, 97, 0.9);
-  width: 400px;
-  height: 170px;
-  margin-top: 280px;
-  margin-left: 900px;
+  width: 70%;
+  height: 30%;
+  margin-left:6%;
+  bottom:13%;
   border-style: solid;
   border-width: 2px;
   border-color: white;
 }
 .pin_heading{
-  margin-top:10px;
-  font-size:30px;
+  margin-top:2%;
+  font-size:5vw;;
   color:white;
 }
 </style>

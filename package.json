@@ -21,6 +21,7 @@
     "vue-awesome-countdown": "^1.0.23",
     "vue-axios": "^2.1.5",
     "vue-breakpoint": "^2.1.0",
+    "vue-breakpoint-component": "^1.2.6",
     "vue-circular-count-down-timer": "^1.0.4",
     "vue-moment": "^4.1.0",
     "vue-radio-toggle-buttons": "^0.1.0",

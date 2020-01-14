@@ -1,29 +1,29 @@
 <template>
   <div class="quiz">
+    <div class="wrapper">
+      <div class="Scroll">
 
-    <div class="Scroll">
+        <div class="paragraph">
+          Quiz info
+        </div>  
 
-      <div class="paragraph">
-        Quiz info
-      </div>  
-
-    </div>
-
-    <div class= "buttons_box"> 
-      <div class= "TeamName">
-        (TeamName)
       </div>
 
-      <div>
+      <div class= "buttons_box"> 
+        <div class= "TeamName">
+          (TeamName)
+        </div>
 
-      <form method="get" action="/?#/Quiz_1_Questions" >
-        <button type="submit" class="Start_button">Start</button>
-      </form>
+        <div>
+
+        <form method="get" action="/?#/Quiz_1_Questions" >
+          <button type="submit" class="Start_button">Start</button>
+        </form>
           
+        </div>
       </div>
+    </div>
   </div>
- </div>
-
  
   
 </template>
@@ -42,11 +42,22 @@
   height: 938px;
   background-size: 100%;
 }
+.wrapper{
+  position:absolute;
+  top:2%;
+  left:2%;
+  width:60%;
+  height:83%;
+  border-style: solid;
+  border-width: 4px;
+  border-color: white;
+}
 .Scroll {
   background-image: url('~@/assets/images/Scroll.png');
-  width: 950px;
-  height: 900px;
-  background-size: 100%;
+  margin-left:10%;
+  width: 90%;
+  height: 80%;
+  
 }
 .paragraph{
   position: absolute;

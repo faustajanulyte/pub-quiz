@@ -5,27 +5,29 @@
       
       
 
-      <div class="title" id="question_text">
-        Question:
+      <div class="title" ref="questions">
+      <div>{{currentQuestion.question}}</div>
       </div>
 
+      <div> {{score}} </div>
+
       <div class="buttons_border">
-        <div class= "answer1" >
-        Answers
+        <div class= "answer1" id="answer1" @click="selected_answer1">
+        {{currentQuestion.option1}}
         </div>
-        <div class= "answer2" >
-        Answers
+        <div class= "answer2" id="answer2" @click="selected_answer2" >
+        {{currentQuestion.option2}}
         </div>
-        <div class= "answer3" >
-        Answers
+        <div class= "answer3" id="answer3" @click="selected_answer3" >
+        {{currentQuestion.option3}}
         </div>
-        <div class= "answer4" >
-        Answers
+        <div class= "answer4" id="answer4" @click="selected_answer4"  >
+        {{currentQuestion.option4}}
         </div>
       </div> 
 
       <div>
-        <button class="submit"> Submit </button>
+        <button class="submit" @click="handleButton"> Submit </button>
       </div>
     </div>
  </div>
@@ -33,13 +35,254 @@
 </template>
 
 <script >
+var answer1=0
+var answer2=2
+var answer3=3
+var answer4=4
 
-/* function answer1_hover() {
-     document.getElementById("answer1").style.color = "red";
-   }
-*/
 
-  
+import axios from 'axios'
+
+export default{
+  data(){
+    return{
+      questions:[],
+      currentQuestion:{},
+      number:0,
+      score:0,
+      totalQuestions:null,
+      totalAnswers:null,
+      currentanswer:{},
+      answers:{},
+    }
+  },
+  methods: {
+    handleButton:function () {   
+      if(this.currentQuestion.answer == this.currentanswer){
+            this.score = this.score+1;  
+          }
+      if(this.number<this.totalQuestions){
+        this.number=this.number+1;
+        this.currentQuestion=this.questions[this.number];        
+      }
+    },
+    selected_answer1:function() {
+      if (answer2 > 0) {
+        answer2=0;
+        answer3=0;
+        answer4=0;
+        ++answer1;
+        document.getElementById("answer1").style.background='lightblue';
+        document.getElementById("answer2").style.background='white';
+        document.getElementById("answer3").style.background='white';
+        document.getElementById("answer4").style.background='white';
+        this.currentanswer = this.currentQuestion.option1;
+        console.log(this.currentanswer)
+        
+      }
+      else if (answer3 > 0){
+        answer2=0;
+        answer3=0;
+        answer4=0;
+        ++answer1;
+        document.getElementById("answer1").style.background='lightblue';
+        document.getElementById("answer2").style.background='white';
+        document.getElementById("answer3").style.background='white';
+        document.getElementById("answer4").style.background='white';
+        this.currentanswer = this.currentQuestion.option1;
+        console.log(this.currentanswer)
+      }
+      else if (answer4 > 0){
+        answer2=0;
+        answer3=0;
+        answer4=0;
+        ++answer1;
+        document.getElementById("answer1").style.background='lightblue';
+        document.getElementById("answer2").style.background='white';
+        document.getElementById("answer3").style.background='white';
+        document.getElementById("answer4").style.background='white';
+        this.currentanswer = this.currentQuestion.option1;
+        console.log(this.currentanswer)
+      }  
+      else{
+        ++answer1;
+        answer2=0;
+        answer3=0;
+        answer4=0;
+        document.getElementById("answer1").style.background='lightblue';
+        document.getElementById("answer2").style.background='white';
+        document.getElementById("answer3").style.background='white';
+        document.getElementById("answer4").style.background='white';
+        this.currentanswer = this.currentQuestion.option1;
+        console.log(this.currentanswer)
+        console.log(answer1)
+      }
+    },
+    selected_answer3:function() {
+      if (answer1 > 0) {
+        answer1=0;
+        answer2=0;
+        answer4=0;
+        ++answer3;
+        document.getElementById("answer3").style.background='lightblue';
+        document.getElementById("answer1").style.background='white';
+        document.getElementById("answer2").style.background='white';
+        document.getElementById("answer4").style.background='white';
+        this.currentanswer = this.currentQuestion.option3;
+        console.log(this.currentanswer)
+      }
+      else if (answer2 > 0){
+        answer1=0;
+        answer2=0;
+        answer4=0;
+        ++answer3;
+        document.getElementById("answer3").style.background='lightblue';
+        document.getElementById("answer1").style.background='white';
+        document.getElementById("answer2").style.background='white';
+        document.getElementById("answer4").style.background='white';
+        this.currentanswer = this.currentQuestion.option3;
+        console.log(this.currentanswer)
+      }
+      else if (answer4 > 0){
+        answer1=0;
+        answer2=0;
+        answer4=0;
+        ++answer3;
+        document.getElementById("answer3").style.background='lightblue';
+        document.getElementById("answer1").style.background='white';
+        document.getElementById("answer2").style.background='white';
+        document.getElementById("answer4").style.background='white';
+        this.currentanswer = this.currentQuestion.option3;
+        console.log(this.currentanswer)
+      }  
+      else{
+        ++answer3;
+        answer1=0;
+        answer2=0;
+        answer4=0;
+        document.getElementById("answer3").style.background='lightblue';
+        document.getElementById("answer1").style.background='white';
+        document.getElementById("answer2").style.background='white';
+        document.getElementById("answer4").style.background='white';
+        this.currentanswer = this.currentQuestion.option3;
+        console.log(this.currentanswer)
+        console.log(answer3)
+      }
+    },
+    selected_answer2:function() {
+      if (answer1 > 0) {
+        answer1=0;
+        answer3=0;
+        answer4=0;
+        ++answer2;
+        document.getElementById("answer2").style.background='lightblue';
+        document.getElementById("answer1").style.background='white';
+        document.getElementById("answer3").style.background='white';
+        document.getElementById("answer4").style.background='white';
+        this.currentanswer = this.currentQuestion.option2;
+        console.log(this.currentanswer)
+      }
+      else if (answer3 > 0){
+        answer1=0;
+        answer3=0;
+        answer4=0;
+        ++answer2;
+        document.getElementById("answer2").style.background='lightblue';
+        document.getElementById("answer1").style.background='white';
+        document.getElementById("answer3").style.background='white';
+        document.getElementById("answer4").style.background='white';
+        this.currentanswer = this.currentQuestion.option2;
+        console.log(this.currentanswer)
+      }
+      else if (answer4 > 0){
+        answer1=0;
+        answer3=0;
+        answer4=0;
+        ++answer2;
+        document.getElementById("answer2").style.background='lightblue';
+        document.getElementById("answer1").style.background='white';
+        document.getElementById("answer3").style.background='white';
+        document.getElementById("answer4").style.background='white';
+        this.currentanswer = this.currentQuestion.option2;
+        console.log(this.currentanswer)
+      }  
+      else{
+        ++answer2;
+        answer1=0;
+        answer3=0;
+        answer4=0;
+        document.getElementById("answer2").style.background='lightblue';
+        document.getElementById("answer1").style.background='white';
+        document.getElementById("answer3").style.background='white';
+        document.getElementById("answer4").style.background='white';
+        this.currentanswer = this.currentQuestion.option2;
+        console.log(this.currentanswer)
+        console.log(answer2)
+      }
+    },
+    selected_answer4:function() {
+      if (answer1 > 0) {
+        answer1=0;
+        answer3=0;
+        answer2=0;
+        ++answer4;
+        document.getElementById("answer4").style.background='lightblue';
+        document.getElementById("answer1").style.background='white';
+        document.getElementById("answer3").style.background='white';
+        document.getElementById("answer2").style.background='white';
+        this.currentanswer = this.currentQuestion.option4;
+        console.log(this.currentanswer)
+        
+      }
+      else if (answer3 > 0){
+        answer1=0;
+        answer3=0;
+        answer2=0;
+        ++answer4;
+        document.getElementById("answer4").style.background='lightblue';
+        document.getElementById("answer1").style.background='white';
+        document.getElementById("answer3").style.background='white';
+        document.getElementById("answer2").style.background='white';
+        this.currentanswer = this.currentQuestion.option4;
+        console.log(this.currentanswer)
+      }
+      else if (answer2 > 0){
+        answer1=0;
+        answer3=0;
+        answer2=0;
+        ++answer4;
+        document.getElementById("answer4").style.background='lightblue';
+        document.getElementById("answer1").style.background='white';
+        document.getElementById("answer3").style.background='white';
+        document.getElementById("answer2").style.background='white';
+        this.currentanswer = this.currentQuestion.option4;
+        console.log(this.currentanswer)
+      }  
+      else{
+        ++answer4;
+        answer1=0;
+        answer3=0;
+        answer2=0;
+        document.getElementById("answer4").style.background='lightblue';
+        document.getElementById("answer1").style.background='white';
+        document.getElementById("answer3").style.background='white';
+        document.getElementById("answer2").style.background='white';
+        this.currentanswer = this.currentQuestion.option4;
+        console.log(this.currentanswer)
+        console.log(answer4)
+      }
+    }
+  }, 
+    mounted(){
+      axios
+        .get("https://12gzle39q6.execute-api.eu-west-2.amazonaws.com/dev")
+        .then(response=>{
+          this.questions=response.data.body;
+          this.currentQuestion=this.questions[this.number];
+          this.totalQuestions=this.questions.length;
+      })
+    },
+};
 </script>
 
 <style>
@@ -55,9 +298,10 @@
 .Quiz_box{
   position: absolute;
   background-color: rgba(100, 97, 97, 0.9);
-  margin:4%;
+  top:2%;
+  left:4%;
   width: 93%;
-  height: 800px;
+  height: 80%;
   border-style: solid;
   border-width: 4px;
   border-color: white;
@@ -65,12 +309,12 @@
 
 .title{
   position:relative;
-  font-size:60px;
+  font-size:7vw;
   text-align: left; 
   width: 75%;
   color:white;  
-  padding-left:30px;
-  top:5%;
+  left:5%;
+  top:0%;
   word-wrap: break-word; /** makes the text wrap inside the div */
 }
 
@@ -91,7 +335,7 @@
   padding: 1vw;
   width:30%;
   height: 15%;
-  top:35%;
+  top:30%;
   left:10%;
   color: rgb(48, 49, 54);
   background-color: white;
@@ -107,7 +351,7 @@
   width:30%;
   height:15%;
   left:60%;
-  top:35%;
+  top:30%;
   color: rgb(48, 49, 54);
   background-color: white;
   
@@ -121,7 +365,7 @@
   padding: 1vw;
   width:30%;
   height: 15%;
-  top:60%;
+  top:55%;
   left:10%;
   color: rgb(48, 49, 54);
   background-color: white;
@@ -137,12 +381,11 @@
   width:30%;
   height: 15%;
   left:60%;
-  top:60%;
+  top:55%;
   color: rgb(48, 49, 54);
   background-color: white;
   
 }
-
 .submit{
   position:fixed;
   bottom:12%;
