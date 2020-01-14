@@ -1,46 +1,42 @@
 <template>
-  
-    <div class="home">
-      <div class="holder">
-      <div class="welcome">
-        <img src="@/assets/images/paper.png" alt="paper">
-        <div class="message">
-        <p>Ahoy me hearties, welcome to the all new Treasure Hunt Quiz Hub!
-Grab yourselves some beverages, take a pew and have a go at the quizzes.
-One quiz per pub and to launch them you will need to have found the Password as indicated in the clues sheet. There are 10 points on offer here,
-so good luck.
-        </p>
-        </div>
+  <div class="home">
+    <div class="holder">
+      <div>
+        <img src="@/assets/images/paper.png" alt="paper" class="welcome"> 
+          <p class="message">Ahoy me hearties, welcome to the all new Treasure Hunt Quiz Hub!
+          Grab yourselves some beverages, take a pew and have a go at the quizzes.
+          One quiz per pub and to launch them you will need to have found the Password as indicated in the clues sheet. There are 10 points on offer here,
+          so good luck.
+          </p>
       </div>
-        
 
-        <div class="pin-overlay">
+      <div class="pin-overlay">
           <div class="pin-wrapper" >
-          <form class="form-access">
-            <h2 class="pin_heading">Please enter the Quiz Name</h2>
-            <input
-              v-model="quizname"
-              type="text"
-              id="inputPIN"
-              class="pin_input"
-              placeholder="Please enter the Quiz Name"
-              required
-            />
-            <br />
-            <h2 class="pin_heading">Please enter the Quiz Pin</h2>
-            <input
-              v-model="PIN"
-              type="text"
-              id="inputquizname"
-              class="pin_input"
-              placeholder="Please enter the Quiz Pin"
-              required
-            />
-            <br />
-            <button class="pin_button"  type="submit" @click="authPIN()">Submit</button>
-          </form>
+            <form class="form-access">
+              <h2 class="pin_heading">Please enter the Quiz Name</h2>
+                <input
+                  v-model="quizname"
+                  type="text"
+                  id="inputPIN"
+                  class="pin_input"
+                  placeholder="Please enter the Quiz Name"
+                  required
+                />
+              <br />
+              <h2 class="pin_heading">Please enter the Quiz Pin</h2>
+                <input
+                  v-model="PIN"
+                  type="text"
+                  id="inputquizname"
+                  class="pin_input"
+                  placeholder="Please enter the Quiz Pin"
+                  required
+                />
+              <br />
+              <button class="pin_button"  type="submit" @click="authPIN()">Submit</button>            
+            </form>
         </div>  
-      </div>        
+      </div>
     </div>
   </div>
 </template>
@@ -98,18 +94,6 @@ export default {
 <style scoped>
 @import url('https://fonts.googleapis.com/css?family=Satisfy&display=swap');
 
-.holder{
-  top:2%;
-  left:1%;
-  position:fixed;
-  width: 97%;
-  height: 95%;
-  border-style: solid;
-  border-width: 2px;
-  border-color: white;
-  
-}
-
 .home {
   position: fixed;
   background-image: url('~@/assets/images/treasurehunt.gif');
@@ -117,89 +101,76 @@ export default {
   height: 100%;
   background-size: 100%;
 }
+.holder{
+  position:fixed;
+  margin:1%;
+  width: 98%;
+  height: 97%;
+  border-style: solid;
+  border-width: 2px;
+  border-color: white;
+  
+}
 .welcome {
-  position: absolute;
+  position: fixed;
   width: 90%;
-  height: 70%;
-  margin: 5%;
+  height: 60%;
+  max-width:6000px;
+  max-height: 1000px;
+  left:5%;
   /*border-style: solid;
   border-width: 2px;
   border-color: white;*/
 }
-.welcome img {
-    margin-top: 5%;
-    position: relative;
-    top:-8%;
-    width:100%;
-    height: 80%;
-    max-width: 800px;
-}
 .message {
     position: fixed;
-    top: 8%;
-    height: 45%;
-    max-height: 45%;
-    width: 60%;
-    right:15%;
-    left: 20%;
     color: black;
-    word-wrap:break-word;
-    font-family: 'Satisfy', cursive;
-    font-size: 4.9vw;
-    -webkit-box-ordinal-group: 2; /* iOS 6-, Safari, Opera*/
-    -moz-box-ordinal-group: 2; /* Firefox*/
-    -ms-flex-order: 2; /* IE 10 */
-    -webkit-order: 2; /* Chrome */
-    
-    
-}
-.parrot img {
-    position: absolute;
-    width: 35%;
-    top: 44%;
-    left: 71%;
-    transform: scaleX(-1);
+    left:20%;
+    right:15%;
+    top:8%;
+    font-size: 2.7vh;   
 }
 .pin_input {
-  position:relative;
-  vertical-align:center;   
-  height: 10%;
-  width: 90%;
-  margin-top: -3%;
-  margin-right: 1%;
+  position:fixed;  
+  height: 5%;
+  width: 50%;
+  left:25%;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
-  padding: 2%;
-  font-size: 5vw;;
+  font-size: 2vh;;
 }
 .pin_button{  
-  margin-top: 10%;
-  margin-left: 0%;
-  height: 10%;
+  position: fixed;
+  margin-top: 3vh;
+  margin-left: -20%;
+  height: 5%;
   width: 40%;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
-  padding: 2%;
-  font-size: 5.5vw;;
+  padding: 0%;
+  font-size: 2vh;;
 }
 .pin-overlay {
-  position: absolute;
+  position: fixed;
   width: 100%;
   height: 100%;
 }
+.form-access{
+  height: 90%;
+}
 .pin-wrapper {
-  position: absolute;
+  position: fixed;
   background-color: rgba(100, 97, 97, 0.9);
   width: 70%;
   height: 30%;
   left:15%;
-  bottom:13%;
+  bottom:8%;
   border-style: solid;
   border-width: 2px;
   border-color: white;
 }
 .pin_heading{
-  margin-top:2%;
+  margin-top:6%;
   font-size:5vw;;
   color:white;
 }
