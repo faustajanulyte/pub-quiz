@@ -55,6 +55,7 @@ export default {
             name: this.name,
             password: this.password,
             admin: this.admin
+
           }
         )
         .then(response => {
@@ -68,10 +69,13 @@ export default {
             alert("Failed to sign in!");
           }
           console.log(this.valid)
+          localStorage.setItem('teamname',this.name);
         });
     }
   }
 };
+
+
 </script>
 
 <style>

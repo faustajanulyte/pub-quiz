@@ -291,7 +291,7 @@ export default{
   position: fixed;
   background-image: url('~@/assets/images/treasurehunt.gif');
   width: 100%;
-  height: 938px;
+  height: 100%;
   background-size: 100%;
 }
 
@@ -301,7 +301,7 @@ export default{
   top:2%;
   left:4%;
   width: 93%;
-  height: 80%;
+  height: 90vh;
   border-style: solid;
   border-width: 4px;
   border-color: white;

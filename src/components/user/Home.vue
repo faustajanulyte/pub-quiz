@@ -89,6 +89,8 @@ export default {
   }
 };
 
+
+
 </script>
 
 <style scoped>
@@ -106,9 +108,7 @@ export default {
   margin:1%;
   width: 98%;
   height: 97%;
-  border-style: solid;
-  border-width: 2px;
-  border-color: white;
+
   
 }
 .welcome {

@@ -1,17 +1,18 @@
 <template>
   <div class="quiz">
     <div class="wrapper">
-      <div class="Scroll">
-
+      <div>
+        <img src="@/assets/images/Scroll.png" alt="paper" class="Scroll" > 
         <div class="paragraph">
-          Quiz info
+          Quiz info --------------------------------------------------------
+          -------------------------------------------------------------------
         </div>  
 
       </div>
 
       <div class= "buttons_box"> 
-        <div class= "TeamName">
-          (TeamName)
+        <div class= "TeamName" id="result">
+
         </div>
 
         <div>
@@ -19,17 +20,33 @@
         <form method="get" action="/?#/Quiz_1_Questions" >
           <button type="submit" class="Start_button">Start</button>
         </form>
-          
         </div>
       </div>
     </div>
   </div>
- 
-  
 </template>
 
 <script>
 
+export default {
+  name: "app",
+  data() {
+    return {
+      teamname: "",
+    };
+  },
+  mounted() {
+    if (localStorage.teamname) {
+      this.teamname = localStorage.teamname;
+      document.getElementById("result").innerHTML = localStorage.teamname ;
+    }
+  },
+  watch: {
+    name(newName) {
+      localStorage.name = newName;
+    }
+  }
+};
 
 
 
@@ -37,65 +54,58 @@
 
 <style scoped>
 .quiz {
+  position: fixed;
   background-image: url('~@/assets/images/treasurehunt.gif');
-  width: 100%;
-  height: 938px;
-  background-size: 100%;
 }
 .wrapper{
-  position:absolute;
-  top:2%;
-  left:2%;
-  width:60%;
-  height:83%;
-  border-style: solid;
-  border-width: 4px;
-  border-color: white;
+  position:fixed;
+  margin:0.5%;
+  width:99%;
+  height:98%;
 }
 .Scroll {
-  background-image: url('~@/assets/images/Scroll.png');
-  margin-left:10%;
-  width: 90%;
-  height: 80%;
-  
+  position:fixed;
+  left: 0%;
+  top: 12%;
+  height: 70%;
+  width: 100%;
+  max-width: 700px;
 }
 .paragraph{
   position: absolute;
-    top: 200px;
-    left: 220px;
-    color: black;
-    font-size: 27px;
+  left:23%;
+  right:23%;
+  top:24%;
+  bottom:42%;
+  font-size:2.5vh;
 }
 .buttons_box{
-  width: 500px;
-  height: 700px;
-  position: absolute;
-  top: 90px;
-  right: 200px;
-    
+  position:fixed;
+  top:2%;
+  bottom:2%;
+  left:5%;
+  right:5%;   
 }
 .TeamName{
-  position: relative;
-  top: 100px;
-  margin: 0 auto;
-  font-size: 40px;
-  color: white;
-  width:300px;
+  position:static;
   background-color: rgba(100,97,97, 0.9);
-  padding: 10px;
+  width:auto;
+  text-align: center;
+  margin:auto;
+  color:white;
   border-style: solid;
   border-width: 4px;
   border-color: white;
+  font-size: 3.5vh;
 }
 .Start_button{
-  position: relative;
-  top:  450px;
-  margin: 0 auto;
-  font-size: 40px;
+  position:fixed;
+  width:70%;
+  top:80%;
+  left:15%;
+  font-size: 4vh;
   color: white;
-  width:328px;
   background-color: rgba(100,97,97, 0.9);
-  padding: 10px;
   border-style: solid;
   border-width: 4px;
   border-color: white;
