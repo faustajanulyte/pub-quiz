@@ -7,6 +7,9 @@
 
       <div class="title" ref="questions">
       <div>{{currentQuestion.question}}</div>
+      
+      <div class="timer_text" id="timer"> </div>
+      
       </div>
 
       <div> {{score}} </div>
@@ -28,6 +31,7 @@
 
       <div>
         <button class="submit" @click="handleButton"> Submit </button>
+
       </div>
     </div>
  </div>
@@ -36,9 +40,9 @@
 
 <script >
 var answer1=0
-var answer2=2
-var answer3=3
-var answer4=4
+var answer2=0
+var answer3=0
+var answer4=0
 
 
 import axios from 'axios'
@@ -54,6 +58,8 @@ export default{
       totalAnswers:null,
       currentanswer:{},
       answers:{},
+      countDown: localStorage.getItem('Countdown'), //Gets the varible from the page before and sets it as countDown
+      startTime: localStorage.getItem('Timer'),
     }
   },
   methods: {
@@ -66,6 +72,7 @@ export default{
         this.currentQuestion=this.questions[this.number];        
       }
     },
+    
     selected_answer1:function() {
       if (answer2 > 0) {
         answer2=0;
@@ -271,16 +278,36 @@ export default{
         console.log(this.currentanswer)
         console.log(answer4)
       }
-    }
-  }, 
+    },
+   
+  //This is all for the timer
+    countDownTimer() {
+      if(localStorage.getItem('OnOff') == 1){
+        if(localStorage.getItem('Countdown') > 0) {
+          setTimeout(() => {
+            this.countDown -= 1
+            localStorage.setItem('Countdown',this.countDown)
+            this.countDownTimer()
+            document.getElementById("timer").innerHTML = localStorage.Countdown ;
+            
+          }, 1000)
+        }
+        else if(localStorage.getItem('Countdown') == 0){
+          localStorage.setItem('Countdown',15)
+          this.countDown += 15
+          this.countDownTimer()
+        }
+      }         
+    }},
     mounted(){
       axios
         .get("https://12gzle39q6.execute-api.eu-west-2.amazonaws.com/dev")
         .then(response=>{
-          this.questions=response.data.body;
-          this.currentQuestion=this.questions[this.number];
+          this.questions=response.data.body;//sets this.questions as the data from the link
+          this.currentQuestion=this.questions[this.number]; //sets this.currentQuestion as this.qustions and whatever this.number equals
           this.totalQuestions=this.questions.length;
       })
+      this.countDownTimer() //initializes the countdown function 
     },
 };
 </script>
@@ -317,7 +344,21 @@ export default{
   top:0%;
   word-wrap: break-word; /** makes the text wrap inside the div */
 }
-
+.timer_text{
+  font-size:8vw;
+  color:rgba(250, 152, 71, 0.9);
+  position: fixed;
+  left: 80%;
+  text-align: center;
+  top:5%;
+  width:13%;
+  padding-left: 2%;
+  padding-right:2%;
+  border-style: solid;
+  border-width: 4px;
+  border-color: white;
+  
+}
 .buttons_border{
   position: relative;
   margin:3%;
@@ -402,5 +443,6 @@ export default{
   padding-left: 80%;
 
 }
+
 
 </style>

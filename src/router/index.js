@@ -6,6 +6,7 @@ import Home from '@/components/user/Home'
 import Quiz_1 from '@/components/user/quiz_1/Quiz_1'
 import quiz_1_questions from '@/components/user/Quiz_1_Questions/Quiz_1_Question'
 import Buttons_test from '@/components/user/Buttons_test'
+import Test from '@/components/user/Test'
 
 Vue.use(VueRouter)
 
@@ -40,6 +41,11 @@ export default new VueRouter({
       path: '/Buttons_test',
       name: 'Buttons_test',
       component: Buttons_test
+    },
+    {
+      path: '/Test',
+      name: 'Test',
+      component: Test
     },
   ]
 })

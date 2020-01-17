@@ -17,7 +17,7 @@
 
         <div>
 
-        <form method="get" action="/?#/Quiz_1_Questions" >
+        <form method="get" action="/?#/Quiz_1_Questions" @click="this.on_off">
           <button type="submit" class="Start_button">Start</button>
         </form>
         </div>
@@ -33,19 +33,21 @@ export default {
   data() {
     return {
       teamname: "",
+      true_false: 0,
     };
+  },
+  methods:{
+    on_off:function(){
+      localStorage.setItem('OnOff',1)
+      alert(localStorage.getItem('OnOff'))
+      }
   },
   mounted() {
     if (localStorage.teamname) {
-      this.teamname = localStorage.teamname;
       document.getElementById("result").innerHTML = localStorage.teamname ;
+      this.teamname = localStorage.teamname;
     }
   },
-  watch: {
-    name(newName) {
-      localStorage.name = newName;
-    }
-  }
 };
 
 
@@ -77,7 +79,7 @@ export default {
   right:23%;
   top:24%;
   bottom:42%;
-  font-size:2.5vh;
+  font-size:3.5vh;
 }
 .buttons_box{
   position:fixed;
