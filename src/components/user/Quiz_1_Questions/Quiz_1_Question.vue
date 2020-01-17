@@ -12,7 +12,7 @@
       
       </div>
 
-      <div> {{score}} </div>
+      <div class="score"> {{score}} </div>
 
       <div class="buttons_border">
         <div class= "answer1" id="answer1" @click="selected_answer1">
@@ -66,11 +66,26 @@ export default{
     handleButton:function () {   
       if(this.currentQuestion.answer == this.currentanswer){
             this.score = this.score+1;  
-          }
+      }
       if(this.number<this.totalQuestions){
         this.number=this.number+1;
-        this.currentQuestion=this.questions[this.number];        
+        this.currentQuestion=this.questions[this.number];       
       }
+      if(this.number == this.totalQuestions){
+        this.$router.push('Results');
+        localStorage.setItem('OnOff',0)
+        localStorage.setItem('Score', this.score)
+      }
+      localStorage.setItem('Countdown',15)
+      this.countDown += 16 - this.countDown // the button makes the timer reset back to 15 seconds 
+      document.getElementById("answer1").style.background='white';
+      document.getElementById("answer2").style.background='white';
+      document.getElementById("answer3").style.background='white';
+      document.getElementById("answer4").style.background='white';
+    },
+
+    ResultsPage:function(){
+      alert("results")
     },
     
     selected_answer1:function() {
@@ -289,16 +304,17 @@ export default{
             localStorage.setItem('Countdown',this.countDown)
             this.countDownTimer()
             document.getElementById("timer").innerHTML = localStorage.Countdown ;
-            
           }, 1000)
         }
         else if(localStorage.getItem('Countdown') == 0){
           localStorage.setItem('Countdown',15)
           this.countDown += 15
           this.countDownTimer()
+          this.handleButton() 
+          }
         }
       }         
-    }},
+    },
     mounted(){
       axios
         .get("https://12gzle39q6.execute-api.eu-west-2.amazonaws.com/dev")
@@ -308,6 +324,7 @@ export default{
           this.totalQuestions=this.questions.length;
       })
       this.countDownTimer() //initializes the countdown function 
+      
     },
 };
 </script>
@@ -443,6 +460,9 @@ export default{
   padding-left: 80%;
 
 }
-
+.score{
+  font-size:4vh;
+  color:white;
+}
 
 </style>
