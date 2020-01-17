@@ -34,6 +34,7 @@ export default {
     return {
       teamname: "",
       true_false: 0,
+      countDown: 16,
     };
   },
   methods:{
@@ -46,6 +47,7 @@ export default {
     if (localStorage.teamname) {
       document.getElementById("result").innerHTML = localStorage.teamname ;
       this.teamname = localStorage.teamname;
+      localStorage.setItem('Countdown', this.countDown)
     }
   },
 };
