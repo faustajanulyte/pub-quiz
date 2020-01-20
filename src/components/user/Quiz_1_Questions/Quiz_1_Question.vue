@@ -56,28 +56,57 @@ export default{
       score:0,
       totalQuestions:null,
       totalAnswers:null,
-      currentanswer:{},
+      currentanswer:'',
       answers:{},
       countDown: localStorage.getItem('Countdown'), //Gets the varible from the page before and sets it as countDown
       startTime: localStorage.getItem('Timer'),
     }
   },
   methods: {
-    handleButton:function () {   
-      if(this.currentQuestion.answer == this.currentanswer){
+    timerDone:function() { //defines/starts the variable
+      if(this.currentQuestion.answer == this.currentanswer){ // checks that current question is the same as the user's answer
+            this.score = this.score+1;  //adds 1 to the score 
+        }
+        if(this.number<this.totalQuestions){ // checks that number is less than the total amount of questions
+          this.number=this.number+1; // adds 1 to the variable number
+          this.currentQuestion=this.questions[this.number]; // makes the variable currentQuestion equal the variable questions + number    
+          localStorage.setItem('Countdown',15); //sets the variable Countdown as 15
+          this.countDown += 16 - this.countDown; // the button makes the timer reset back to 15 seconds
+          this.currentanswer=''; //Sets the variable current answer as nothing
+        }
+        if(this.number == this.totalQuestions){ // checks that number equals the total amount of questions 
+          this.$router.push('Results'); // if it does, pushes the user to the results page
+          localStorage.setItem('OnOff',0) // turns off the timer by changing OnOff to 0 
+          localStorage.setItem('Score', this.score) // sets the local variable score as the score the user had after the quiz.
+        }
+            
+      document.getElementById("answer1").style.background='white'; 
+      document.getElementById("answer2").style.background='white';
+      document.getElementById("answer3").style.background='white';
+      document.getElementById("answer4").style.background='white'; // Sets the options back to white. ^
+    },
+
+    handleButton:function () {
+      if(this.currentanswer == ''){  
+        alert("You didnt pick an answer")
+      }
+      else{
+        if(this.currentQuestion.answer == this.currentanswer){
             this.score = this.score+1;  
-      }
-      if(this.number<this.totalQuestions){
-        this.number=this.number+1;
-        this.currentQuestion=this.questions[this.number];       
-      }
-      if(this.number == this.totalQuestions){
-        this.$router.push('Results');
-        localStorage.setItem('OnOff',0)
-        localStorage.setItem('Score', this.score)
-      }
-      localStorage.setItem('Countdown',15)
-      this.countDown += 16 - this.countDown // the button makes the timer reset back to 15 seconds 
+        }
+        if(this.number<this.totalQuestions){
+          this.number=this.number+1;
+          this.currentQuestion=this.questions[this.number];     
+          localStorage.setItem('Countdown',15);
+          this.countDown += 16 - this.countDown; // the button makes the timer reset back to 15 seconds
+          this.currentanswer=''; 
+        }
+        if(this.number == this.totalQuestions){
+          this.$router.push('Results');
+          localStorage.setItem('OnOff',0)
+          localStorage.setItem('Score', this.score)
+        }
+      }      
       document.getElementById("answer1").style.background='white';
       document.getElementById("answer2").style.background='white';
       document.getElementById("answer3").style.background='white';
@@ -308,9 +337,10 @@ export default{
         }
         else if(localStorage.getItem('Countdown') == 0){
           localStorage.setItem('Countdown',15)
-          this.countDown += 15
           this.countDownTimer()
-          this.handleButton() 
+          this.timerDone() 
+
+          
           }
         }
       }         
@@ -324,6 +354,7 @@ export default{
           this.totalQuestions=this.questions.length;
       })
       this.countDownTimer() //initializes the countdown function 
+      
       
     },
 };
