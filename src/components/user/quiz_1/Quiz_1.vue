@@ -53,7 +53,7 @@ export default {
       this.teamname = localStorage.teamname;
     }
     localStorage.setItem('Countdown', this.countDown),
-    localStorage.setItem('QuestionNumber', this.Question_Number)
+    localStorage.setItem('Question_Number', this.Question_Number)
     localStorage.setItem('score', this.score)
   },
 };
