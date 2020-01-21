@@ -74,7 +74,7 @@ export default{
 
           this.Question_Number ++;// adds 1 to the variable number
           localStorage.setItem('Question_Number', this.Question_Number)
-          this.currentQuestion=this.questions[localStorage.Question_Number];// makes the variable currentQuestion equal the variable questions + number  
+          this.currentQuestion=this.questions[localStorage.getItem('Question_Number')];// makes the variable currentQuestion equal the variable questions + number  
 
           localStorage.setItem('Countdown',15); //sets the variable Countdown as 15
           this.countDown += 16 - this.countDown; // the button makes the timer reset back to 15 seconds
@@ -109,7 +109,7 @@ export default{
 
           this.Question_Number ++;
           localStorage.setItem('Question_Number', this.Question_Number)
-          this.currentQuestion=this.questions[localStorage.Question_Number];  
+          this.currentQuestion=this.questions[localStorage.getItem('Question_Number')];  
 
           localStorage.setItem('Countdown',15);
           this.countDown += 16 - this.countDown; 
