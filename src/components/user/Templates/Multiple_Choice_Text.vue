@@ -47,16 +47,14 @@ var answer2=0
 var answer3=0
 var answer4=0
 
-
 import axios from 'axios'
-
 export default{
   data(){
     return{
       questions:[],
       currentQuestion:{},
-      Question_Number: localStorage.Question_Number,
-      score: localStorage.score,
+      Question_Number: localStorage.getItem('Question_Number'),
+      score: localStorage.getItem('score'),
       totalQuestions:null,
       totalAnswers:null,
       currentanswer:'',
@@ -114,7 +112,7 @@ export default{
           this.currentQuestion=this.questions[localStorage.Question_Number];  
 
           localStorage.setItem('Countdown',15);
-          this.countDown += 16 - this.countDown; // the button makes the timer reset back to 15 seconds
+          this.countDown += 16 - this.countDown; 
           this.currentanswer=''; 
           document.getElementById("NoAnswer").innerHTML = ""
         }
@@ -129,10 +127,7 @@ export default{
       document.getElementById("answer2").style.background='white';
       document.getElementById("answer3").style.background='white';
       document.getElementById("answer4").style.background='white';
-
-    
     },
-    
     selected_answer1:function() {
       if (answer2 > 0) {
         answer2=0;
@@ -339,7 +334,6 @@ export default{
         console.log(answer4)
       }
     },
-   
   //This is all for the timer
     countDownTimer() {
       if(localStorage.getItem('OnOff') == 1){
@@ -354,9 +348,7 @@ export default{
         else if(localStorage.getItem('Countdown') == 0){
           localStorage.setItem('Countdown',15)
           this.countDownTimer()
-          this.timerDone() 
-
-          
+          this.timerDone()           
           }
         }
       }         
@@ -369,9 +361,7 @@ export default{
           this.currentQuestion=this.questions[localStorage.Question_Number]; //sets this.currentQuestion as this.qustions and whatever this.number equals
           this.totalQuestions=this.questions.length;
       })
-      this.countDownTimer() //initializes the countdown function 
-      
-      
+      this.countDownTimer() //initializes the countdown function      
     },
 };
 </script>
