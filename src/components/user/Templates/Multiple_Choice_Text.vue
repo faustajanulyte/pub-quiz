@@ -1,4 +1,3 @@
-
 <template >
   <div class="quiz">
     <div class= "Quiz_box">
@@ -46,15 +45,14 @@ var answer1=0
 var answer2=0
 var answer3=0
 var answer4=0
-
 import axios from 'axios'
 export default{
   data(){
     return{
       questions:[],
       currentQuestion:{},
-      Question_Number: localStorage.getItem('Question_Number'),
-      score: localStorage.getItem('score'),
+      Question_Number: localStorage.Question_Number,
+      score: localStorage.score,
       totalQuestions:null,
       totalAnswers:null,
       currentanswer:'',
@@ -66,16 +64,13 @@ export default{
   methods: {
     timerDone:function() { //defines/starts the variable
       if(this.currentQuestion.answer == this.currentanswer){ // checks that current question is the same as the user's answer
-
             this.score ++;  //adds 1 to the score 
             localStorage.setItem('score', this.score)//Sets the local variable to the new score variable that has 1 added to it
         }
         if(this.Question_Number<this.totalQuestions){ // checks that number is less than the total amount of questions
-
           this.Question_Number ++;// adds 1 to the variable number
           localStorage.setItem('Question_Number', this.Question_Number)
-          this.currentQuestion=this.questions[localStorage.getItem('Question_Number')];// makes the variable currentQuestion equal the variable questions + number  
-
+          this.currentQuestion=this.questions[localStorage.Question_Number];// makes the variable currentQuestion equal the variable questions + number  
           localStorage.setItem('Countdown',15); //sets the variable Countdown as 15
           this.countDown += 16 - this.countDown; // the button makes the timer reset back to 15 seconds
           this.currentanswer=''; //Sets the variable current answer as nothing
@@ -94,25 +89,21 @@ export default{
       document.getElementById("answer4").style.background='white'; // Sets the options back to white. ^
       
     },
-
     handleButton:function () {
       if(this.currentanswer == ''){  
         document.getElementById("NoAnswer").innerHTML = "You didn't pick an answer"
       }
       else{
         if(this.currentQuestion.answer == this.currentanswer){
-
             this.score ++;  //adds 1 to the score 
             localStorage.setItem('score', this.score)
         }
         if(this.Question_Number<this.totalQuestions){
-
           this.Question_Number ++;
           localStorage.setItem('Question_Number', this.Question_Number)
-          this.currentQuestion=this.questions[localStorage.getItem('Question_Number')];  
-
+          this.currentQuestion=this.questions[localStorage.Question_Number];  
           localStorage.setItem('Countdown',15);
-          this.countDown += 16 - this.countDown; 
+          this.countDown += 16 - this.countDown; // the button makes the timer reset back to 15 seconds
           this.currentanswer=''; 
           document.getElementById("NoAnswer").innerHTML = ""
         }
@@ -127,7 +118,9 @@ export default{
       document.getElementById("answer2").style.background='white';
       document.getElementById("answer3").style.background='white';
       document.getElementById("answer4").style.background='white';
+    
     },
+    
     selected_answer1:function() {
       if (answer2 > 0) {
         answer2=0;
@@ -334,6 +327,7 @@ export default{
         console.log(answer4)
       }
     },
+   
   //This is all for the timer
     countDownTimer() {
       if(localStorage.getItem('OnOff') == 1){
@@ -348,7 +342,8 @@ export default{
         else if(localStorage.getItem('Countdown') == 0){
           localStorage.setItem('Countdown',15)
           this.countDownTimer()
-          this.timerDone()           
+          this.timerDone() 
+          
           }
         }
       }         
@@ -361,7 +356,9 @@ export default{
           this.currentQuestion=this.questions[localStorage.Question_Number]; //sets this.currentQuestion as this.qustions and whatever this.number equals
           this.totalQuestions=this.questions.length;
       })
-      this.countDownTimer() //initializes the countdown function      
+      this.countDownTimer() //initializes the countdown function 
+      
+      
     },
 };
 </script>
@@ -375,7 +372,6 @@ export default{
   height: 100%;
   background-size: 100%;
 }
-
 .Quiz_box{
   position: absolute;
   background-color: rgba(100, 97, 97, 0.9);
@@ -387,7 +383,6 @@ export default{
   border-width: 4px;
   border-color: white;
 }
-
 .title{
   position:relative;
   font-size:7vw;
@@ -429,7 +424,6 @@ export default{
   top: 10%;
   
 }
-
 .answer1{
   position: fixed;
   white-space: wrap; 
@@ -443,7 +437,6 @@ export default{
   color: rgb(48, 49, 54);
   background-color: white;
 }
-
 .answer2{
   position: fixed;
   white-space: wrap; 
@@ -503,11 +496,9 @@ export default{
   font-size: 40px;
   color:white;
   padding-left: 80%;
-
 }
 .score{
   font-size:4vh;
   color:white;
 }
-
 </style>
