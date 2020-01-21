@@ -28,8 +28,11 @@
         {{currentQuestion.option4}}
         </div>
       </div> 
+      
+      <div id="NoAnswer" class="NoAnswer_Text"> </div>
 
-      <div>
+      <div> 
+
         <button class="submit" @click="handleButton"> Submit </button>
 
       </div>
@@ -52,8 +55,8 @@ export default{
     return{
       questions:[],
       currentQuestion:{},
-      number:0,
-      score:0,
+      Question_Number: localStorage.Question_Number,
+      score: localStorage.score,
       totalQuestions:null,
       totalAnswers:null,
       currentanswer:'',
@@ -65,56 +68,69 @@ export default{
   methods: {
     timerDone:function() { //defines/starts the variable
       if(this.currentQuestion.answer == this.currentanswer){ // checks that current question is the same as the user's answer
-            this.score = this.score+1;  //adds 1 to the score 
+
+            this.score ++;  //adds 1 to the score 
+            localStorage.setItem('score', this.score)//Sets the local variable to the new score variable that has 1 added to it
         }
-        if(this.number<this.totalQuestions){ // checks that number is less than the total amount of questions
-          this.number=this.number+1; // adds 1 to the variable number
-          this.currentQuestion=this.questions[this.number]; // makes the variable currentQuestion equal the variable questions + number    
+        if(this.Question_Number<this.totalQuestions){ // checks that number is less than the total amount of questions
+
+          this.Question_Number ++;// adds 1 to the variable number
+          localStorage.setItem('Question_Number', this.Question_Number)
+          this.currentQuestion=this.questions[localStorage.Question_Number];// makes the variable currentQuestion equal the variable questions + number  
+
           localStorage.setItem('Countdown',15); //sets the variable Countdown as 15
           this.countDown += 16 - this.countDown; // the button makes the timer reset back to 15 seconds
           this.currentanswer=''; //Sets the variable current answer as nothing
+          document.getElementById("NoAnswer").innerHTML = "" // Gets rid of the alert on the screen
         }
-        if(this.number == this.totalQuestions){ // checks that number equals the total amount of questions 
+        if(this.Question_Number == this.totalQuestions){ // checks that number equals the total amount of questions 
           this.$router.push('Results'); // if it does, pushes the user to the results page
           localStorage.setItem('OnOff',0) // turns off the timer by changing OnOff to 0 
           localStorage.setItem('Score', this.score) // sets the local variable score as the score the user had after the quiz.
+          localStorage.setItem('Question_Number', 0) // Sets the Question_number variable to zero
         }
             
       document.getElementById("answer1").style.background='white'; 
       document.getElementById("answer2").style.background='white';
       document.getElementById("answer3").style.background='white';
       document.getElementById("answer4").style.background='white'; // Sets the options back to white. ^
+      
     },
 
     handleButton:function () {
       if(this.currentanswer == ''){  
-        alert("You didnt pick an answer")
+        document.getElementById("NoAnswer").innerHTML = "You didn't pick an answer"
       }
       else{
         if(this.currentQuestion.answer == this.currentanswer){
-            this.score = this.score+1;  
+
+            this.score ++;  //adds 1 to the score 
+            localStorage.setItem('score', this.score)
         }
-        if(this.number<this.totalQuestions){
-          this.number=this.number+1;
-          this.currentQuestion=this.questions[this.number];     
+        if(this.Question_Number<this.totalQuestions){
+
+          this.Question_Number ++;
+          localStorage.setItem('Question_Number', this.Question_Number)
+          this.currentQuestion=this.questions[localStorage.Question_Number];  
+
           localStorage.setItem('Countdown',15);
           this.countDown += 16 - this.countDown; // the button makes the timer reset back to 15 seconds
           this.currentanswer=''; 
+          document.getElementById("NoAnswer").innerHTML = ""
         }
-        if(this.number == this.totalQuestions){
+        if(this.Question_Number == this.totalQuestions){
           this.$router.push('Results');
           localStorage.setItem('OnOff',0)
           localStorage.setItem('Score', this.score)
+          localStorage.setItem('Question_Number', 0)
         }
       }      
       document.getElementById("answer1").style.background='white';
       document.getElementById("answer2").style.background='white';
       document.getElementById("answer3").style.background='white';
       document.getElementById("answer4").style.background='white';
-    },
 
-    ResultsPage:function(){
-      alert("results")
+    
     },
     
     selected_answer1:function() {
@@ -350,7 +366,7 @@ export default{
         .get("https://12gzle39q6.execute-api.eu-west-2.amazonaws.com/dev")
         .then(response=>{
           this.questions=response.data.body;//sets this.questions as the data from the link
-          this.currentQuestion=this.questions[this.number]; //sets this.currentQuestion as this.qustions and whatever this.number equals
+          this.currentQuestion=this.questions[localStorage.Question_Number]; //sets this.currentQuestion as this.qustions and whatever this.number equals
           this.totalQuestions=this.questions.length;
       })
       this.countDownTimer() //initializes the countdown function 
@@ -405,7 +421,15 @@ export default{
   border-style: solid;
   border-width: 4px;
   border-color: white;
-  
+}
+.NoAnswer_Text{
+  font-size:4vh;
+  color: orange;
+  position: fixed;
+  width:60%;
+  right:50%;
+  left: 8%;
+  bottom: 12%;
 }
 .buttons_border{
   position: relative;

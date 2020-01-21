@@ -17,9 +17,11 @@
 
         <div>
 
-        <form method="get" action="/?#/Quiz_1_Questions" @click="this.on_off">
+        <form method="get" action="/?#/Multiple_Choice_Text" @click="this.on_off">
           <button type="submit" class="Start_button">Start</button>
         </form>
+
+        
         </div>
       </div>
     </div>
@@ -35,21 +37,24 @@ export default {
       teamname: "",
       true_false: 0,
       countDown: 16,
-      Number: 0
+      Question_Number: 0,
+      score: 0,
     };
   },
   methods:{
     on_off:function(){
       localStorage.setItem('OnOff',1)
-      }
+    },
+
   },
   mounted() {
     if (localStorage.teamname) {
       document.getElementById("result").innerHTML = localStorage.teamname ;
       this.teamname = localStorage.teamname;
-      localStorage.setItem('Countdown', this.countDown),
-      localStorage.setItem('Number', this.Number)
     }
+    localStorage.setItem('Countdown', this.countDown),
+    localStorage.setItem('QuestionNumber', this.Question_Number)
+    localStorage.setItem('score', this.score)
   },
 };
 

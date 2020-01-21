@@ -4,7 +4,7 @@ import Login from '@/components/user/Login'
 import Services from '@/components/admin/Services'
 import Home from '@/components/user/Home'
 import Quiz_1 from '@/components/user/quiz_1/Quiz_1'
-import quiz_1_questions from '@/components/user/Quiz_1_Questions/Quiz_1_Question'
+import Multiple_Choice_Text from '@/components/user/Templates/Multiple_Choice_Text'
 import Buttons_test from '@/components/user/Buttons_test'
 import Test from '@/components/user/Test'
 import Results from '@/components/user/Results'
@@ -34,9 +34,9 @@ export default new VueRouter({
       component: Quiz_1
     },
     {
-      path: '/Quiz_1_questions',
-      name: 'Quiz_1_question',
-      component: quiz_1_questions
+      path: '/Multiple_Choice_Text',
+      name: 'Multiple_Choice_Text',
+      component: Multiple_Choice_Text
     },
     {
       path: '/Buttons_test',

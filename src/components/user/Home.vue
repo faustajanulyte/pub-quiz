@@ -14,15 +14,14 @@
           <div class="pin-wrapper" >
             <form class="form-access">
               <h2 class="pin_heading">Please enter the Quiz Name</h2>
-                <input
-                  v-model="quizname"
-                  type="text"
-                  id="inputPIN"
-                  class="pin_input"
-                  placeholder="Please enter the Quiz Name"
-                  required
-                />
-              <br />
+              <select name="Quiz" v-model="quizname" id="inputPIN" class="pin_input" placeholder="Please select a quiz" required>
+                  <option value="Quiz1" selected>Quiz1</option>
+                  <option value="Quiz2">Quiz2</option>
+                  <option value="Quiz3">Quiz3</option>
+                  <option value="Quiz4">Quiz4</option>
+                </select>
+              <br/>
+              
               <h2 class="pin_heading">Please enter the Quiz Pin</h2>
                 <input
                   v-model="PIN"
@@ -108,8 +107,6 @@ export default {
   margin:1%;
   width: 98%;
   height: 97%;
-
-  
 }
 .welcome {
   position: fixed;
@@ -170,7 +167,7 @@ export default {
   border-color: white;
 }
 .pin_heading{
-  margin-top:6%;
+  margin-top:7%;
   font-size:5vw;;
   color:white;
 }
