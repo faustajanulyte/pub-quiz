@@ -1,8 +1,6 @@
 <template>
   <div class="login">
-    <router-link class="router-link" v-for="routes in links" 
-      v-bind:key="routes.id"
-      :to="`${routes.page}`">{{routes.text}}</router-link>
+    
     <div class="login-overlay">
       <div class="login-wrapper">
         <form class="form-login">
@@ -19,7 +17,6 @@
             v-model="password"
             type="password"
             id="inputPassword"
-            v-show="!showPass"
             class="form-control"
             placeholder="Password"
             required

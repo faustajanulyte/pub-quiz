@@ -10,12 +10,13 @@
           </p>
       </div>
 
-      <div class="pin-overlay">
-          <div class="pin-wrapper" >
-            <form class="form-access">
+      <div class="pin-overlay" >
+          <div class="pin-wrapper" id="login">
+            <form class="form-access" >
               <h2 class="pin_heading">Please enter the Quiz Name</h2>
               <select name="Quiz" v-model="quizname" id="inputPIN" class="pin_input" placeholder="Please select a quiz" required>
-                  <option value="Quiz1" selected>Quiz1</option>
+                  <option value="Invalid" selected>Please Select A Quiz</option>
+                  <option value="Quiz1">Quiz1</option>
                   <option value="Quiz2">Quiz2</option>
                   <option value="Quiz3">Quiz3</option>
                   <option value="Quiz4">Quiz4</option>
@@ -80,7 +81,7 @@ export default {
               this.$router.push('quiz_4')
             }
           } else {
-            alert("Failed to sign in!"); // if wrong sends an alert
+            document.getElementById("login").style.outline = "thick solid Red";
           }
           console.log(this.valid)
         });
@@ -115,9 +116,6 @@ export default {
   max-width:6000px;
   max-height: 1000px;
   left:5%;
-  /*border-style: solid;
-  border-width: 2px;
-  border-color: white;*/
 }
 .message {
     position: fixed;
@@ -157,14 +155,12 @@ export default {
 }
 .pin-wrapper {
   position: fixed;
-  background-color: rgba(100, 97, 97, 0.9);
+  background-color: rgba(150, 150, 150, 0.8);
   width: 70%;
   height: 30%;
   left:15%;
   bottom:8%;
-  border-style: solid;
-  border-width: 2px;
-  border-color: white;
+
 }
 .pin_heading{
   margin-top:7%;

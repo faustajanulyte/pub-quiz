@@ -5,11 +5,11 @@
       
 
       <div class="title" ref="questions">
-      <div>{{currentQuestion.question}}</div>
+      <div class="image_question"></div>
       
       <div class="timer_text" id="timer"> </div>
       
-      </div>
+      </div>    
 
       <div class="buttons_border">
         <div class= "answer1" id="answer1" @click="selected_answer1">
@@ -374,6 +374,9 @@ export default{
   height: 100%;
   background-size: 100%;
 }
+.image_question{
+  
+}
 .Quiz_box{
   position: absolute;
   background-color: rgba(100, 97, 97, 0.9);
@@ -426,7 +429,7 @@ export default{
   padding: 1vw;
   width:30%;
   height: 15%;
-  top:30%;
+  top:45%;
   left:10%;
   color: rgb(48, 49, 54);
   background-color: white;
@@ -441,7 +444,7 @@ export default{
   width:30%;
   height:15%;
   left:60%;
-  top:30%;
+  top:45%;
   color: rgb(48, 49, 54);
   background-color: white;
   
@@ -455,7 +458,7 @@ export default{
   padding: 1vw;
   width:30%;
   height: 15%;
-  top:55%;
+  top:65%;
   left:10%;
   color: rgb(48, 49, 54);
   background-color: white;
@@ -471,7 +474,7 @@ export default{
   width:30%;
   height: 15%;
   left:60%;
-  top:55%;
+  top:65%;
   color: rgb(48, 49, 54);
   background-color: white;
   
