@@ -1,11 +1,33 @@
 <template>
   <div class="services">
-    <nav>
-    <router-link class="router-link" v-for="routes in links" 
-      v-bind:key="routes.id"
-      :to="`${routes.page}`">{{routes.text}}
+    <div class="border">
+    <router-link class="router-link" to="/Quizes">
+      <div class="img-block">
+        <h1>Quizes</h1>
+          <a class="services-icon">
+            <img src="@/assets/images/pen.png" alt="quizes" />
+          </a>
+      </div>
     </router-link>
-    </nav>
+    <router-link class="router-link" to="/Results">
+      <div class="img-block">
+        <h1>Results</h1>
+          <a class="services-icon">
+            <img src="@/assets/images/results.png" alt="results" />
+          </a>
+          <div class="line"></div>
+      </div>
+    </router-link>
+    <router-link class="router-link" to="/AddUser">
+      <div class="img-block">
+        <h1>Add user</h1>
+          <a class="services-icon">
+            <img src="@/assets/images/plus.png" alt="adduser" />
+          </a>
+          <div class="line"></div>
+      </div>
+    </router-link>
+    </div>
   </div>
 </template>
 
@@ -27,13 +49,8 @@ export default {
         },
         {
           id: 2,
-          text: 'Add team',
-          page:'/addteam'
-        },
-        {
-          id: 3,
-          text: 'Add admin',
-          page:'/addadmin'
+          text: 'Add user',
+          page:'/adduser'
         },
       ]
     }
@@ -41,27 +58,49 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 .services {
-  background-image: url('~@/assets/images/questionmark.jpeg');
   width: 100%;
   height: 1000px;
+  background-image: url('~@/assets/images/questionmark.jpeg');
   background-size: 100%;
+  margin: 0px;
+}
+.router-link {
+  filter: invert(0.0);
+}
+.img-block {
   display: inline-block;
+  position: relative;
   text-align: right;
-  width: 100%;
+  width:350px;
+  padding-left: 60px;
   padding-right: 100px;
   padding-top: 20px;
 }
-.router-link { 
-    Margin-right: 50px;
-    font-family: 'Dosis', sans-serif;
-    font-weight: 300;
-    font-size: 28px;
-    color: white;
-    text-decoration: none;
-  } 
-  .router-link:hover {
-    opacity: 0.7;
-  }
+.router-link:hover {
+  opacity: 0.7;
+}
+.img-block h1 {
+  color: black;
+  text-align: center;
+  padding-left: 0px;
+}
+.border {
+  position: absolute;
+  top: 130px;
+  bottom: 150px;
+  left: 100px;
+  right:100px;
+  background-color: white;
+  border-radius: 25px;
+}
+.line {
+  border-left: 1px solid rgb(218, 215, 215);
+  position: absolute;
+  top: 20px;
+  bottom: -30px;
+  left: 10px;
+  right:100px;
+}
 </style>

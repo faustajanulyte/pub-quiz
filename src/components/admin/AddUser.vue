@@ -1,5 +1,5 @@
 <template>
-  <div class="addadmin">
+  <div class="adduser">
    
   </div>
 </template>
@@ -8,11 +8,12 @@
 
 </script>
 
-<style scoped>
-.addadmin {
-  background-image: url('~@/assets/images/questionmark.jpeg');
+<style>
+.adduser {
   width: 100%;
   height: 1000px;
+  background-image: url('~@/assets/images/questionmark.jpeg');
   background-size: 100%;
+  margin: 0px;
   }
 </style>

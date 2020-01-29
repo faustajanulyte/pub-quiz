@@ -13,6 +13,7 @@
             placeholder="Username"
             required
           />
+          <br>
           <input
             v-model="password"
             type="password"
@@ -89,7 +90,7 @@ export default {
   height: 100%;
 }
 .login-wrapper {
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(0, 0, 0, 0.65);
   width: 40%;
   margin: 12% auto;
   margin-top: 10%;
@@ -100,7 +101,7 @@ export default {
   margin: 0 auto;
 }
 .form-login-heading {
-  color: black;
+  color: white;
 }
 .form-login .form-control {
   position: relative;
@@ -116,7 +117,7 @@ export default {
   border-bottom-left-radius: 0;
 }
 .form-login input[type="password"] {
-  margin-bottom: 10px;
+  margin-bottom: 0px;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
