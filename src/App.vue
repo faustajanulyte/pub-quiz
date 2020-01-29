@@ -1,3 +1,4 @@
+  
 <template>
   <div id="app">
     <router-view/>
@@ -12,8 +13,6 @@ export default {
 
 <style>
 @import url('https://fonts.googleapis.com/css?family=Dosis&display=swap');
-
-
 #app {
   font-family: 'Dosis', sans-serif;
   -webkit-font-smoothing: antialiased;

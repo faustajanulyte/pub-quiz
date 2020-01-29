@@ -69,16 +69,16 @@ export default {
           this.valid = response.data.valid 
           if(this.valid) { //checks the login is correct
             if (this.quizname == "Quiz1"){ //checks which quiz to send the user to 
-              this.$router.push('quiz_1');
+              this.$router.push('Quiz_1');
             }
             else if (this.quizname == "Quiz2"){ //checks which quiz to send the user to 
-              this.$router.push('quiz_2')
+              this.$router.push('Quiz_2')
             }
             else if (this.quizname == "Quiz3"){ //checks which quiz to send the user to 
-              this.$router.push('quiz_3')
+              this.$router.push('Quiz_3')
             }
             else if (this.quizname == "Quiz4"){ //checks which quiz to send the user to 
-              this.$router.push('quiz_4')
+              this.$router.push('Quiz_4')
             }
           } else {
             document.getElementById("login").style.outline = "thick solid Red";

@@ -24,6 +24,7 @@ export default {
   methods:{
     back_to_home:function(){
         this.$router.push('Home');
+        localStorage.setItem('Score', 0)
     }
   },
   mounted() {
