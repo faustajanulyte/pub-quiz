@@ -1,6 +1,5 @@
 <template>
   <div class="login">
-    
     <div class="login-overlay">
       <div class="login-wrapper">
         <form class="form-login">

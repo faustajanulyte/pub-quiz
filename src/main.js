@@ -9,11 +9,8 @@ import './assets/css/global.css'
 import vueAwesomeCountdown from 'vue-awesome-countdown'
 Vue.use(vueAwesomeCountdown, 'vac')
 
-
-
 Vue.use(BootstrapVue)
 Vue.config.productionTip = false
-
 
 new Vue({
   router,

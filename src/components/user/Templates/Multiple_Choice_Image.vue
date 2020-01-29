@@ -2,26 +2,28 @@
   <div class="quiz">
     <div class= "Quiz_box">
       
-      
-
       <div class="title" ref="questions">
-      <div class="image_question"></div>
+
+        <div>{{currentQuestion.question}}</div> 
+
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Flag_of_Venezuela_%28state%29.svg/1200px-Flag_of_Venezuela_%28state%29.svg.png" class="Image_question"> 
+      
       
       <div class="timer_text" id="timer"> </div>
       
       </div>    
 
       <div class="buttons_border">
-        <div class= "answer1" id="answer1" @click="selected_answer1">
+        <div class= "answer11" id="answer1" @click="selected_answer1">
         {{currentQuestion.option1}}
         </div>
-        <div class= "answer2" id="answer2" @click="selected_answer2" >
+        <div class= "answer21" id="answer2" @click="selected_answer2" >
         {{currentQuestion.option2}}
         </div>
-        <div class= "answer3" id="answer3" @click="selected_answer3" >
+        <div class= "answer31" id="answer3" @click="selected_answer3" >
         {{currentQuestion.option3}}
         </div>
-        <div class= "answer4" id="answer4" @click="selected_answer4"  >
+        <div class= "answer41" id="answer4" @click="selected_answer4"  >
         {{currentQuestion.option4}}
         </div>
       </div> 
@@ -29,14 +31,15 @@
       <div id="NoAnswer" class="NoAnswer_Text"> </div>
       <div>
         <button class="submit" @click="handleButton"> Submit </button>
-
       </div>
     </div>
  </div>
   
 </template>
 
-<script >
+<script>
+
+
 var answer1=0
 var answer2=0
 var answer3=0
@@ -329,7 +332,6 @@ export default{
         console.log(answer4)
       }
     },
-   
   //This is all for the timer
     countDownTimer() {
       if(localStorage.getItem('OnOff') == 1){
@@ -345,22 +347,19 @@ export default{
           localStorage.setItem('Countdown',15)
           this.countDownTimer()
           this.timerDone() 
-          
           }
         }
       }         
     },
     mounted(){
       axios
-        .get("https://12gzle39q6.execute-api.eu-west-2.amazonaws.com/dev")
+        .get("https://9fkrdvjgji.execute-api.eu-west-2.amazonaws.com/dev")
         .then(response=>{
           this.questions=response.data.body;//sets this.questions as the data from the link
           this.currentQuestion=this.questions[this.Question_Number]; //sets this.currentQuestion as this.qustions and whatever this.number equals
           this.totalQuestions=this.questions.length;
       })
       this.countDownTimer() //initializes the countdown function 
-      
-      
     },
 };
 </script>
@@ -373,9 +372,6 @@ export default{
   width: 100%;
   height: 100%;
   background-size: 100%;
-}
-.image_question{
-  
 }
 .Quiz_box{
   position: absolute;
@@ -411,7 +407,6 @@ export default{
   border-style: solid;
   border-width: 4px;
   border-color: white;
-  
 }
 .buttons_border{
   position: relative;
@@ -419,9 +414,8 @@ export default{
   width: 90%;
   height: 400px;
   top: 10%;
-  
 }
-.answer1{
+.answer11{
   position: fixed;
   white-space: wrap; 
   overflow: hidden;
@@ -429,12 +423,12 @@ export default{
   padding: 1vw;
   width:30%;
   height: 15%;
-  top:45%;
+  top:43%;
   left:10%;
   color: rgb(48, 49, 54);
   background-color: white;
 }
-.answer2{
+.answer21{
   position: fixed;
   white-space: wrap; 
   overflow: hidden; 
@@ -444,12 +438,11 @@ export default{
   width:30%;
   height:15%;
   left:60%;
-  top:45%;
+  top:43%;
   color: rgb(48, 49, 54);
   background-color: white;
-  
 }
-.answer3{
+.answer31{
   position: fixed;
   white-space: wrap; 
   overflow: hidden;
@@ -458,13 +451,12 @@ export default{
   padding: 1vw;
   width:30%;
   height: 15%;
-  top:65%;
+  top:61%;
   left:10%;
   color: rgb(48, 49, 54);
   background-color: white;
-  
 }
-.answer4{
+.answer41{
   position: fixed;
   white-space: wrap; 
   overflow: hidden;
@@ -474,10 +466,9 @@ export default{
   width:30%;
   height: 15%;
   left:60%;
-  top:65%;
+  top:61%;
   color: rgb(48, 49, 54);
   background-color: white;
-  
 }
 .submit{
   position:fixed;
@@ -506,5 +497,13 @@ export default{
   right:50%;
   left: 8%;
   bottom: 12%;
+}
+.Image_question{
+  position:fixed;
+  top:20%;
+  left:10%;
+  height: 20%;
+  width:80%;
+  
 }
 </style>
