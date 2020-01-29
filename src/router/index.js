@@ -15,12 +15,7 @@ import Buttons_test from '@/components/user/Buttons_test'
 import Results from '@/components/admin/Results'
 import Quiz_results from '@/components/user/Quiz_results'
 
-const aws = require('aws-sdk')
 
-aws.config.update({
-  accessKeyId: "AKIAVO4FH3U2X2N7MFT6",
-  secretAccessKey: "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"
-})
 
 Vue.use(VueRouter)
 
