@@ -3,7 +3,7 @@
     <div class="border">
     <router-link class="router-link" to="/Quizes">
       <div class="img-block">
-        <h1>Quizes</h1>
+        <h1>Quizzes</h1>
           <a class="services-icon">
             <img src="@/assets/images/pen.png" alt="quizes" />
           </a>
@@ -39,7 +39,7 @@ export default {
       links: [
         {
           id: 0,
-          text: 'Quizes',
+          text: 'Quizzes',
           page:'/quizes'
         },
         {
