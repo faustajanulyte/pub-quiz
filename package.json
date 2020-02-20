@@ -10,7 +10,7 @@
   "dependencies": {
     "aws": "0.0.3-2",
     "aws-s3": "^2.0.5",
-    "aws-sdk": "^2.610.0",
+    "aws-sdk": "^2.614.0",
     "axios": "^0.19.0",
     "bootstrap": "^4.4.1",
     "bootstrap-vue": "^2.1.0",
@@ -72,5 +72,18 @@
   "browserslist": [
     "> 1%",
     "last 2 versions"
-  ]
+  ],
+  "description": "```\r npm install\r ```",
+  "main": "babel.config.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/faustajanulyte/pub-quiz.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/faustajanulyte/pub-quiz/issues"
+  },
+  "homepage": "https://github.com/faustajanulyte/pub-quiz#readme"
 }

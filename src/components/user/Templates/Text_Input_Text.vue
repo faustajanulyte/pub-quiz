@@ -38,6 +38,11 @@ import axios from 'axios'
 export default{
   data(){
     return{
+      Team1_Id: this.values,//For posting 
+      QuizId: '4',
+      AnswerId: this.Question_Number,
+      Answer: '',
+      TeamAnswer: '',//For posting ^^
       questions:[],
       currentQuestion:'',
       Question_Number: localStorage.Question_Number,
@@ -59,7 +64,7 @@ export default{
 
         }
         if(this.Question_Number<this.totalQuestions){ // checks that number is less than the total amount of questions
-          this.Question_Number ++;// adds 1 to the variable number
+          this.Question_Number ++;// adds 1 to the variable question number
           localStorage.setItem('Question_Number', this.Question_Number)
           this.currentQuestion=this.questions[localStorage.Question_Number];// makes the variable currentQuestion equal the variable questions + number    
           localStorage.setItem('Countdown',15); //sets the variable Countdown as 15
@@ -107,26 +112,15 @@ export default{
         }
       }      
     },
-
-    Test:function() {
-      
-      console.log(this.currentanswer)
-      console.log(this.currentQuestion.answer)
-      if(this.currentanswer == this.currentQuestion.answer){
-        alert("worked")
-      }
-      
-    },
-    
-    
+   
   //This is all for the timer
     countDownTimer() {
-      if(localStorage.getItem('OnOff') == 1){
+      if(localStorage.getItem('OnOff') == 1){ // Checks if the timer should start by the page before.
         if(localStorage.getItem('Countdown') > 0) {
           setTimeout(() => {
-            this.countDown -= 1
+            this.countDown -= 1 //Takes 1 (sec) off of the variable.
             localStorage.setItem('Countdown',this.countDown)
-            this.countDownTimer()
+            this.countDownTimer() // Restarts the timer function.
             document.getElementById("timer").innerHTML = localStorage.Countdown ;
           }, 1000)
         }
@@ -136,18 +130,37 @@ export default{
           this.timerDone() 
           }
         }
-      }         
+      },
+      pushData() {
+        var values = crypto.getRandomValues(new Uint32Array(1));
+
+        for (var i = 0; i < values.length; i++) {
+            console.log(values[i].toString(16));    
+        }
+        console.log(values.toString(16))
+        axios
+          .post("https://elur4e042l.execute-api.eu-west-2.amazonaws.com/dev/",
+          {
+            AnswerID: values.toString(16),
+            Team: localStorage.teamname,
+            Quiz: this.QuizId,
+            QuestionNumber: this.Question_Number,
+            TeamAnswer: localStorage.currentanswer,
+            
+          })
+          
+      }          
     },
     mounted(){
       axios
-        .get("https://kgivvy8z64.execute-api.eu-west-2.amazonaws.com/dev")
+        .get("https://kgivvy8z64.execute-api.eu-west-2.amazonaws.com/dev") //connected the application to the database.
         .then(response=>{
           this.questions=response.data.body;//sets this.questions as the data from the link
           this.currentQuestion=this.questions[this.Question_Number]; //sets this.currentQuestion as this.qustions and whatever this.number equals
           this.totalQuestions=this.questions.length;
       })
       this.countDownTimer() //initializes the countdown function 
-      this.currentanswer = this.Answer
+      this.currentanswer = this.Answer // Sets the variable currentanswer to the variable Answer
     },
 };
 </script>

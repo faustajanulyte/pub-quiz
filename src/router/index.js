@@ -16,7 +16,7 @@ import Quiz_results from '@/components/user/Quiz_results'
 import AddUser from '@/components/admin/AddUser'
 import Quizes from '@/components/admin/Quizes'
 import CreateAQuiz from '@/components/admin/CreateAQuiz'
-
+import Test from '@/components/user/Test'
 
 
 Vue.use(VueRouter)
@@ -94,14 +94,19 @@ export default new VueRouter({
       component: CreateAQuiz
     },
     {
-    path: '/Text_Input_Text',
-    name: 'Text_Input_Text',
-    component: Text_Input_Text
+      path: '/Text_Input_Text',
+      name: 'Text_Input_Text',
+      component: Text_Input_Text
     },
     {
-    path: '/Text_Input_Image',
-    name: 'Text_Input_Image',
-    component: Text_Input_Image
+      path: '/Text_Input_Image',
+      name: 'Text_Input_Image',
+      component: Text_Input_Image
+    },
+    {
+      path: '/Test',
+      name: 'Test',
+      component: Test
     }
   ]
 })

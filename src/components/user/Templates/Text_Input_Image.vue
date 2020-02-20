@@ -33,12 +33,15 @@
 </template>
 
 <script>
-
-
 import axios from 'axios'
 export default{
   data(){
     return{
+      Team1_Id: this.values,//For posting 
+      QuizId: '3',
+      AnswerId: this.Question_Number,
+      Answer: '',
+      TeamAnswer: '',//For posting ^^
       questions:[],
       currentQuestion:'',
       Question_Number: localStorage.Question_Number,
@@ -107,18 +110,7 @@ export default{
           localStorage.setItem('Question_Number', 0)
         }
       }      
-    },
-
-    Test:function() {
-      
-      console.log(this.currentanswer)
-      console.log(this.currentQuestion.answer)
-      if(this.currentanswer == this.currentQuestion.answer){
-        alert("worked")
-      }
-      
-    },
-    
+    },   
     
   //This is all for the timer
     countDownTimer() {
@@ -137,7 +129,27 @@ export default{
           this.timerDone() 
           }
         }
-      }         
+      },         
+    
+    pushData() {
+        var values = crypto.getRandomValues(new Uint32Array(1));
+
+        for (var i = 0; i < values.length; i++) {
+            console.log(values[i].toString(16));    
+        }
+        console.log(values.toString(16))
+        axios
+          .post("https://elur4e042l.execute-api.eu-west-2.amazonaws.com/dev/",
+          {
+            AnswerID: values.toString(16),
+            Team: localStorage.teamname,
+            Quiz: this.QuizId,
+            QuestionNumber: this.Question_Number,
+            TeamAnswer: localStorage.currentanswer,
+            
+          })
+          
+      }
     },
     mounted(){
       axios
@@ -154,7 +166,6 @@ export default{
 </script>
 
 <style>
- 
 .quiz {
   position: fixed;
   background-image: url('~@/assets/images/treasurehunt.gif');

@@ -5,7 +5,7 @@
         <form class="form-login">
           <h2 class="form-login-heading">Please sign in</h2>
           <input
-            v-model="name"
+            v-model="Username"
             type="text"
             id="inputName"
             class="form-control"
@@ -14,7 +14,7 @@
           />
           <br>
           <input
-            v-model="password"
+            v-model="Password"
             type="password"
             id="inputPassword"
             class="form-control"
@@ -36,29 +36,29 @@ export default {
   name: "app",
   data() {
     return {
-      name: "",
-      password: "",
-      admin: "",
-      valid: ""
+      Username: '',
+      Password: '',
+      Admin: '',
+      valid: '',
     };
   },
   methods: {
     authUsers: function() {
-      console.log(this.name);
+      console.log(this.Username);
       axios
         .post(
-          "https://hghjfrvme8.execute-api.eu-west-2.amazonaws.com/dev",
+          "https://hghjfrvme8.execute-api.eu-west-2.amazonaws.com/dev/",
           {
-            name: this.name,
-            password: this.password,
-            admin: this.admin
+            Username: this.Username,
+            Password: this.Password,
+            Admin: this.Admin
 
           }
         )
         .then(response => {
-          this.admin = response.data.admin,
+          this.Admin = response.data.Admin,
           this.valid = response.data.valid
-          if(this.admin) {
+          if(this.Admin == "true") {
             this.$router.push('Services');
           } else if(this.valid) {
             this.$router.push('Home');
@@ -66,12 +66,11 @@ export default {
             alert("Failed to sign in!");
           }
           console.log(this.valid)
-          localStorage.setItem('teamname',this.name);
+          localStorage.setItem('teamname',this.Username);
         });
     }
   }
 };
-
 
 </script>
 

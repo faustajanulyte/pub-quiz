@@ -6,6 +6,15 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import './assets/css/global.css'
 
+import axios from 'axios'
+import VueAxios from 'vue-axios'
+    
+Vue.use(VueAxios, axios)
+   
+Vue.config.productionTip = false
+
+
+
 import vueAwesomeCountdown from 'vue-awesome-countdown'
 Vue.use(vueAwesomeCountdown, 'vac')
 

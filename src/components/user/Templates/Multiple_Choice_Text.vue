@@ -5,7 +5,7 @@
       
 
       <div class="title" ref="questions">
-      <div>{{currentQuestion.question}}</div>
+      <div>{{currentQuestion.Question}}</div>
       
       <div class="timer_text" id="timer"> </div>
       
@@ -13,22 +13,23 @@
 
       <div class="buttons_border">
         <div class= "answer1" id="answer1" @click="selected_answer1">
-        {{currentQuestion.option1}}
+        {{currentQuestion.Option1}}
         </div>
         <div class= "answer2" id="answer2" @click="selected_answer2" >
-        {{currentQuestion.option2}}
+        {{currentQuestion.Option2}}
         </div>
         <div class= "answer3" id="answer3" @click="selected_answer3" >
-        {{currentQuestion.option3}}
+        {{currentQuestion.Option3}}
         </div>
         <div class= "answer4" id="answer4" @click="selected_answer4"  >
-        {{currentQuestion.option4}}
+        {{currentQuestion.Option4}}
         </div>
       </div> 
 
       <div id="NoAnswer" class="NoAnswer_Text"> </div>
       <div>
         <button class="submit" @click="handleButton"> Submit </button>
+ 
 
       </div>
     </div>
@@ -37,22 +38,26 @@
 </template>
 
 <script >
-var answer1=0
-var answer2=0
-var answer3=0
-var answer4=0
+
+
 
 import axios from 'axios'
 export default{
   data(){
     return{
+      Team1_Id: this.values,//For posting 
+      QuizId: '1',
+      AnswerId: this.Question_Number,
+      Answer: '',
+      TeamAnswer: '',//For posting ^^
       questions:[],
+      TeamName: localStorage.teamname,
       currentQuestion:'',
       Question_Number: localStorage.Question_Number,
       score: localStorage.score,
       totalQuestions:null,
       totalAnswers:null,
-      currentanswer:'',
+      currentanswer: this.currentanswer,
       answers:{},
       countDown: localStorage.getItem('Countdown'), //Gets the varible from the page before and sets it as countDown
       startTime: localStorage.getItem('Timer'),
@@ -60,18 +65,21 @@ export default{
   },
   methods: {
     timerDone:function() { //defines/starts the variable
-      if(this.currentQuestion.answer == this.currentanswer){ // checks that current question is the same as the user's answer
+      if(this.currentQuestion.Answer == this.currentanswer){ // checks that current question is the same as the user's answer
             this.score ++;  //adds 1 to the score 
             localStorage.setItem('score', this.score)//Sets the local variable to the new score variable that has 1 added to it
-
+            
         }
+        this.pushData()
         if(this.Question_Number<this.totalQuestions){ // checks that number is less than the total amount of questions
           this.Question_Number ++;// adds 1 to the variable number
+          
           localStorage.setItem('Question_Number', this.Question_Number)
           this.currentQuestion=this.questions[localStorage.Question_Number];// makes the variable currentQuestion equal the variable questions + number    
           localStorage.setItem('Countdown',15); //sets the variable Countdown as 15
           this.countDown += 16 - this.countDown; // the button makes the timer reset back to 15 seconds
           this.currentanswer=''; //Sets the variable current answer as nothing
+          localStorage.setItem('currentanswer', 'blank')
           document.getElementById("NoAnswer").innerHTML = "" // Gets rid of the alert on the screen
         }
         if(this.Question_Number == this.totalQuestions){ // checks that number equals the total amount of questions
@@ -81,6 +89,7 @@ export default{
           localStorage.setItem('Question_Number', 0) // Sets the Question_number variable to zero
         }
             
+      
       document.getElementById("answer1").style.background='white'; 
       document.getElementById("answer2").style.background='white';
       document.getElementById("answer3").style.background='white';
@@ -88,21 +97,25 @@ export default{
 
     },
     handleButton:function () {
-      if(this.currentanswer == ''){  
+      if(this.currentanswer == ''){  // checking the user has selected an answer
         document.getElementById("NoAnswer").innerHTML = "You didn't pick an answer"
       }
       else{
-        if(this.currentQuestion.answer == this.currentanswer){
+        if(this.currentQuestion.Answer == this.currentanswer){
             this.score ++;  //adds 1 to the score 
             localStorage.setItem('score', this.score)
+            
         }
+        this.pushData()
         if(this.Question_Number<this.totalQuestions){
           this.Question_Number ++;
           localStorage.setItem('Question_Number', this.Question_Number)
           this.currentQuestion=this.questions[localStorage.Question_Number];  
+          
           localStorage.setItem('Countdown',15);
           this.countDown += 16 - this.countDown; // the button makes the timer reset back to 15 seconds
           this.currentanswer=''; 
+          localStorage.setItem('currentanswer', 'blank')
           document.getElementById("NoAnswer").innerHTML = "" // Gets rid of the alert on the screen
         }
         if(this.Question_Number == this.totalQuestions){
@@ -111,7 +124,8 @@ export default{
           localStorage.setItem('Score', this.score)
            localStorage.setItem('Question_Number', 0)
         }
-      }      
+      }
+      
       document.getElementById("answer1").style.background='white';
       document.getElementById("answer2").style.background='white';
       document.getElementById("answer3").style.background='white';
@@ -119,215 +133,47 @@ export default{
     },
 
     Test:function() {
-      console.log(this.Question_Number)
-      console.log(localStorage.getItem('Question_Number'))
+      
     },
     
     selected_answer1:function() {
-      if (answer2 > 0) {
-        answer2=0;
-        answer3=0;
-        answer4=0;
-        ++answer1;
-        document.getElementById("answer1").style.background='lightblue';
-        document.getElementById("answer2").style.background='white';
-        document.getElementById("answer3").style.background='white';
-        document.getElementById("answer4").style.background='white';
-        this.currentanswer = this.currentQuestion.option1;
-        console.log(this.currentanswer)
-        
-      }
-      else if (answer3 > 0){
-        answer2=0;
-        answer3=0;
-        answer4=0;
-        ++answer1;
-        document.getElementById("answer1").style.background='lightblue';
-        document.getElementById("answer2").style.background='white';
-        document.getElementById("answer3").style.background='white';
-        document.getElementById("answer4").style.background='white';
-        this.currentanswer = this.currentQuestion.option1;
-        console.log(this.currentanswer)
-      }
-      else if (answer4 > 0){
-        answer2=0;
-        answer3=0;
-        answer4=0;
-        ++answer1;
-        document.getElementById("answer1").style.background='lightblue';
-        document.getElementById("answer2").style.background='white';
-        document.getElementById("answer3").style.background='white';
-        document.getElementById("answer4").style.background='white';
-        this.currentanswer = this.currentQuestion.option1;
-        console.log(this.currentanswer)
-      }  
-      else{
-        ++answer1;
-        answer2=0;
-        answer3=0;
-        answer4=0;
-        document.getElementById("answer1").style.background='lightblue';
-        document.getElementById("answer2").style.background='white';
-        document.getElementById("answer3").style.background='white';
-        document.getElementById("answer4").style.background='white';
-        this.currentanswer = this.currentQuestion.option1;
-        console.log(this.currentanswer)
-        console.log(answer1)
-      }
+      document.getElementById("answer1").style.background='lightblue';
+      document.getElementById("answer2").style.background='white';
+      document.getElementById("answer3").style.background='white';
+      document.getElementById("answer4").style.background='white';
+      this.currentanswer = this.currentQuestion.Option1;
+      localStorage.setItem('currentanswer', this.currentQuestion.Option1)
+      console.log(this.currentanswer)
+      console.log(this.currentQuestion.Option1)
+      console.log(this.currentQuestion.Answer)
+      
     },
     selected_answer3:function() {
-      if (answer1 > 0) {
-        answer1=0;
-        answer2=0;
-        answer4=0;
-        ++answer3;
-        document.getElementById("answer3").style.background='lightblue';
-        document.getElementById("answer1").style.background='white';
-        document.getElementById("answer2").style.background='white';
-        document.getElementById("answer4").style.background='white';
-        this.currentanswer = this.currentQuestion.option3;
-        console.log(this.currentanswer)
-      }
-      else if (answer2 > 0){
-        answer1=0;
-        answer2=0;
-        answer4=0;
-        ++answer3;
-        document.getElementById("answer3").style.background='lightblue';
-        document.getElementById("answer1").style.background='white';
-        document.getElementById("answer2").style.background='white';
-        document.getElementById("answer4").style.background='white';
-        this.currentanswer = this.currentQuestion.option3;
-        console.log(this.currentanswer)
-      }
-      else if (answer4 > 0){
-        answer1=0;
-        answer2=0;
-        answer4=0;
-        ++answer3;
-        document.getElementById("answer3").style.background='lightblue';
-        document.getElementById("answer1").style.background='white';
-        document.getElementById("answer2").style.background='white';
-        document.getElementById("answer4").style.background='white';
-        this.currentanswer = this.currentQuestion.option3;
-        console.log(this.currentanswer)
-      }  
-      else{
-        ++answer3;
-        answer1=0;
-        answer2=0;
-        answer4=0;
-        document.getElementById("answer3").style.background='lightblue';
-        document.getElementById("answer1").style.background='white';
-        document.getElementById("answer2").style.background='white';
-        document.getElementById("answer4").style.background='white';
-        this.currentanswer = this.currentQuestion.option3;
-        console.log(this.currentanswer)
-        console.log(answer3)
-      }
+      document.getElementById("answer3").style.background='lightblue';
+      document.getElementById("answer1").style.background='white';
+      document.getElementById("answer2").style.background='white';
+      document.getElementById("answer4").style.background='white';
+      this.currentanswer = this.currentQuestion.Option3;
+      localStorage.setItem('currentanswer',this.currentQuestion.Option3)
+      console.log(this.currentanswer)
     },
     selected_answer2:function() {
-      if (answer1 > 0) {
-        answer1=0;
-        answer3=0;
-        answer4=0;
-        ++answer2;
-        document.getElementById("answer2").style.background='lightblue';
-        document.getElementById("answer1").style.background='white';
-        document.getElementById("answer3").style.background='white';
-        document.getElementById("answer4").style.background='white';
-        this.currentanswer = this.currentQuestion.option2;
-        console.log(this.currentanswer)
-      }
-      else if (answer3 > 0){
-        answer1=0;
-        answer3=0;
-        answer4=0;
-        ++answer2;
-        document.getElementById("answer2").style.background='lightblue';
-        document.getElementById("answer1").style.background='white';
-        document.getElementById("answer3").style.background='white';
-        document.getElementById("answer4").style.background='white';
-        this.currentanswer = this.currentQuestion.option2;
-        console.log(this.currentanswer)
-      }
-      else if (answer4 > 0){
-        answer1=0;
-        answer3=0;
-        answer4=0;
-        ++answer2;
-        document.getElementById("answer2").style.background='lightblue';
-        document.getElementById("answer1").style.background='white';
-        document.getElementById("answer3").style.background='white';
-        document.getElementById("answer4").style.background='white';
-        this.currentanswer = this.currentQuestion.option2;
-        console.log(this.currentanswer)
-      }  
-      else{
-        ++answer2;
-        answer1=0;
-        answer3=0;
-        answer4=0;
-        document.getElementById("answer2").style.background='lightblue';
-        document.getElementById("answer1").style.background='white';
-        document.getElementById("answer3").style.background='white';
-        document.getElementById("answer4").style.background='white';
-        this.currentanswer = this.currentQuestion.option2;
-        console.log(this.currentanswer)
-        console.log(answer2)
-      }
+      document.getElementById("answer2").style.background='lightblue';
+      document.getElementById("answer1").style.background='white';
+      document.getElementById("answer3").style.background='white';
+      document.getElementById("answer4").style.background='white'; 
+      this.currentanswer = this.currentQuestion.Option2;
+      localStorage.setItem('currentanswer',this.currentQuestion.Option2)
+      console.log(this.currentanswer)
     },
     selected_answer4:function() {
-      if (answer1 > 0) {
-        answer1=0;
-        answer3=0;
-        answer2=0;
-        ++answer4;
-        document.getElementById("answer4").style.background='lightblue';
-        document.getElementById("answer1").style.background='white';
-        document.getElementById("answer3").style.background='white';
-        document.getElementById("answer2").style.background='white';
-        this.currentanswer = this.currentQuestion.option4;
-        console.log(this.currentanswer)
-        
-      }
-      else if (answer3 > 0){
-        answer1=0;
-        answer3=0;
-        answer2=0;
-        ++answer4;
-        document.getElementById("answer4").style.background='lightblue';
-        document.getElementById("answer1").style.background='white';
-        document.getElementById("answer3").style.background='white';
-        document.getElementById("answer2").style.background='white';
-        this.currentanswer = this.currentQuestion.option4;
-        console.log(this.currentanswer)
-      }
-      else if (answer2 > 0){
-        answer1=0;
-        answer3=0;
-        answer2=0;
-        ++answer4;
-        document.getElementById("answer4").style.background='lightblue';
-        document.getElementById("answer1").style.background='white';
-        document.getElementById("answer3").style.background='white';
-        document.getElementById("answer2").style.background='white';
-        this.currentanswer = this.currentQuestion.option4;
-        console.log(this.currentanswer)
-      }  
-      else{
-        ++answer4;
-        answer1=0;
-        answer3=0;
-        answer2=0;
-        document.getElementById("answer4").style.background='lightblue';
-        document.getElementById("answer1").style.background='white';
-        document.getElementById("answer3").style.background='white';
-        document.getElementById("answer2").style.background='white';
-        this.currentanswer = this.currentQuestion.option4;
-        console.log(this.currentanswer)
-        console.log(answer4)
-      }
+      document.getElementById("answer4").style.background='lightblue'; //sets the option has blue 
+      document.getElementById("answer1").style.background='white'; //sets the option has white
+      document.getElementById("answer3").style.background='white'; //sets the option has white
+      document.getElementById("answer2").style.background='white'; //sets the option has white
+      this.currentanswer = this.currentQuestion.Option4; // Sets the variable currentanswer as the selected option 
+      localStorage.setItem('currentanswer',this.currentQuestion.Option4)
+      console.log(this.currentanswer) //displays the chosen answer in the console.
     },
    
   //This is all for the timer
@@ -345,22 +191,38 @@ export default{
           localStorage.setItem('Countdown',15)
           this.countDownTimer()
           this.timerDone() 
-          
           }
         }
-      }         
+      },
+      pushData() {
+        var values = crypto.getRandomValues(new Uint32Array(1));
+
+        for (var i = 0; i < values.length; i++) {
+            console.log(values[i].toString(16));    
+        }
+        console.log(values.toString(16))
+        axios
+          .post("https://elur4e042l.execute-api.eu-west-2.amazonaws.com/dev/",
+          {
+            AnswerID: values.toString(16),
+            Team: localStorage.teamname,
+            Quiz: this.QuizId,
+            QuestionNumber: this.Question_Number,
+            TeamAnswer: localStorage.currentanswer,
+            
+          })
+          
+      }  
     },
     mounted(){
       axios
-        .get("https://12gzle39q6.execute-api.eu-west-2.amazonaws.com/dev")
+        .get("https://gxxffbgloa.execute-api.eu-west-2.amazonaws.com/dev")
         .then(response=>{
           this.questions=response.data.body;//sets this.questions as the data from the link
           this.currentQuestion=this.questions[this.Question_Number]; //sets this.currentQuestion as this.qustions and whatever this.number equals
           this.totalQuestions=this.questions.length;
       })
       this.countDownTimer() //initializes the countdown function 
-      
-      
     },
 };
 </script>
