@@ -46,13 +46,14 @@ export default{
       questions:[],
       currentQuestion:'',
       Question_Number: localStorage.Question_Number,
-      score: localStorage.score,
+      score: localStorage.Score,
       totalQuestions:null,
       totalAnswers:null,
       currentanswer: '',
       answers:{},
       countDown: localStorage.getItem('Countdown'), //Gets the varible from the page before and sets it as countDown
       startTime: localStorage.getItem('Timer'),
+      NumberOfQuestions: null,
     }
   },
   methods: {
@@ -72,7 +73,7 @@ export default{
           this.currentanswer=''; //Sets the variable current answer as nothing
           document.getElementById("NoAnswer").innerHTML = "" // Gets rid of the alert on the screen
         }
-        if(this.Question_Number == this.totalQuestions){ // checks that number equals the total amount of questions
+        if(this.NumberOfQuestions == 9){ // checks that number equals the total amount of questions
           this.$router.push('Quiz_results'); // if it does, pushes the user to the results page
           localStorage.setItem('OnOff',0) // turns off the timer by changing OnOff to 0 
           localStorage.setItem('Score', this.score) // sets the local variable score as the score the user had after the quiz.
@@ -95,7 +96,7 @@ export default{
             this.score ++;  //adds 1 to the score 
             localStorage.setItem('score', this.score)
         }
-        if(this.Question_Number<this.totalQuestions){
+        if(this.NumberOfQuestions< 9){
           this.Question_Number ++;
           localStorage.setItem('Question_Number', this.Question_Number)
           this.currentQuestion=this.questions[localStorage.Question_Number];  
@@ -104,13 +105,26 @@ export default{
           this.currentanswer=''; 
           document.getElementById("NoAnswer").innerHTML = "" // Gets rid of the alert on the screen
         }
-        if(this.Question_Number == this.totalQuestions){
+        if(this.NumberOfQuestions == 9){
           this.$router.push('Quiz_results');
           localStorage.setItem('OnOff',0)
           localStorage.setItem('Score', this.score)
           localStorage.setItem('Question_Number', 0)
         }
       }      
+    },
+
+    Test:function() {
+    if(this.currentQuestion.Quiz == "4"){// checks if the question has the quiz id of 4
+        
+        this.NumberOfQuestions ++;
+    }
+    else{
+        this.Question_Number ++;
+        localStorage.setItem('Question_Number', this.Question_Number)
+        this.currentQuestion=this.questions[localStorage.Question_Number];
+        this.Test()
+    }
     },
    
   //This is all for the timer

@@ -61,6 +61,7 @@ export default{
       startTime: localStorage.getItem('Timer'),
       image_url: '',
       TeamAnswerId: '',
+      NumberOfQuestions: null,
       
     }
   },
@@ -71,16 +72,17 @@ export default{
             localStorage.setItem('score', this.score)//Sets the local variable to the new score variable that has 1 added to it
 
         }
-        if(this.Question_Number<this.totalQuestions){ // checks that number is less than the total amount of questions
+        if(this.NumberOfQuestions< 9){ // checks that number is less than the total amount of questions
           this.Question_Number ++;// adds 1 to the variable number
           localStorage.setItem('Question_Number', this.Question_Number)
           this.currentQuestion=this.questions[localStorage.Question_Number];// makes the variable currentQuestion equal the variable questions + number    
           localStorage.setItem('Countdown',15); //sets the variable Countdown as 15
           this.countDown += 16 - this.countDown; // the button makes the timer reset back to 15 seconds
           this.currentanswer=''; //Sets the variable current answer as nothing
+          localStorage.setItem('currentanswer', 'blank')
           document.getElementById("NoAnswer").innerHTML = "" // Gets rid of the alert on the screen
         }
-        if(this.Question_Number == this.totalQuestions){ // checks that number equals the total amount of questions
+        if(this.NumberOfQuestions == 9){ // checks that number equals the total amount of questions
           this.$router.push('Quiz_results'); // if it does, pushes the user to the results page
           localStorage.setItem('OnOff',0) // turns off the timer by changing OnOff to 0 
           localStorage.setItem('Score', this.score) // sets the local variable score as the score the user had after the quiz.
@@ -105,7 +107,8 @@ export default{
             this.score ++;  //adds 1 to the score 
             localStorage.setItem('score', this.score)
         }
-        if(this.Question_Number<this.totalQuestions){
+        this.pushData()
+        if(this.NumberOfQuestions< 9){
           this.Question_Number ++;
           localStorage.setItem('Question_Number', this.Question_Number)
           this.currentQuestion=this.questions[localStorage.Question_Number];  
@@ -114,7 +117,7 @@ export default{
           this.currentanswer=''; 
           document.getElementById("NoAnswer").innerHTML = "" // Gets rid of the alert on the screen
         }
-        if(this.Question_Number == this.totalQuestions){
+        if(this.NumberOfQuestions == 9){
           this.$router.push('Quiz_results');
           localStorage.setItem('OnOff',0)
           localStorage.setItem('Score', this.score)
@@ -132,8 +135,16 @@ export default{
     },
 
     Test:function() {
-      console.log(this.Question_Number)
-      console.log(localStorage.getItem('Question_Number'))
+    if(this.currentQuestion.Quiz == "2"){// checks if the question has the quiz id of 2
+        
+        this.NumberOfQuestions ++;
+    }
+    else{
+        this.Question_Number ++;
+        localStorage.setItem('Question_Number', this.Question_Number)
+        this.currentQuestion=this.questions[localStorage.Question_Number];
+        this.Test()
+    }
     },
     
     selected_answer1:function() {
@@ -194,7 +205,7 @@ export default{
         }
         console.log(values.toString(16))
         axios
-          .post("https://elur4e042l.execute-api.eu-west-2.amazonaws.com/dev/",
+          .post("https://elur4e042l.execute-api.eu-west-2.amazonaws.com/dev/",//Link to database api post
           {
             AnswerID: values.toString(16),
             Team: localStorage.teamname,

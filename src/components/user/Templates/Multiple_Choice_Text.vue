@@ -54,13 +54,14 @@ export default{
       TeamName: localStorage.teamname,
       currentQuestion:'',
       Question_Number: localStorage.Question_Number,
-      score: localStorage.score,
+      score: localStorage.Score,
       totalQuestions:null,
       totalAnswers:null,
       currentanswer: this.currentanswer,
       answers:{},
       countDown: localStorage.getItem('Countdown'), //Gets the varible from the page before and sets it as countDown
       startTime: localStorage.getItem('Timer'),
+      NumberOfQuestions: null,
     }
   },
   methods: {
@@ -71,7 +72,7 @@ export default{
             
         }
         this.pushData()
-        if(this.Question_Number<this.totalQuestions){ // checks that number is less than the total amount of questions
+        if(this.NumberOfQuestions< 9){ // checks that number is less than the total amount of questions
           this.Question_Number ++;// adds 1 to the variable number
           
           localStorage.setItem('Question_Number', this.Question_Number)
@@ -82,14 +83,13 @@ export default{
           localStorage.setItem('currentanswer', 'blank')
           document.getElementById("NoAnswer").innerHTML = "" // Gets rid of the alert on the screen
         }
-        if(this.Question_Number == this.totalQuestions){ // checks that number equals the total amount of questions
+        if(this.NumberOfQuestions == 9){ // checks that number equals the total amount of questions
           this.$router.push('Quiz_results'); // if it does, pushes the user to the results page
           localStorage.setItem('OnOff',0) // turns off the timer by changing OnOff to 0 
           localStorage.setItem('Score', this.score) // sets the local variable score as the score the user had after the quiz.
           localStorage.setItem('Question_Number', 0) // Sets the Question_number variable to zero
-        }
-            
-      
+        } 
+      this.Test()
       document.getElementById("answer1").style.background='white'; 
       document.getElementById("answer2").style.background='white';
       document.getElementById("answer3").style.background='white';
@@ -107,7 +107,7 @@ export default{
             
         }
         this.pushData()
-        if(this.Question_Number<this.totalQuestions){
+        if(this.NumberOfQuestions< 9){
           this.Question_Number ++;
           localStorage.setItem('Question_Number', this.Question_Number)
           this.currentQuestion=this.questions[localStorage.Question_Number];  
@@ -118,14 +118,14 @@ export default{
           localStorage.setItem('currentanswer', 'blank')
           document.getElementById("NoAnswer").innerHTML = "" // Gets rid of the alert on the screen
         }
-        if(this.Question_Number == this.totalQuestions){
+        if(this.NumberOfQuestions == 9){
           this.$router.push('Quiz_results');
           localStorage.setItem('OnOff',0)
           localStorage.setItem('Score', this.score)
            localStorage.setItem('Question_Number', 0)
         }
       }
-      
+      this.Test()
       document.getElementById("answer1").style.background='white';
       document.getElementById("answer2").style.background='white';
       document.getElementById("answer3").style.background='white';
@@ -133,7 +133,16 @@ export default{
     },
 
     Test:function() {
-      
+    if(this.currentQuestion.Quiz == "1"){// checks if the question has the quiz id of 1
+        
+        this.NumberOfQuestions ++;
+    }
+    else{
+        this.Question_Number ++;
+        localStorage.setItem('Question_Number', this.Question_Number)
+        this.currentQuestion=this.questions[localStorage.Question_Number];
+        this.Test()
+    }
     },
     
     selected_answer1:function() {
@@ -142,11 +151,7 @@ export default{
       document.getElementById("answer3").style.background='white';
       document.getElementById("answer4").style.background='white';
       this.currentanswer = this.currentQuestion.Option1;
-      localStorage.setItem('currentanswer', this.currentQuestion.Option1)
-      console.log(this.currentanswer)
-      console.log(this.currentQuestion.Option1)
-      console.log(this.currentQuestion.Answer)
-      
+      localStorage.setItem('currentanswer', this.currentQuestion.Option1)  
     },
     selected_answer3:function() {
       document.getElementById("answer3").style.background='lightblue';
@@ -155,7 +160,6 @@ export default{
       document.getElementById("answer4").style.background='white';
       this.currentanswer = this.currentQuestion.Option3;
       localStorage.setItem('currentanswer',this.currentQuestion.Option3)
-      console.log(this.currentanswer)
     },
     selected_answer2:function() {
       document.getElementById("answer2").style.background='lightblue';
@@ -164,7 +168,6 @@ export default{
       document.getElementById("answer4").style.background='white'; 
       this.currentanswer = this.currentQuestion.Option2;
       localStorage.setItem('currentanswer',this.currentQuestion.Option2)
-      console.log(this.currentanswer)
     },
     selected_answer4:function() {
       document.getElementById("answer4").style.background='lightblue'; //sets the option has blue 
@@ -173,7 +176,6 @@ export default{
       document.getElementById("answer2").style.background='white'; //sets the option has white
       this.currentanswer = this.currentQuestion.Option4; // Sets the variable currentanswer as the selected option 
       localStorage.setItem('currentanswer',this.currentQuestion.Option4)
-      console.log(this.currentanswer) //displays the chosen answer in the console.
     },
    
   //This is all for the timer
@@ -200,7 +202,6 @@ export default{
         for (var i = 0; i < values.length; i++) {
             console.log(values[i].toString(16));    
         }
-        console.log(values.toString(16))
         axios
           .post("https://elur4e042l.execute-api.eu-west-2.amazonaws.com/dev/",
           {
@@ -209,9 +210,7 @@ export default{
             Quiz: this.QuizId,
             QuestionNumber: this.Question_Number,
             TeamAnswer: localStorage.currentanswer,
-            
           })
-          
       }  
     },
     mounted(){

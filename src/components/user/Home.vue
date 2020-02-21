@@ -81,7 +81,7 @@ export default {
               this.$router.push('Quiz_4')
             }
           } else {
-            document.getElementById("login").style.outline = "thick solid Red";
+            document.getElementById("login").style.outline = "thick solid Red"; // if none before are triggered then this will trigger and change the outline to red
           }
           console.log(this.valid)
         });
