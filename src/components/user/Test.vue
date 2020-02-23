@@ -13,25 +13,13 @@
         <div>
             -------------
         </div>
-
+        
         <div>
-            {{this.username0}}
-            
-        </div>
-
-        <div>
-            {{this.username1}}
-        </div>
-        <div>
-            {{this.username2}}
-        </div>
-
-        <div>
-            {{this.username3}}
-        </div>
-
-        <div>
-            {{this.username4}}
+            <div v-for="team in teams" v-bind:key="team.Username">
+                <h1> {{  team.Username }} </h1>
+                <p> {{ team.Results }} </p>
+                <p>Total Score: {{ getTotalScore(team.Username) }}</p>
+            </div>
         </div>
 
         <button type= "submit" @click="GetData()"> Get Data </button>
@@ -47,45 +35,35 @@ import axios from 'axios'
 export default{
   data(){
     return{
-        questions: '',
-        Results: '',
-        UserName: '',
-        Quiz1: '',
-        TotalData: '',
-        i: -1,
-        username0: localStorage.getItem('UserName0'),
-        username1: localStorage.getItem('UserName1'),
-        username2: localStorage.getItem('UserName2'),
-        username3: localStorage.getItem('UserName3'),
-        username4: localStorage.getItem('UserName4'),
-
-      
+        teams: []
     }
   },
   methods:{
     GetData: function(){
-        while(this.i <= this.TotalData){
-            localStorage.setItem('UserName' + this.i, this.Results.Username);
-            this.i++;
-            this.Results = this.questions[this.i];
-        }
-    },
-    Reset: function(){
-            localStorage.setItem('UserName0', '');
-            localStorage.setItem('UserName1', '');
-            localStorage.setItem('UserName2', '');
-            localStorage.setItem('UserName3', '');
-
-        }
-    },
-    mounted(){
-      axios
+        axios
         .get("https://uatvc66pz2.execute-api.eu-west-2.amazonaws.com/dev")
         .then(response=>{
-          this.questions = response.data.body;//sets this.questions as the data from the link
-          
-          this.TotalData = this.questions.length
-      })
+          this.teams = response.data.body;//sets this.questions as the data from the link       
+      })},
+    Reset: function(){
+        this.teams = [];
+        },
+    getTotalScore: function(teamname) {
+        let totalScore = 0;
+        this.teams.forEach(team => {            
+            if(team.Username === teamname) {
+                if(typeof team.Results !== 'undefined') {
+                    for (let quiz in team.Results) {
+                        totalScore =  totalScore + team.Results[quiz].Score;
+                    }
+                }
+            }
+        });
+        return totalScore;
+        }   
+    },
+    mounted(){
+      this.GetData()
     }
 }     
 </script>

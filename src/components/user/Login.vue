@@ -47,7 +47,7 @@ export default {
       console.log(this.Username);
       axios
         .post(
-          "https://hghjfrvme8.execute-api.eu-west-2.amazonaws.com/dev/",
+          " https://hghjfrvme8.execute-api.eu-west-2.amazonaws.com/dev/auth",
           {
             Username: this.Username,
             Password: this.Password,
