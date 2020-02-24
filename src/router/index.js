@@ -17,8 +17,8 @@ import AddUser from '@/components/admin/AddUser'
 import Quizes from '@/components/admin/Quizes'
 import CreateAQuiz from '@/components/admin/CreateAQuiz'
 import Test from '@/components/user/Test'
-
-
+import Add_Data from '@/components/user/Add_Data'
+import Test_Questions from '@/components/user/Test_Questions'
 Vue.use(VueRouter)
 
 export default new VueRouter({
@@ -107,6 +107,16 @@ export default new VueRouter({
       path: '/Test',
       name: 'Test',
       component: Test
+    },
+    {
+      path: '/Add_Data',
+      name: 'Add_Data',
+      component: Add_Data
+    },
+    {
+      path: '/Test_Questions',
+      name: 'Test_Questions',
+      component: Test_Questions
     }
   ]
 })

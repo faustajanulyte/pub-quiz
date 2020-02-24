@@ -6,19 +6,17 @@
         </div>
 
         <div>
-            ------------
+            
         </div>
 
-
         <div>
-            -------------
+            ------------
         </div>
         
         <div>
-            <div v-for="team in teams" v-bind:key="team.Username">
-                <h1> {{  team.Username }} </h1>
-                <p> {{ team.Results.Quiz1 }} </p>
-                <p>Total Score: {{ getTotalScore(team.Username) }}</p>
+            <div v-for="team in teams" v-bind:key="team.Questions">
+                <h1> {{  team.Questions }} </h1>
+                <p> </p>
             </div>
         </div>
 
@@ -35,19 +33,25 @@ import axios from 'axios'
 export default{
   data(){
     return{
-        teams: []
+        teams: [],
+        
     }
   },
   methods:{
     GetData: function(){
         axios
-        .get("https://uatvc66pz2.execute-api.eu-west-2.amazonaws.com/dev")
+        .get("https://0m5zyuzwnf.execute-api.eu-west-2.amazonaws.com/dev")
         .then(response=>{
-          this.teams = response.data.body;//sets this.questions as the data from the link       
+          this.teams = response.data.body;//sets this.questions as the data from the link
       })},
     Reset: function(){
         this.teams = [];
-        },
+        }, 
+    
+    /*GetQuestins: function(QuizName){
+        this.teams.forEach(teams)
+    },*/
+    
     getTotalScore: function(teamname) {
         let totalScore = 0;
         this.teams.forEach(team => {            

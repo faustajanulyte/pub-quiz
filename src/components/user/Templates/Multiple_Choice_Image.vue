@@ -4,7 +4,7 @@
       
       <div class="title" ref="questions">
 
-        <div>{{currentQuestion.question}}</div> 
+        <div>{{currentQuestion.Question}}</div> 
 
         <img src="" class="Image_question" id="url" /> 
       
@@ -15,16 +15,16 @@
 
       <div class="buttons_border">
         <div class= "answer11" id="answer1" @click="selected_answer1">
-        {{currentQuestion.option1}}
+        {{currentQuestion.Option1}}
         </div>
         <div class= "answer21" id="answer2" @click="selected_answer2" >
-        {{currentQuestion.option2}}
+        {{currentQuestion.Option2}}
         </div>
         <div class= "answer31" id="answer3" @click="selected_answer3" >
-        {{currentQuestion.option3}}
+        {{currentQuestion.Option3}}
         </div>
         <div class= "answer41" id="answer4" @click="selected_answer4"  >
-        {{currentQuestion.option4}}
+        {{currentQuestion.Option4}}
         </div>
       </div> 
 
@@ -72,6 +72,7 @@ export default{
             localStorage.setItem('score', this.score)//Sets the local variable to the new score variable that has 1 added to it
 
         }
+        this.pushData()
         if(this.NumberOfQuestions< 9){ // checks that number is less than the total amount of questions
           this.Question_Number ++;// adds 1 to the variable number
           localStorage.setItem('Question_Number', this.Question_Number)
@@ -90,7 +91,7 @@ export default{
         }
          
       this.image_url = this.currentQuestion.url
-      this.pushData()
+      this.Test()
       document.getElementById('url').setAttribute('src',this.image_url)
       document.getElementById("answer1").style.background='white'; 
       document.getElementById("answer2").style.background='white';
@@ -126,7 +127,7 @@ export default{
       }      
       
       this.image_url = this.currentQuestion.url
-      this.pushData()
+      this.Test()
       document.getElementById('url').setAttribute('src',this.image_url)
       document.getElementById("answer1").style.background='white';
       document.getElementById("answer2").style.background='white';
@@ -219,7 +220,7 @@ export default{
     },
     mounted(){
       axios
-        .get("https://9fkrdvjgji.execute-api.eu-west-2.amazonaws.com/dev")
+        .get("https://gxxffbgloa.execute-api.eu-west-2.amazonaws.com/dev")
         .then(response=>{
           this.questions=response.data.body;//sets this.questions as the data from the link
           this.currentQuestion=this.questions[this.Question_Number]; //sets this.currentQuestion as this.qustions and whatever this.number equals

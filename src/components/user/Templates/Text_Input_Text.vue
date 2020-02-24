@@ -4,7 +4,7 @@
       
       <div class="title1" ref="questions">
 
-        <div>{{currentQuestion.question}}</div> 
+        <div>{{currentQuestion.Question}}</div> 
       
       
       <div class="timer_text" id="timer"> </div>
@@ -17,7 +17,7 @@
           type="text"
           id="currentAnswer"
           class="Input_Answer"
-          placeholder="Answer"
+          placeholder=" "
         />
         <br />
       </div> 
@@ -41,7 +41,7 @@ export default{
       Team1_Id: this.values,//For posting 
       QuizId: '4',
       AnswerId: this.Question_Number,
-      Answer: '',
+      Answer: ' ',
       TeamAnswer: '',//For posting ^^
       questions:[],
       currentQuestion:'',
@@ -49,7 +49,7 @@ export default{
       score: localStorage.Score,
       totalQuestions:null,
       totalAnswers:null,
-      currentanswer: '',
+      currentanswer: ' ',
       answers:{},
       countDown: localStorage.getItem('Countdown'), //Gets the varible from the page before and sets it as countDown
       startTime: localStorage.getItem('Timer'),
@@ -59,50 +59,48 @@ export default{
   methods: {
     timerDone:function() { //defines/starts the variable
       this.currentanswer == this.currentAnswer
-      if(this.currentanswer == this.currentQuestion.answer){ // checks that current question is the same as the user's answer
-            this.score ++;  //adds 1 to the score 
-            localStorage.setItem('score', this.score)//Sets the local variable to the new score variable that has 1 added to it
+      if(this.currentanswer == this.currentQuestion.Answer){ // checks that current question is the same as the user's answer
+        this.score ++;  //adds 1 to the score 
+        localStorage.setItem('score', this.score)//Sets the local variable to the new score variable that has 1 added to it
 
-        }
-        if(this.Question_Number<this.totalQuestions){ // checks that number is less than the total amount of questions
-          this.Question_Number ++;// adds 1 to the variable question number
-          localStorage.setItem('Question_Number', this.Question_Number)
-          this.currentQuestion=this.questions[localStorage.Question_Number];// makes the variable currentQuestion equal the variable questions + number    
-          localStorage.setItem('Countdown',15); //sets the variable Countdown as 15
-          this.countDown += 16 - this.countDown; // the button makes the timer reset back to 15 seconds
-          this.currentanswer=''; //Sets the variable current answer as nothing
-          document.getElementById("NoAnswer").innerHTML = "" // Gets rid of the alert on the screen
-        }
-        if(this.NumberOfQuestions == 9){ // checks that number equals the total amount of questions
-          this.$router.push('Quiz_results'); // if it does, pushes the user to the results page
-          localStorage.setItem('OnOff',0) // turns off the timer by changing OnOff to 0 
-          localStorage.setItem('Score', this.score) // sets the local variable score as the score the user had after the quiz.
-          localStorage.setItem('Question_Number', 0) // Sets the Question_number variable to zero
-        }
-            
-      document.getElementById("answer1").style.background='white'; 
-      document.getElementById("answer2").style.background='white';
-      document.getElementById("answer3").style.background='white';
-      document.getElementById("answer4").style.background='white'; // Sets the options back to white. ^
-
+      }
+      if(this.NumberOfQuestions < 9){ // checks that number is less than the total amount of questions
+        this.Question_Number ++;// adds 1 to the variable question number
+          
+        localStorage.setItem('Question_Number', this.Question_Number)
+        this.currentQuestion=this.questions[localStorage.Question_Number];// makes the variable currentQuestion equal the variable questions + number    
+        localStorage.setItem('Countdown',15); //sets the variable Countdown as 15
+        this.countDown += 16 - this.countDown; // the button makes the timer reset back to 15 seconds
+        this.currentanswer=' '; //Sets the variable current answer as nothing
+        document.getElementById("NoAnswer").innerHTML = "" // Gets rid of the alert on the screen
+      }
+      if(this.NumberOfQuestions == 9){ // checks that number equals the total amount of questions
+        this.$router.push('Quiz_results'); // if it does, pushes the user to the results page
+        localStorage.setItem('OnOff',0) // turns off the timer by changing OnOff to 0 
+        localStorage.setItem('Score', this.score) // sets the local variable score as the score the user had after the quiz.
+        localStorage.setItem('Question_Number', 0) // Sets the Question_number variable to zero
+      }
+      console.log("Worked")
+      this.Test()
     },
     handleButton:function () {
       
-      if(this.currentanswer == null){  
-        document.getElementById("NoAnswer").innerHTML = "You didn't pick an answer!"
+      if(this.currentanswer == ' '){  
+        document.getElementById("NoAnswer").innerHTML = "You didn't put an answer!"
       }
       else{
-        if(this.currentanswer == this.currentQuestion.answer){
+        if(this.currentanswer == this.currentQuestion.Answer){
             this.score ++;  //adds 1 to the score 
             localStorage.setItem('score', this.score)
         }
-        if(this.NumberOfQuestions< 9){
+        if(this.NumberOfQuestions < 9){
           this.Question_Number ++;
           localStorage.setItem('Question_Number', this.Question_Number)
           this.currentQuestion=this.questions[localStorage.Question_Number];  
+          
           localStorage.setItem('Countdown',15);
           this.countDown += 16 - this.countDown; // the button makes the timer reset back to 15 seconds
-          this.currentanswer=''; 
+          this.currentanswer=' '; 
           document.getElementById("NoAnswer").innerHTML = "" // Gets rid of the alert on the screen
         }
         if(this.NumberOfQuestions == 9){
@@ -111,6 +109,8 @@ export default{
           localStorage.setItem('Score', this.score)
           localStorage.setItem('Question_Number', 0)
         }
+        console.log("Worked")
+        this.Test()
       }      
     },
 
@@ -167,7 +167,7 @@ export default{
     },
     mounted(){
       axios
-        .get("https://kgivvy8z64.execute-api.eu-west-2.amazonaws.com/dev") //connected the application to the database.
+        .get("https://gxxffbgloa.execute-api.eu-west-2.amazonaws.com/dev/") //connected the application to the database.
         .then(response=>{
           this.questions=response.data.body;//sets this.questions as the data from the link
           this.currentQuestion=this.questions[this.Question_Number]; //sets this.currentQuestion as this.qustions and whatever this.number equals

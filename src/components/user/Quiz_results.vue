@@ -25,6 +25,7 @@ export default {
     back_to_home:function(){
         this.$router.push('Home');
         localStorage.setItem('Score', 0)
+        localStorage.setItem('Question_Number', 0)
     }
   },
   mounted() {

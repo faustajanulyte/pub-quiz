@@ -6,7 +6,7 @@
 
         <div>{{currentQuestion.question}}</div> 
 
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Flag_of_Venezuela_%28state%29.svg/1200px-Flag_of_Venezuela_%28state%29.svg.png" class="Image_question"> 
+        <img src="" class="Image_question"> 
       
       <div class="timer_text" id="timer"> </div>
       
@@ -167,7 +167,7 @@ export default{
     },
     mounted(){
       axios
-        .get("https://kgivvy8z64.execute-api.eu-west-2.amazonaws.com/dev")
+        .get("https://gxxffbgloa.execute-api.eu-west-2.amazonaws.com/dev/")
         .then(response=>{
           this.questions=response.data.body;//sets this.questions as the data from the link
           this.currentQuestion=this.questions[this.Question_Number]; //sets this.currentQuestion as this.qustions and whatever this.number equals

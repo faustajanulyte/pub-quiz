@@ -44,6 +44,7 @@ export default {
   methods:{
     on_off:function(){
       localStorage.setItem('OnOff',1)
+      localStorage.setItem('Reload', 0)
     },
 
   },

@@ -57,11 +57,11 @@ export default{
       score: localStorage.Score,
       totalQuestions:null,
       totalAnswers:null,
-      currentanswer: this.currentanswer,
+      currentanswer: ' ',
       answers:{},
       countDown: localStorage.getItem('Countdown'), //Gets the varible from the page before and sets it as countDown
       startTime: localStorage.getItem('Timer'),
-      NumberOfQuestions: null,
+      NumberOfQuestions: 0,
     }
   },
   methods: {
@@ -71,15 +71,15 @@ export default{
             localStorage.setItem('score', this.score)//Sets the local variable to the new score variable that has 1 added to it
             
         }
-        this.pushData()
-        if(this.NumberOfQuestions< 9){ // checks that number is less than the total amount of questions
+        //this.pushData()
+        if(this.NumberOfQuestions < 9){ // checks that number is less than the total amount of questions
           this.Question_Number ++;// adds 1 to the variable number
           
           localStorage.setItem('Question_Number', this.Question_Number)
           this.currentQuestion=this.questions[localStorage.Question_Number];// makes the variable currentQuestion equal the variable questions + number    
           localStorage.setItem('Countdown',15); //sets the variable Countdown as 15
           this.countDown += 16 - this.countDown; // the button makes the timer reset back to 15 seconds
-          this.currentanswer=''; //Sets the variable current answer as nothing
+          this.currentanswer=' '; //Sets the variable current answer as nothing
           localStorage.setItem('currentanswer', 'blank')
           document.getElementById("NoAnswer").innerHTML = "" // Gets rid of the alert on the screen
         }
@@ -97,7 +97,7 @@ export default{
 
     },
     handleButton:function () {
-      if(this.currentanswer == ''){  // checking the user has selected an answer
+      if(this.currentanswer == ' '){  // checking the user has selected an answer
         document.getElementById("NoAnswer").innerHTML = "You didn't pick an answer"
       }
       else{
@@ -106,7 +106,7 @@ export default{
             localStorage.setItem('score', this.score)
             
         }
-        this.pushData()
+        //this.pushData()
         if(this.NumberOfQuestions< 9){
           this.Question_Number ++;
           localStorage.setItem('Question_Number', this.Question_Number)
@@ -114,7 +114,7 @@ export default{
           
           localStorage.setItem('Countdown',15);
           this.countDown += 16 - this.countDown; // the button makes the timer reset back to 15 seconds
-          this.currentanswer=''; 
+          this.currentanswer=' '; 
           localStorage.setItem('currentanswer', 'blank')
           document.getElementById("NoAnswer").innerHTML = "" // Gets rid of the alert on the screen
         }
@@ -122,7 +122,7 @@ export default{
           this.$router.push('Quiz_results');
           localStorage.setItem('OnOff',0)
           localStorage.setItem('Score', this.score)
-           localStorage.setItem('Question_Number', 0)
+          localStorage.setItem('Question_Number', 0)
         }
       }
       this.Test()
@@ -132,19 +132,21 @@ export default{
       document.getElementById("answer4").style.background='white';
     },
 
-    Test:function() {
+    Test:function() { // this function tests if the question is meant for this table 
     if(this.currentQuestion.Quiz == "1"){// checks if the question has the quiz id of 1
         
         this.NumberOfQuestions ++;
+        console.log("It is 1")
     }
     else{
         this.Question_Number ++;
         localStorage.setItem('Question_Number', this.Question_Number)
         this.currentQuestion=this.questions[localStorage.Question_Number];
         this.Test()
+        console.log("It went through")
     }
-    },
-    
+
+    },    
     selected_answer1:function() {
       document.getElementById("answer1").style.background='lightblue';
       document.getElementById("answer2").style.background='white';
@@ -208,7 +210,7 @@ export default{
             AnswerID: values.toString(16),
             Team: localStorage.teamname,
             Quiz: this.QuizId,
-            QuestionNumber: this.Question_Number,
+            QuestionNumber: this.NumberOfQuestions,
             TeamAnswer: localStorage.currentanswer,
           })
       }  
@@ -222,6 +224,7 @@ export default{
           this.totalQuestions=this.questions.length;
       })
       this.countDownTimer() //initializes the countdown function 
+
     },
 };
 </script>
