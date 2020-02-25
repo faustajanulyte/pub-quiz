@@ -13,12 +13,38 @@
             ------------
         </div>
         
-        <div>
-            <div v-for="team in teams" v-bind:key="team.Questions">
-                <h1> {{  team.Questions }} </h1>
-                <p> </p>
+        <div v-if="!hidden">
+            <div>
+                <h1> {{ currentQuestions[currentQuestion].Question }} </h1>
+                <!-- <p v-for="option in currentQuestions[currentQuestion].Options" v-bind:key="option"> {{ option }}</p> -->
+                <p> {{ currentQuestions[currentQuestion]["Option 1"] }} </p>
+                <p> {{ currentQuestions[currentQuestion]["Option 2"] }} </p>
+                <p> {{ currentQuestions[currentQuestion]["Option 3"] }} </p>
+                <p> {{ currentQuestions[currentQuestion]["Option 4"] }} </p>
             </div>
+            <button type="submit" @click="nextQuestion()">Next Question</button>
         </div>
+
+        <form class="form-login">
+          <h2 class="form-login-heading">Please sign in</h2>
+          <input
+            v-model="quizNumber"
+            type="text"
+            id="quizNumber"
+            placeholder="Quiz Number"
+            required
+          />
+          <br>
+          <input
+            v-model="quizPin"
+            type="text"
+            id="pin"
+            placeholder="Quiz Pin"
+            required
+          />
+          <br />
+          <button type="submit" @click="getQuizQuestions()">Get Quiz</button>
+        </form>
 
         <button type= "submit" @click="GetData()"> Get Data </button>
         <button type= "submit" @click="Reset()"> Reset </button>
@@ -33,8 +59,13 @@ import axios from 'axios'
 export default{
   data(){
     return{
-        teams: [],
-        
+        quizs: [],
+        hidden: true,
+        quizNumber: null,
+        quizPin: null,
+        currentQuestions: [],
+        currentQuestion: 0,
+        questions: {}
     }
   },
   methods:{
@@ -42,29 +73,26 @@ export default{
         axios
         .get("https://0m5zyuzwnf.execute-api.eu-west-2.amazonaws.com/dev")
         .then(response=>{
-          this.teams = response.data.body;//sets this.questions as the data from the link
+          this.quizs = response.data.body;//sets this.questions as the data from the link
       })},
     Reset: function(){
-        this.teams = [];
-        }, 
-    
-    /*GetQuestins: function(QuizName){
-        this.teams.forEach(teams)
-    },*/
-    
-    getTotalScore: function(teamname) {
-        let totalScore = 0;
-        this.teams.forEach(team => {            
-            if(team.Username === teamname) {
-                if(typeof team.Results !== 'undefined') {
-                    for (let quiz in team.Results) {
-                        totalScore =  totalScore + team.Results[quiz].Score;
-                    }
+        this.quizs = [];
+    }, 
+    getQuizQuestions: function() {
+        this.quizs.forEach(quiz => {
+            if(quiz.QuizPIN == this.quizPin && quiz.Quiz == this.quizNumber) {
+                let currentQuiz = quiz;
+                for (let question in currentQuiz.Questions) {
+                    this.currentQuestions.push(currentQuiz.Questions[question]);
                 }
+                console.log( this.currentQuestions[this.currentQuestion]);
+                this.hidden = false;
             }
         });
-        return totalScore;
-        }   
+    },
+    nextQuestion: function() {
+        this.currentQuestion++;
+        }
     },
     mounted(){
       this.GetData()

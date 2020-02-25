@@ -45,29 +45,26 @@ export default {
   methods: {
     authUsers: function() {
       console.log(this.Username);
-      axios
-        .post(
-          " https://hghjfrvme8.execute-api.eu-west-2.amazonaws.com/dev/auth",
-          {
+      console.log(this.Password);
+      console.log(this.Admin);
+      axios.post("https://hghjfrvme8.execute-api.eu-west-2.amazonaws.com/dev/auth", {
             Username: this.Username,
             Password: this.Password,
             Admin: this.Admin
-
-          }
-        )
+          })
         .then(response => {
           this.Admin = response.data.Admin,
           this.valid = response.data.valid
-          if(this.Admin == "true") {
+          
+          if(response.data.Admin == "true") {
             this.$router.push('Services');
-          } else if(this.valid) {
+          } else if(response.data.valid) {
             this.$router.push('Home');
           } else {
             alert("Failed to sign in!");
-          }
-          console.log(this.valid)
-          localStorage.setItem('teamname',this.Username);
-        });
+        }
+        localStorage.setItem('teamname',this.Username);
+        });        
     }
   }
 };
