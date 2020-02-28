@@ -66,7 +66,7 @@ export default {
 .services {
   width: 100%;
   height: 1500px;
-  background-image: url('~@/assets/images/questionmark.jpeg');
+  background-image: url('~@/assets/images/questionmark.svg');
   background-size: 100%;
 }
 .router-link {

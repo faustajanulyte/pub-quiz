@@ -85,7 +85,7 @@ export default {
 .login {
   width: 100%;
   height: 1000px;
-  background-image: url('~@/assets/images/questionmark.jpeg');
+  background-image: url('~@/assets/images/questionmark.svg');
   background-size: 100%;
   margin: 0px;
 }
