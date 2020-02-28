@@ -119,13 +119,13 @@ export default {
 </script>
 
 <style>
-.quizzes {
+body {
   width: 100%;
-  height: 1000px;
+  height: 100%;
   background-image: url('~@/assets/images/questionmark.svg');
-  background-size: 100%;
+  background-size: 50%;
   margin: 0px;
-  }
+}
 .outerBox {
   position: absolute;
   background-color: rgba(100, 97, 97, 0.9);
