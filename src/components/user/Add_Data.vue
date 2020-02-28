@@ -2,17 +2,34 @@
   <div class="">
     <div class= "">
         
-       <button @click="this.GetData"> Post </button>
-
-       <div v-for="team in teams" v-bind:key="team.Question">
-                <h1> {{  team.Question }} </h1>
-                <p>{{team.QuestionNumber}}  </p>
-
+      <button @click="this.GetData"> Post </button>
+        
+        <div>
+          -----------------------------------------
         </div>
-    </div>
+
+        <div>
+          <input
+            v-model="Input"
+            type="text"
+            id=""
+            class="form-control"
+            placeholder=""
+            required
+          />
+        </div>
+
+        <button type="submit" @click="Check_Answer()"> Submit </button>
+        <button type="submit" @click="Reset()"> Reset </button>
+
+        <div id="result"> </div>
+
+      </div>
  </div>
   
 </template>
+
+
 
 <script >
 import axios from 'axios'
@@ -22,51 +39,59 @@ export default{
     return{
         teams: [],
         questions: '',
-        Quiz: '4',
-        QuestionNumber: '49',
-        Question: 'Test49', 
-        Answer: 'Test49',
-        Option1: ' ',
-        Option2: ' ',
-        Option3: ' ',
-        Option4: ' ',
+        Quiz: '',
+        QuestionNumber: '',
+        Question: '', 
+        Answer: '',
+        Option1: '',
+        Option2: '',
+        Option3: '',
+        Option4: '',
+        Test_Answer: 'Check'
     }
   },
     methods:{
-        GetData: function(){
-            var values = crypto.getRandomValues(new Uint32Array(1));
+      Check_Answer(){
+        if(this.Input.toUpperCase() == this.Test_Answer.toUpperCase()){ // Non case sensitive user input WORKING
+          document.getElementById("result").innerHTML = "Correct" ;
+        }
+        else{
+          document.getElementById("result").innerHTML = "Incorrect" ; // ^^
+        }
+      },
 
-            for (var i = 0; i < values.length; i++) {
-                console.log(values[i].toString(16));    
-            }
-            console.log(values.toString(16))
+      GetData: function(){
+          var values = crypto.getRandomValues(new Uint32Array(1));
 
-            axios
-            .post("https://gxxffbgloa.execute-api.eu-west-2.amazonaws.com/dev/",//Link to database api post
-            {
-                QuestionID: values.toString(16),
-                Question: this.Question,
-                Quiz: this.Quiz,
-                QuestionNumber: this.QuestionNumber,
-                Answer: this.Answer,
-                Option1: this.Option1,
-                Option2: this.Option2,
-                Option3: this.Option3,
-                Option4: this.Option4,
-            })
-    }
-    },
+          for (var i = 0; i < values.length; i++) {
+              console.log(values[i].toString(16));    
+          }
+          console.log(values.toString(16))
+
+          axios
+          .post("https://gxxffbgloa.execute-api.eu-west-2.amazonaws.com/dev/",//Link to database api post
+          {
+            QuestionID: values.toString(16),
+            Question: this.Question,
+            Quiz: this.Quiz,
+            QuestionNumber: this.QuestionNumber,
+            Answer: this.Answer,
+            Option1: this.Option1,
+            Option2: this.Option2,
+            Option3: this.Option3,
+            Option4: this.Option4,
+          })
+        }
+      },
     
-    mounted(){
-      axios
-        .get("https://gxxffbgloa.execute-api.eu-west-2.amazonaws.com/dev")
-        .then(response=>{
-          this.teams =response.data.body;//sets this.questions as the data from the link
-      })
-          
-    }
-    
-}     
+      mounted(){
+        axios
+          .get("https://gxxffbgloa.execute-api.eu-west-2.amazonaws.com/dev")
+          .then(response=>{
+            this.teams =response.data.body;//sets this.questions as the data from the link
+        })   
+      }
+  }     
 </script>
 
 <style>

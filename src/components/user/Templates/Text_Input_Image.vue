@@ -1,12 +1,35 @@
 <template >
   <div class="quiz">
-    <div class= "Quiz_box">
+    <div class="wrapper" id="Info_Box" style="display: block;">
+      <div>
+        <img src="@/assets/images/Scroll.png" alt="paper" class="Scroll" > 
+        <div class="paragraph">
+          {{Info}}
+        </div>  
+
+      </div>
+
+      <div class= "buttons_box"> 
+        <div class= "TeamName" id="result">
+          {{TeamName}}
+        </div>
+
+        <div>
+
+        <button type="submit" class="Start_button" @click= Show_Hide_button>Start</button>
+        
+        </div>
+      </div>
+    </div>
+
+
+    <div class= "Quiz_box" id="Question_Box" style="display: none;">
       
       <div class="title2" ref="questions">
 
-        <div>{{currentQuestion.question}}</div> 
+        <div class="title" ref="questions"> {{ currentQuestions[NumberOfQuestions].Question }} </div>
 
-        <img src="" class="Image_question"> 
+        <img src= "" class="Image_question" id="URL" />  
       
       <div class="timer_text" id="timer"> </div>
       
@@ -18,7 +41,7 @@
           type="text"
           id="currentAnswer"
           class="Input_Answer1"
-          placeholder="Answer"
+          placeholder=""
         />
         <br />
       </div> 
@@ -32,101 +55,96 @@
   
 </template>
 
-<script>
+<script >
 import axios from 'axios'
+
 export default{
   data(){
     return{
-      Team1_Id: this.values,//For posting 
-      QuizId: '3',
-      AnswerId: this.Question_Number,
-      Answer: '',
-      TeamAnswer: '',//For posting ^^
-      questions:[],
-      currentQuestion:'',
-      Question_Number: localStorage.Question_Number,
-      score: localStorage.Score,
-      totalQuestions:null,
-      totalAnswers:null,
-      currentanswer: '',
-      answers:{},
-      countDown: localStorage.getItem('Countdown'), //Gets the varible from the page before and sets it as countDown
-      startTime: localStorage.getItem('Timer'),
-      NumberOfQuestions: null,
+        quizs: [],
+        hidden: true,
+        quizNumber: localStorage.quizNumber,
+        quizPIN: localStorage.quizPin,
+        currentQuestions: [],
+        questions: {},
+        currentanswer: ' ',
+        URL: [] ,
+
+        countDown: localStorage.getItem('Countdown'), //Gets the varible from the page before and sets it as countDown
+        score: localStorage.Score,
+        Team1_Id: this.values,//For posting 
+        QuizId: localStorage.getItem('QuizID'),
+        AnswerId: this.Question_Number,
+        
+        TeamAnswer: '',//For posting ^^
+        TeamName: localStorage.teamname,// gets the team name 
+        NumberOfQuestions: localStorage.getItem('NumberOfQuestions'),        
+        Image_Time: localStorage.Image_Time,
+        Info: localStorage.Info,
     }
   },
-  methods: {
-    timerDone:function() { //defines/starts the variable
-      this.currentanswer == this.currentAnswer
-      if(this.currentanswer == this.currentQuestion.answer){ // checks that current question is the same as the user's answer
-            this.score ++;  //adds 1 to the score 
-            localStorage.setItem('score', this.score)//Sets the local variable to the new score variable that has 1 added to it
-
-        }
-        if(this.Question_Number<this.totalQuestions){ // checks that number is less than the total amount of questions
-          this.Question_Number ++;// adds 1 to the variable number
-          localStorage.setItem('Question_Number', this.Question_Number)
-          this.currentQuestion=this.questions[localStorage.Question_Number];// makes the variable currentQuestion equal the variable questions + number    
-          localStorage.setItem('Countdown',15); //sets the variable Countdown as 15
-          this.countDown += 16 - this.countDown; // the button makes the timer reset back to 15 seconds
-          this.currentanswer=''; //Sets the variable current answer as nothing
-          document.getElementById("NoAnswer").innerHTML = "" // Gets rid of the alert on the screen
-        }
-        if(this.NumberOfQuestions == 9){ // checks that number equals the total amount of questions
-          this.$router.push('Quiz_results'); // if it does, pushes the user to the results page
-          localStorage.setItem('OnOff',0) // turns off the timer by changing OnOff to 0 
-          localStorage.setItem('Score', this.score) // sets the local variable score as the score the user had after the quiz.
-          localStorage.setItem('Question_Number', 0) // Sets the Question_number variable to zero
-        }
-            
-      document.getElementById("answer1").style.background='white'; 
-      document.getElementById("answer2").style.background='white';
-      document.getElementById("answer3").style.background='white';
-      document.getElementById("answer4").style.background='white'; // Sets the options back to white. ^
-
-    },
+  methods:{
     handleButton:function () {
-      
-      if(this.currentanswer == null){  
-        document.getElementById("NoAnswer").innerHTML = "You didn't pick an answer!"
+      localStorage.setItem('currentanswer',this.currentanswer)
+
+      if(this.currentanswer == ' '){  // checking the user has selected an answer
+        document.getElementById("NoAnswer").innerHTML = "You didn't pick an answer"
       }
       else{
-        if(this.currentanswer == this.currentQuestion.answer){
+        if(this.currentQuestions[this.NumberOfQuestions]["Answer"] == this.currentanswer){
             this.score ++;  //adds 1 to the score 
             localStorage.setItem('score', this.score)
+            
         }
-        if(this.NumberOfQuestions< 9){
-          this.Question_Number ++;
-          localStorage.setItem('Question_Number', this.Question_Number)
-          this.currentQuestion=this.questions[localStorage.Question_Number];  
+        //this.pushData()
+        if(this.NumberOfQuestions< 10){
+          this.NumberOfQuestions ++;
+          localStorage.setItem('Question_Number', this.NumberOfQuestions)
+          localStorage.setItem('NumberOfQuestions', this.NumberOfQuestions)
+          this.Image_Test()
+          
           localStorage.setItem('Countdown',15);
           this.countDown += 16 - this.countDown; // the button makes the timer reset back to 15 seconds
-          this.currentanswer=''; 
+          this.currentanswer=' '; 
+          localStorage.setItem('currentanswer', 'blank')
           document.getElementById("NoAnswer").innerHTML = "" // Gets rid of the alert on the screen
         }
-        if(this.NumberOfQuestions == 9){
+        if(this.NumberOfQuestions == 10){
           this.$router.push('Quiz_results');
           localStorage.setItem('OnOff',0)
           localStorage.setItem('Score', this.score)
           localStorage.setItem('Question_Number', 0)
         }
-      }      
-    },   
-    
-    Test:function() {
-    if(this.currentQuestion.Quiz == "3"){// checks if the question has the quiz id of 3
-        
-        this.NumberOfQuestions ++;
-    }
-    else{
-        this.Question_Number ++;
-        localStorage.setItem('Question_Number', this.Question_Number)
-        this.currentQuestion=this.questions[localStorage.Question_Number];
-        this.Test()
-    }
+      }
     },
 
-  //This is all for the timer
+    timerDone:function () {
+      if(this.currentQuestions[this.NumberOfQuestions]["Answer"] == this.currentanswer){
+        this.score ++;  //adds 1 to the score 
+        localStorage.setItem('score', this.score)     
+      }
+      //this.pushData()
+      if(this.NumberOfQuestions< 10){
+        this.NumberOfQuestions ++;
+        localStorage.setItem('Question_Number', this.NumberOfQuestions)
+        localStorage.setItem('NumberOfQuestions', this.NumberOfQuestions)
+        this.Image_Test()
+         
+        localStorage.setItem('Countdown',15);
+        this.countDown += 16 - this.countDown; // the button makes the timer reset back to 15 seconds
+        this.currentanswer=' '; 
+        localStorage.setItem('currentanswer', 'blank')
+        document.getElementById("NoAnswer").innerHTML = "" // Gets rid of the alert on the screen
+      }
+      if(this.NumberOfQuestions == 10){
+        this.$router.push('Quiz_results');
+        localStorage.setItem('OnOff',0)
+        localStorage.setItem('Score', this.score)
+        localStorage.setItem('Question_Number', 0)
+      }
+    },
+
+    //This is all for the timer
     countDownTimer() {
       if(localStorage.getItem('OnOff') == 1){
         if(localStorage.getItem('Countdown') > 0) {
@@ -137,46 +155,85 @@ export default{
             document.getElementById("timer").innerHTML = localStorage.Countdown ;
           }, 1000)
         }
-        else if(localStorage.getItem('Countdown') == 0){
+        else if(localStorage.getItem('Countdown') < 1){
           localStorage.setItem('Countdown',15)
           this.countDownTimer()
           this.timerDone() 
-          }
         }
-      },         
-    
-    pushData() {
-        var values = crypto.getRandomValues(new Uint32Array(1));
-
-        for (var i = 0; i < values.length; i++) {
-            console.log(values[i].toString(16));    
-        }
-        console.log(values.toString(16))
-        axios
-          .post("https://elur4e042l.execute-api.eu-west-2.amazonaws.com/dev/",
-          {
-            AnswerID: values.toString(16),
-            Team: localStorage.teamname,
-            Quiz: this.QuizId,
-            QuestionNumber: this.Question_Number,
-            TeamAnswer: localStorage.currentanswer,
-            
-          })
-          
       }
+    },
+
+    Show_Hide_button(){ // Function that activates from button to show questions
+        document.getElementById("Question_Box").style.display = 'block';
+        document.getElementById("Info_Box").style.display = 'none';
+        localStorage.setItem('OnOff',1)
+        localStorage.setItem('Countdown',16)
+        this.Hide_Show_Button()
+        this.countDownTimer()
+        this.Image_Test()
+      },
+
+      Show_Hide(){
+        if(localStorage.Show_Hide_var == 1){ // Function that starts from mounted so still works when page is refreshed
+          document.getElementById("Question_Box").style.display = 'block';
+          document.getElementById("Info_Box").style.display = 'none';
+          localStorage.setItem('OnOff',1)
+          localStorage.setItem('Countdown',16)
+        }
+      },
+
+      Hide_Show_Button(){// Function activates from button and allows it to work if page is refreshed
+        localStorage.setItem("Show_Hide_var", 1)
+      },
+
+
+    Image_Test(){
+      setTimeout(() => {
+        this.URL = this.currentQuestions[this.NumberOfQuestions]["URL"]
+        document.getElementById('URL').src = this.URL
+      })
+    },
+
+    pushData() {
+      var values = crypto.getRandomValues(new Uint32Array(1));
+      for (var i = 0; i < values.length; i++) {
+        console.log(values[i].toString(16));    
+      }
+      axios
+        .post("https://elur4e042l.execute-api.eu-west-2.amazonaws.com/dev/",
+        {
+          AnswerID: values.toString(16),
+          Team: localStorage.teamname,
+          Quiz: this.QuizId,
+          QuestionNumber: this.NumberOfQuestions,
+          TeamAnswer: localStorage.currentanswer,
+          correctAnswer: this.currentQuestions[this.NumberOfQuestions]["Answer"]
+        })
+      }  
     },
     mounted(){
       axios
-        .get("https://gxxffbgloa.execute-api.eu-west-2.amazonaws.com/dev/")
+        .get("https://ilxze566s8.execute-api.eu-west-2.amazonaws.com/dev")
         .then(response=>{
-          this.questions=response.data.body;//sets this.questions as the data from the link
-          this.currentQuestion=this.questions[this.Question_Number]; //sets this.currentQuestion as this.qustions and whatever this.number equals
-          this.totalQuestions=this.questions.length;
+          this.quizs = response.data.body;//sets this.questions as the data from the link
+          this.quizs.forEach(quiz => {
+            if(quiz.QuizPIN == this.quizPIN && quiz.QuizName == this.quizNumber) {
+              console.log("correct pin")
+                let currentQuiz = quiz;
+                for (let question in currentQuiz.Questions) {
+                    this.currentQuestions.push(currentQuiz.Questions[question]);
+                }
+                console.log( this.currentQuestions[this.NumberOfQuestions]);
+                this.hidden = false;
+            }
+        })
       })
       this.countDownTimer() //initializes the countdown function 
-      this.currentanswer = this.Answer
-    },
-};
+      this.Image_Test()
+      this.Show_Hide()
+      document.getElementById("result").innerHTML = localStorage.teamname ;
+    }
+}     
 </script>
 
 <style>

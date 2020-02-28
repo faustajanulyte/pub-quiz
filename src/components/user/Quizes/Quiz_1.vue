@@ -35,16 +35,29 @@ export default {
   data() {
     return {
       teamname: "",
-      true_false: 0,
       countDown: 16,
       Question_Number: 0,
       score: 0,
+      NumberOfQuestions: 0,
+      
     };
   },
   methods:{
     on_off:function(){
       localStorage.setItem('OnOff',1)
-      localStorage.setItem('Reload', 0)
+    },
+
+     getQuizQuestions: function() {
+        this.quizs.forEach(quiz => {
+            if(quiz.QuizPIN == this.quizPin && quiz.Quiz == this.quizNumber) {
+                let currentQuiz = quiz;
+                for (let question in currentQuiz.Questions) {
+                    this.currentQuestions.push(currentQuiz.Questions[question]);
+                }
+                console.log( this.currentQuestions[this.currentQuestion]);
+                this.hidden = false;
+            }
+        });
     },
 
   },
@@ -53,9 +66,10 @@ export default {
       document.getElementById("result").innerHTML = localStorage.teamname ;
       this.teamname = localStorage.teamname;
     }
-    localStorage.setItem('Countdown', this.countDown),
+    localStorage.setItem('Countdown', this.countDown)
     localStorage.setItem('Question_Number', this.Question_Number)
     localStorage.setItem('score', this.score)
+    localStorage.setItem('NumberOfQuestions', this.NumberOfQuestions)
   },
 };
 

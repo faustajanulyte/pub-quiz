@@ -18,7 +18,8 @@ export default {
   name: "app",
   data() {
     return {
-      Score: localStorage.getItem('Score')
+      Score: localStorage.getItem('Score'),
+      Show_Hide_var: localStorage.Show_Hide_var,
     };
   },
   methods:{
@@ -26,6 +27,9 @@ export default {
         this.$router.push('Home');
         localStorage.setItem('Score', 0)
         localStorage.setItem('Question_Number', 0)
+        localStorage.setItem("Show_Hide_var", 0)
+        localStorage.setItem('Countdown', 0)
+        localStorage.setItem('OnOff',0)
     }
   },
   mounted() {

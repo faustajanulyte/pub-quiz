@@ -1,32 +1,45 @@
 <template >
   <div class="quiz">
-    <div class= "Quiz_box">
-      
-      <div class="title" ref="questions">
+    <div class="wrapper" id="Info_Box" style="display: block;">
+      <div>
+        <img src="@/assets/images/Scroll.png" alt="paper" class="Scroll" > 
+        <div class="paragraph">
+          {{Info}}
+        </div>  
 
-        <div>{{currentQuestion.Question}}</div> 
+      </div>
 
-        <img src="" class="Image_question" id="url" /> 
-      
+      <div class= "buttons_box"> 
+        <div class= "TeamName" id="result">
+          {{TeamName}}
+        </div>
+
+        <div>
+
+        <button type="submit" class="Start_button" @click= Show_Hide_button>Start</button>
         
-      <div class="timer_text" id="timer"> </div>
-      
-      </div>    
+        </div>
+      </div>
+    </div>
 
+    <div class= "Quiz_box" id="Question_Box" style="display: none;">      
       <div class="buttons_border">
-        <div class= "answer11" id="answer1" @click="selected_answer1">
-        {{currentQuestion.Option1}}
+
+
+        <div v-if="!hidden">
+            <div>
+                <div class="timer_text" id="timer"> </div>
+                
+                <div class="title" ref="questions"> {{ currentQuestions[NumberOfQuestions]["Question"] }} </div>
+                <img src= "" class="Image_question" id="URL" /> 
+                <!-- <p v-for="option in currentQuestions[currentQuestion].Options" v-bind:key="option"> {{ option }}</p> -->
+                <div @click="answer1()" class= "answer11" id="answer1"> {{ currentQuestions[NumberOfQuestions]["Option 1"] }} </div>
+                <div @click="answer2()" class= "answer21" id="answer2"> {{ currentQuestions[NumberOfQuestions]["Option 2"] }} </div>
+                <div @click="answer3()" class= "answer31" id="answer3"> {{ currentQuestions[NumberOfQuestions]["Option 3"] }} </div>
+                <div @click="answer4()" class= "answer41" id="answer4"> {{ currentQuestions[NumberOfQuestions]["Option 4"] }} </div>
+            </div>
         </div>
-        <div class= "answer21" id="answer2" @click="selected_answer2" >
-        {{currentQuestion.Option2}}
-        </div>
-        <div class= "answer31" id="answer3" @click="selected_answer3" >
-        {{currentQuestion.Option3}}
-        </div>
-        <div class= "answer41" id="answer4" @click="selected_answer4"  >
-        {{currentQuestion.Option4}}
-        </div>
-      </div> 
+       
 
       <div id="NoAnswer" class="NoAnswer_Text"> </div>
       <div>
@@ -34,153 +47,106 @@
       </div>
     </div>
  </div>
+  </div>
   
 </template>
 
-<script>
-
+<script >
 import axios from 'axios'
+
 export default{
   data(){
     return{
-      Team1_Id: this.values,//For posting 
-      QuizId: '2',
-      AnswerId: this.Question_Number,
-      Answer: '',
-      TeamAnswer: '',//For posting ^^
-      TeamName: localStorage.teamname,
-      questions:[],
-      currentQuestion:'',
-      Question_Number: localStorage.Question_Number,
-      score: localStorage.score,
-      totalQuestions:null,
-      totalAnswers:null,
-      currentanswer:'',
-      answers:{},
-      countDown: localStorage.getItem('Countdown'), //Gets the varible from the page before and sets it as countDown
-      startTime: localStorage.getItem('Timer'),
-      image_url: '',
-      TeamAnswerId: '',
-      NumberOfQuestions: null,
-      
+        quizs: [],
+        hidden: true,
+        quizNumber: localStorage.quizNumber,
+        quizPIN: localStorage.quizPin,
+        currentQuestions: [],
+        questions: {},
+        currentanswer: ' ',
+        URL: [] ,
+
+        countDown: localStorage.getItem('Countdown'), //Gets the varible from the page before and sets it as countDown
+        score: localStorage.Score,
+        Team1_Id: this.values,//For posting 
+        QuizId: localStorage.getItem('QuizID'),
+        AnswerId: this.Question_Number,
+        
+        TeamAnswer: '',//For posting ^^
+        TeamName: localStorage.teamname,// gets the team name 
+        NumberOfQuestions: localStorage.getItem('NumberOfQuestions'),        
+        Image_Time: localStorage.Image_Time,
+        Info: localStorage.Info,
     }
   },
-  methods: {
-    timerDone:function() { //defines/starts the variable
-      if(this.currentQuestion.answer == this.currentanswer){ // checks that current question is the same as the user's answer
-            this.score ++;  //adds 1 to the score 
-            localStorage.setItem('score', this.score)//Sets the local variable to the new score variable that has 1 added to it
-
-        }
-        this.pushData()
-        if(this.NumberOfQuestions< 9){ // checks that number is less than the total amount of questions
-          this.Question_Number ++;// adds 1 to the variable number
-          localStorage.setItem('Question_Number', this.Question_Number)
-          this.currentQuestion=this.questions[localStorage.Question_Number];// makes the variable currentQuestion equal the variable questions + number    
-          localStorage.setItem('Countdown',15); //sets the variable Countdown as 15
-          this.countDown += 16 - this.countDown; // the button makes the timer reset back to 15 seconds
-          this.currentanswer=''; //Sets the variable current answer as nothing
-          localStorage.setItem('currentanswer', 'blank')
-          document.getElementById("NoAnswer").innerHTML = "" // Gets rid of the alert on the screen
-        }
-        if(this.NumberOfQuestions == 9){ // checks that number equals the total amount of questions
-          this.$router.push('Quiz_results'); // if it does, pushes the user to the results page
-          localStorage.setItem('OnOff',0) // turns off the timer by changing OnOff to 0 
-          localStorage.setItem('Score', this.score) // sets the local variable score as the score the user had after the quiz.
-          localStorage.setItem('Question_Number', 0) // Sets the Question_number variable to zero
-        }
-         
-      this.image_url = this.currentQuestion.url
-      this.Test()
-      document.getElementById('url').setAttribute('src',this.image_url)
-      document.getElementById("answer1").style.background='white'; 
-      document.getElementById("answer2").style.background='white';
-      document.getElementById("answer3").style.background='white';
-      document.getElementById("answer4").style.background='white'; // Sets the options back to white. ^
-
-    },
+  methods:{
     handleButton:function () {
-      if(this.currentanswer == ''){  
+      if(this.currentanswer == ' '){  // checking the user has selected an answer
         document.getElementById("NoAnswer").innerHTML = "You didn't pick an answer"
       }
       else{
-        if(this.currentQuestion.answer == this.currentanswer){
+        if(this.currentQuestions[this.NumberOfQuestions]["Answer"] == this.currentanswer){
             this.score ++;  //adds 1 to the score 
             localStorage.setItem('score', this.score)
+            
         }
-        this.pushData()
-        if(this.NumberOfQuestions< 9){
-          this.Question_Number ++;
-          localStorage.setItem('Question_Number', this.Question_Number)
-          this.currentQuestion=this.questions[localStorage.Question_Number];  
+        //this.pushData()
+        if(this.NumberOfQuestions< 10){
+          this.NumberOfQuestions ++;
+          localStorage.setItem('Question_Number', this.NumberOfQuestions)
+          localStorage.setItem('NumberOfQuestions', this.NumberOfQuestions)
+          this.Image_Test()
+          
           localStorage.setItem('Countdown',15);
           this.countDown += 16 - this.countDown; // the button makes the timer reset back to 15 seconds
-          this.currentanswer=''; 
+          this.currentanswer=' '; 
+          localStorage.setItem('currentanswer', 'blank')
           document.getElementById("NoAnswer").innerHTML = "" // Gets rid of the alert on the screen
         }
-        if(this.NumberOfQuestions == 9){
+        if(this.NumberOfQuestions == 10){
           this.$router.push('Quiz_results');
           localStorage.setItem('OnOff',0)
           localStorage.setItem('Score', this.score)
-           localStorage.setItem('Question_Number', 0)
+          localStorage.setItem('Question_Number', 0)
         }
-      }      
-      
-      this.image_url = this.currentQuestion.url
-      this.Test()
-      document.getElementById('url').setAttribute('src',this.image_url)
+      }
       document.getElementById("answer1").style.background='white';
       document.getElementById("answer2").style.background='white';
       document.getElementById("answer3").style.background='white';
       document.getElementById("answer4").style.background='white';
     },
 
-    Test:function() {
-    if(this.currentQuestion.Quiz == "2"){// checks if the question has the quiz id of 2
-        
+    timerDone:function () {
+      if(this.currentQuestions[this.NumberOfQuestions]["Answer"] == this.currentanswer){
+        this.score ++;  //adds 1 to the score 
+        localStorage.setItem('score', this.score)     
+      }
+      //this.pushData()
+      if(this.NumberOfQuestions< 10){
         this.NumberOfQuestions ++;
-    }
-    else{
-        this.Question_Number ++;
-        localStorage.setItem('Question_Number', this.Question_Number)
-        this.currentQuestion=this.questions[localStorage.Question_Number];
-        this.Test()
-    }
-    },
-    
-    selected_answer1:function() {
-      document.getElementById("answer1").style.background='lightblue';
+        localStorage.setItem('Question_Number', this.NumberOfQuestions)
+        localStorage.setItem('NumberOfQuestions', this.NumberOfQuestions)
+        this.Image_Test()
+         
+        localStorage.setItem('Countdown',15);
+        this.countDown += 16 - this.countDown; // the button makes the timer reset back to 15 seconds
+        this.currentanswer=' '; 
+        localStorage.setItem('currentanswer', 'blank')
+        document.getElementById("NoAnswer").innerHTML = "" // Gets rid of the alert on the screen
+      }
+      if(this.NumberOfQuestions == 10){
+        this.$router.push('Quiz_results');
+        localStorage.setItem('OnOff',0)
+        localStorage.setItem('Score', this.score)
+        localStorage.setItem('Question_Number', 0)
+      }
+      document.getElementById("answer1").style.background='white';
       document.getElementById("answer2").style.background='white';
       document.getElementById("answer3").style.background='white';
       document.getElementById("answer4").style.background='white';
-      this.currentanswer = this.currentQuestion.option1;
-      console.log(this.currentanswer)
     },
-    selected_answer3:function() {
-      document.getElementById("answer3").style.background='lightblue';
-      document.getElementById("answer1").style.background='white';
-      document.getElementById("answer2").style.background='white';
-      document.getElementById("answer4").style.background='white';
-      this.currentanswer = this.currentQuestion.option3;
-      console.log(this.currentanswer)
-    },
-    selected_answer2:function() {
-      document.getElementById("answer2").style.background='lightblue';
-      document.getElementById("answer1").style.background='white';
-      document.getElementById("answer3").style.background='white';
-      document.getElementById("answer4").style.background='white'; 
-      this.currentanswer = this.currentQuestion.option2;
-      console.log(this.currentanswer)
-    },
-    selected_answer4:function() {
-      document.getElementById("answer4").style.background='lightblue'; //sets the option has blue 
-      document.getElementById("answer1").style.background='white'; //sets the option has white
-      document.getElementById("answer3").style.background='white'; //sets the option has white
-      document.getElementById("answer2").style.background='white'; //sets the option has white
-      this.currentanswer = this.currentQuestion.option4; // Sets the variable currentanswer as the selected option 
-      console.log(this.currentanswer) //displays the chosen answer in the console.
-    },
-  //This is all for the timer
+
+    //This is all for the timer
     countDownTimer() {
       if(localStorage.getItem('OnOff') == 1){
         if(localStorage.getItem('Countdown') > 0) {
@@ -189,48 +155,127 @@ export default{
             localStorage.setItem('Countdown',this.countDown)
             this.countDownTimer()
             document.getElementById("timer").innerHTML = localStorage.Countdown ;
-          }, 1000)
+          }, 1000) //Delays the function by 1 second 
         }
-        else if(localStorage.getItem('Countdown') == 0){
-          localStorage.setItem('Countdown',15)
-          this.countDownTimer()
-          this.timerDone() 
-          }
+        else if(localStorage.getItem('Countdown') < 1){ // checks to see if the countdown is less than 1
+          localStorage.setItem('Countdown',15) //sets the local variable 'Countdown' to 15
+          this.countDownTimer() // Starts the timer again
+          this.timerDone() //starts the timer done function
+        }
+      }
+    },
+
+    Show_Hide_button(){ // Function that activates from button to show questions
+        document.getElementById("Question_Box").style.display = 'block';
+        document.getElementById("Info_Box").style.display = 'none';
+        localStorage.setItem('OnOff',1)
+        localStorage.setItem('Countdown',16)
+        this.Hide_Show_Button()
+        this.countDownTimer()
+        this.Image_Test()
+      },
+
+      Show_Hide(){
+        if(localStorage.Show_Hide_var == 1){ // Function that starts from mounted so still works when page is refreshed
+          document.getElementById("Question_Box").style.display = 'block';
+          document.getElementById("Info_Box").style.display = 'none';
+          localStorage.setItem('OnOff',1)
+          localStorage.setItem('Countdown',16)
         }
       },
-      pushData() {
-        var values = crypto.getRandomValues(new Uint32Array(1));
 
-        for (var i = 0; i < values.length; i++) {
-            console.log(values[i].toString(16));    
-        }
-        console.log(values.toString(16))
-        axios
-          .post("https://elur4e042l.execute-api.eu-west-2.amazonaws.com/dev/",//Link to database api post
-          {
-            AnswerID: values.toString(16),
-            Team: localStorage.teamname,
-            Quiz: this.QuizId,
-            QuestionNumber: this.Question_Number,
-            TeamAnswer: localStorage.currentanswer,
-            
-          })
-          
-      }        
+      Hide_Show_Button(){// Function activates from button and allows it to work if page is refreshed
+        localStorage.setItem("Show_Hide_var", 1)
+      },
+
+    Image_Test(){
+      setTimeout(() => { // starts the function but with a delay
+        this.URL = this.currentQuestions[this.NumberOfQuestions]["URL"] // Sets the variable 'URL' 
+        document.getElementById('URL').src = this.URL // Changes the image div to the URL from the database
+      })  
+    },
+
+
+    answer1:function() {
+      document.getElementById("answer1").style.background='lightblue'; //sets the option has blue 
+      document.getElementById("answer4").style.background='white'; //sets the option has white
+      document.getElementById("answer3").style.background='white'; //sets the option has white
+      document.getElementById("answer2").style.background='white'; //sets the option has white
+      localStorage.setItem('currentanswer',this.currentQuestions[this.NumberOfQuestions]["Option 1"])
+      this.currentanswer = this.currentQuestions[this.NumberOfQuestions]["Option 1"]; // Sets the variable currentanswer as the selected option 
+      console.log(this.currentanswer) //displays the chosen answer in the console.
+    },
+     answer2:function() {
+      document.getElementById("answer2").style.background='lightblue'; //sets the option has blue 
+      document.getElementById("answer1").style.background='white'; //sets the option has white
+      document.getElementById("answer3").style.background='white'; //sets the option has white
+      document.getElementById("answer4").style.background='white'; //sets the option has white
+      localStorage.setItem('currentanswer',this.currentQuestions[this.NumberOfQuestions]["Option 2"])
+      this.currentanswer = this.currentQuestions[this.NumberOfQuestions]["Option 2"]; // Sets the variable currentanswer as the selected option 
+      console.log(this.currentanswer) //displays the chosen answer in the console.
+    },
+    answer3:function() {
+      document.getElementById("answer3").style.background='lightblue'; //sets the option has blue 
+      document.getElementById("answer1").style.background='white'; //sets the option has white
+      document.getElementById("answer4").style.background='white'; //sets the option has white
+      document.getElementById("answer2").style.background='white'; //sets the option has white
+      localStorage.setItem('currentanswer',this.currentQuestions[this.NumberOfQuestions]["Option 3"])
+      this.currentanswer = this.currentQuestions[this.NumberOfQuestions]["Option 3"]; // Sets the variable currentanswer as the selected option 
+      console.log(this.currentanswer) //displays the chosen answer in the console.
+    },
+    answer4:function() {
+      document.getElementById("answer4").style.background='lightblue'; //sets the option has blue 
+      document.getElementById("answer1").style.background='white'; //sets the option has white
+      document.getElementById("answer3").style.background='white'; //sets the option has white
+      document.getElementById("answer2").style.background='white'; //sets the option has white
+      localStorage.setItem('currentanswer',this.currentQuestions[this.NumberOfQuestions]["Option 4"])
+      this.currentanswer = this.currentQuestions[this.NumberOfQuestions]["Option 4"]; // Sets the variable currentanswer as the selected option 
+      console.log(this.currentanswer) //displays the chosen answer in the console.
+    },
+    pushData() {
+      var values = crypto.getRandomValues(new Uint32Array(1));
+      for (var i = 0; i < values.length; i++) {
+        console.log(values[i].toString(16));    
+      }
+      axios
+        .post("https://elur4e042l.execute-api.eu-west-2.amazonaws.com/dev/",
+        {
+          AnswerID: values.toString(16),
+          Team: localStorage.teamname,
+          Quiz: this.QuizId,
+          QuestionNumber: this.NumberOfQuestions,
+          TeamAnswer: localStorage.currentanswer,
+          correctAnswer: this.currentQuestions[this.NumberOfQuestions]["Answer"]
+        })
+    },
+    GetData(){
+    
+    }
     },
     mounted(){
       axios
-        .get("https://gxxffbgloa.execute-api.eu-west-2.amazonaws.com/dev")
+        .get("https://ilxze566s8.execute-api.eu-west-2.amazonaws.com/dev")
         .then(response=>{
-          this.questions=response.data.body;//sets this.questions as the data from the link
-          this.currentQuestion=this.questions[this.Question_Number]; //sets this.currentQuestion as this.qustions and whatever this.number equals
-          this.totalQuestions=this.questions.length;
-          this.image_url = this.currentQuestion.url
-          document.getElementById('url').src = this.image_url
+          this.quizs = response.data.body;//sets this.questions as the data from the link
+          this.quizs.forEach(quiz => {
+            if(quiz.QuizPIN == this.quizPIN && quiz.QuizName == this.quizNumber) {
+              console.log("correct pin")
+                let currentQuiz = quiz;
+                for (let question in currentQuiz.Questions) {
+                    this.currentQuestions.push(currentQuiz.Questions[question]);
+                }
+                console.log( this.currentQuestions[this.NumberOfQuestions]);
+                this.hidden = false;
+            }
+        })
       })
+      
       this.countDownTimer() //initializes the countdown function 
-    },
-};
+      this.Image_Test()
+      this.Show_Hide()
+      document.getElementById("result").innerHTML = localStorage.teamname ;
+    }
+}     
 </script>
 
 <style>
@@ -254,13 +299,13 @@ export default{
   border-color: white;
 }
 .title{
-  position:relative;
+  position: fixed;
   font-size:7vw;
   text-align: left; 
-  width: 75%;
+  width: 70%;
   color:white;  
-  left:5%;
-  top:0%;
+  left:8%;
+  top: 3%;
   word-wrap: break-word; /** makes the text wrap inside the div */
 }
 .timer_text{

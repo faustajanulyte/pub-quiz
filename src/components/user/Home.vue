@@ -14,18 +14,19 @@
           <div class="pin-wrapper" id="login">
             <form class="form-access" >
               <h2 class="pin_heading">Please enter the Quiz Name</h2>
-              <select name="Quiz" v-model="quizname" id="inputPIN" class="pin_input" placeholder="Please select a quiz" required>
-                  <option value="Invalid" selected>Please Select A Quiz</option>
-                  <option value="Quiz1">Quiz1</option>
-                  <option value="Quiz2">Quiz2</option>
-                  <option value="Quiz3">Quiz3</option>
-                  <option value="Quiz4">Quiz4</option>
-                </select>
+                <input
+                  class="pin_input"
+                  v-model="quizNumber"
+                  type="text"
+                  id="inputPIN"
+                  placeholder="Please select a quiz"
+                  required
+                />
               <br/>
               
               <h2 class="pin_heading">Please enter the Quiz Pin</h2>
                 <input
-                  v-model="PIN"
+                  v-model="quizPin"
                   type="text"
                   id="inputquizname"
                   class="pin_input"
@@ -49,47 +50,58 @@ export default {
   name: "app",
   data() {
     return {
-      quizname: "",
-      PIN: "",
-      valid: ""
+      quizNumber: "",
+      quizPin: "",
+      valid: "",
+      Type: "",
+
+      currentQuestions: [],
+      NumberOfQuestions: 0,
+      Quiz_Type: "",
+
+      countDown: 16,
+      Question_Number: 0,
+      score: 0,
     };
   },
   methods: {
     authPIN: function() { //creates the function which activates by the button
-      console.log(this.quizname); 
-      axios
-        .post(
-          "https://kezmvb42ga.execute-api.eu-west-2.amazonaws.com/dev", //gets the data from the amazon database
-          {
-            quizname: this.quizname, //sets the variable quizname the same as the input quizname 
-            PIN: this.PIN //sets the variable PIN the same as the input PIN
-          }
-        )
-        .then(response => {
-          this.valid = response.data.valid 
-          if(this.valid) { //checks the login is correct
-            if (this.quizname == "Quiz1"){ //checks which quiz to send the user to 
-              this.$router.push('Quiz_1');
+      console.log(this.quizNumber); 
+        axios
+        .get("https://ilxze566s8.execute-api.eu-west-2.amazonaws.com/dev")
+        .then(response=>{
+          this.quizs = response.data.body;//sets this.questions as the data from the link
+          this.quizs.forEach(quiz => {
+          if(quiz.QuizPIN == this.quizPin && quiz.QuizName == this.quizNumber) {
+            this.Quiz_Type = quiz.QuizType // All data sent to the next page
+            this.QuizID = quiz.QuizNumber// The quizes number ID
+            this.Info = quiz.QuizInfo
+            this.$router.push(this.Quiz_Type);    
+            localStorage.setItem("quizPin", this.quizPin)  
+            localStorage.setItem("quizNumber", this.quizNumber) 
+            localStorage.setItem("QuizID", this.QuizID) 
+            localStorage.setItem("Info", this.Info) 
+
+            localStorage.setItem('Countdown', this.countDown)
+            localStorage.setItem('Question_Number', this.Question_Number)
+            localStorage.setItem('score', this.score)
+            localStorage.setItem('NumberOfQuestions', this.NumberOfQuestions)     
+
+            console.log(localStorage.quizPin)
+            console.log(localStorage.quizNumber)
+            
             }
-            else if (this.quizname == "Quiz2"){ //checks which quiz to send the user to 
-              this.$router.push('Quiz_2')
-            }
-            else if (this.quizname == "Quiz3"){ //checks which quiz to send the user to 
-              this.$router.push('Quiz_3')
-            }
-            else if (this.quizname == "Quiz4"){ //checks which quiz to send the user to 
-              this.$router.push('Quiz_4')
-            }
-          } else {
+          else {
             document.getElementById("login").style.outline = "thick solid Red"; // if none before are triggered then this will trigger and change the outline to red
           }
-          console.log(this.valid)
-        });
+          })
+        })
     }
+  },
+  mounted(){
+    
   }
-};
-
-
+}
 
 </script>
 

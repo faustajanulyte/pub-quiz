@@ -39,6 +39,7 @@ export default {
       countDown: 16,
       Question_Number: 0,
       score: 0,
+      NumberOfQuestions: 0,
     };
   },
   methods:{
@@ -55,6 +56,7 @@ export default {
     localStorage.setItem('Countdown', this.countDown),
     localStorage.setItem('Question_Number', this.Question_Number)
     localStorage.setItem('score', this.score)
+    localStorage.setItem('NumberOfQuestions', this.NumberOfQuestions)
   },
 };
 
