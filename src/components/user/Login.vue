@@ -1,29 +1,38 @@
 <template>
   <div class="login">
     <div class="login-overlay">
-      <div class="login-wrapper">
+      <div class="login-wrapper col-8 bg-dark pb-4">
         <form class="form-login">
-          <h2 class="form-login-heading">Please sign in</h2>
+          <h2 class="form-login-heading py-3">Please sign in</h2>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="inputGroup-sizing-default">Username</span>
+            </div>
           <input
             v-model="Username"
             type="text"
             id="inputName"
             class="form-control"
-            placeholder="Username"
             required
           />
+          </div>
           <br>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="inputGroup-sizing-default">Password</span>
+            </div>
           <input
             v-model="Password"
             type="password"
             id="inputPassword"
             class="form-control"
-            placeholder="Password"
             required
           />
-          <br />
-          <button type="submit" @click="authUsers()">Sign in</button>
+          </div>
         </form>
+      </div>
+      <div class="col-12">
+        <button type="submit" class="btn btn-dark btn-md mt-4" @click="authUsers()">Sign in</button>
       </div>
     </div>
   </div>
@@ -31,6 +40,7 @@
 
 <script>
 import axios from "axios";
+
 
 export default {
   name: "app",
@@ -86,14 +96,9 @@ export default {
 }
 .login-wrapper {
   background-color: rgba(0, 0, 0, 0.65);
-  width: 40%;
-  margin: 12% auto;
   margin-top: 10%;
-}
-.form-login {
-  max-width: 330px;
-  padding: 10% 15px;
-  margin: 0 auto;
+  margin-left: 17%;
+  border-radius: 25px
 }
 .form-login-heading {
   color: white;
