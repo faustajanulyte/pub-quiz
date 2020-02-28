@@ -88,7 +88,6 @@ export default {
   text-align: center;
 }
 .container {
-  position: absolute;
   border-radius: 25px;
 }
 .line {
