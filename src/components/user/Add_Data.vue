@@ -2,27 +2,14 @@
   <div class="">
     <div class= "">
         
-      <button @click="this.GetData"> Post </button>
+      <button @click="this.GetData"> Update </button>
+      <button @click="this.Patch"> Patch </button>
         
         <div>
           -----------------------------------------
         </div>
 
-        <div>
-          <input
-            v-model="Input"
-            type="text"
-            id=""
-            class="form-control"
-            placeholder=""
-            required
-          />
-        </div>
-
-        <button type="submit" @click="Check_Answer()"> Submit </button>
-        <button type="submit" @click="Reset()"> Reset </button>
-
-        <div id="result"> </div>
+        <button @click="this.Check"> Check </button>
 
       </div>
  </div>
@@ -41,57 +28,124 @@ export default{
         questions: '',
         Quiz: '',
         QuestionNumber: '',
+        NumberOfQuestions: "0",
         Question: '', 
         Answer: '',
         Option1: '',
         Option2: '',
         Option3: '',
         Option4: '',
-        Test_Answer: 'Check'
+        Test_Answer: 'Check',
+
+
+        Username: localStorage.teamname,
+        Password: "carrot",
+        Admin: "true",  
+        QuizID:localStorage.QuizID    
     }
   },
     methods:{
-      Check_Answer(){
-        if(this.Input.toUpperCase() == this.Test_Answer.toUpperCase()){ // Non case sensitive user input WORKING
-          document.getElementById("result").innerHTML = "Correct" ;
-        }
-        else{
-          document.getElementById("result").innerHTML = "Incorrect" ; // ^^
-        }
-      },
 
       GetData: function(){
-          var values = crypto.getRandomValues(new Uint32Array(1));
+          localStorage.setItem("Quiz"+this.QuizID, this.QuizID)
 
-          for (var i = 0; i < values.length; i++) {
-              console.log(values[i].toString(16));    
-          }
-          console.log(values.toString(16))
-
-          axios
-          .post("https://gxxffbgloa.execute-api.eu-west-2.amazonaws.com/dev/",//Link to database api post
+          axios.put("https://hghjfrvme8.execute-api.eu-west-2.amazonaws.com/dev/",//Link to database api post
           {
-            QuestionID: values.toString(16),
-            Question: this.Question,
-            Quiz: this.Quiz,
-            QuestionNumber: this.QuestionNumber,
-            Answer: this.Answer,
-            Option1: this.Option1,
-            Option2: this.Option2,
-            Option3: this.Option3,
-            Option4: this.Option4,
-          })
-        }
+            Username: this.Username,
+            Password: this.Password,
+            Admin: this.Admin,
+            Results:{
+              Quiz1:{
+                QuizID: localStorage.Quiz1, 
+                Answer1: localStorage.Answer10,
+                Answer2: localStorage.Answer11, 
+                Answer3: localStorage.Answer12,
+                Answer4: localStorage.Answer13,
+                Answer5: localStorage.Answer14,
+                Answer6: localStorage.Answer15,
+                Answer7: localStorage.Answer16,
+                Answer8: localStorage.Answer17,
+                Answer9: localStorage.Answer18,
+                Answer10: localStorage.Answer19,
+              },
+              Quiz2:{
+                QuizID: localStorage.Quiz2, 
+                Answer1: localStorage.Answer20,
+                Answer2: localStorage.Answer21, 
+                Answer3: localStorage.Answer22,
+                Answer4: localStorage.Answer23,
+                Answer5: localStorage.Answer24,
+                Answer6: localStorage.Answer25,
+                Answer7: localStorage.Answer26,
+                Answer8: localStorage.Answer27,
+                Answer9: localStorage.Answer28,
+                Answer10: localStorage.Answer29,              
+              },
+              Quiz3:{
+                QuizID: localStorage.Quiz3, 
+                Answer1: localStorage.Answer30,
+                Answer2: localStorage.Answer31, 
+                Answer3: localStorage.Answer32,
+                Answer4: localStorage.Answer33,
+                Answer5: localStorage.Answer34,
+                Answer6: localStorage.Answer35,
+                Answer7: localStorage.Answer36,
+                Answer8: localStorage.Answer37,
+                Answer9: localStorage.Answer38,
+                Answer10: localStorage.Answer39,               
+              },
+              Quiz4:{
+                QuizID: localStorage.Quiz4, 
+                Answer1: localStorage.Answer40,
+                Answer2: localStorage.Answer41, 
+                Answer3: localStorage.Answer42,
+                Answer4: localStorage.Answer43,
+                Answer5: localStorage.Answer44,
+                Answer6: localStorage.Answer45,
+                Answer7: localStorage.Answer46,
+                Answer8: localStorage.Answer47,
+                Answer9: localStorage.Answer48,
+                Answer10: localStorage.Answer49,               
+              }
+            },              
+          },
+        )},
+
+      Patch: function(){
+        axios.patch("https://hghjfrvme8.execute-api.eu-west-2.amazonaws.com/dev/",//Link to database api post
+        {
+        Username: this.Username,
+        Password: "Test"
+        },
+      )},
+
+      Check(){
+        
+      }
       },
     
       mounted(){
         axios
-          .get("https://gxxffbgloa.execute-api.eu-west-2.amazonaws.com/dev")
+          .get("https://hghjfrvme8.execute-api.eu-west-2.amazonaws.com/dev/")
           .then(response=>{
-            this.teams =response.data.body;//sets this.questions as the data from the link
-        })   
+            this.data = response.data.body;//sets this.questions as the data from the link
+            this.data.forEach(data1 => {
+            if(data1.Username == this.TeamName ) {
+              console.log("correct")
+                let currentQuiz = data1;
+                for (let question in currentQuiz.Questions) {
+                    this.currentQuestions.push(currentQuiz.Questions[question]);
+                }
+                console.log( this.currentQuestions[this.NumberOfQuestions]);
+            }
+            })
+          })
       }
-  }     
+  } 
+
+
+
+            
 </script>
 
 <style>

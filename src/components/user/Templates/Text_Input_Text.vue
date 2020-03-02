@@ -80,6 +80,7 @@ export default{
         NumberOfQuestions: localStorage.getItem('NumberOfQuestions'),        
         Image_Time: localStorage.Image_Time,
         Info: localStorage.Info,
+        locked: localStorage.getItem("quizNumber")
     }
   },
   methods:{
@@ -159,13 +160,15 @@ export default{
       }
     },
 
-    Show_Hide_button(){ // Function that activates from button to show questions
+      Show_Hide_button(){ // Function that activates from button to show questions
         document.getElementById("Question_Box").style.display = 'block';
         document.getElementById("Info_Box").style.display = 'none';
         localStorage.setItem('OnOff',1)
         localStorage.setItem('Countdown',16)
         this.Hide_Show_Button()
         this.countDownTimer()
+
+        localStorage.setItem("Locked" + this.locked, "1")
       },
 
       Show_Hide(){
@@ -173,7 +176,6 @@ export default{
           document.getElementById("Question_Box").style.display = 'block';
           document.getElementById("Info_Box").style.display = 'none';
           localStorage.setItem('OnOff',1)
-          localStorage.setItem('Countdown',16)
         }
       },
 

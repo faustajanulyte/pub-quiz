@@ -74,6 +74,8 @@ export default {
             alert("Failed to sign in!");
         }
         localStorage.setItem('teamname',this.Username);
+        localStorage.setItem('Admin', this.Admin) 
+        localStorage.setItem('Password', this.Password)     
         });        
     }
   }

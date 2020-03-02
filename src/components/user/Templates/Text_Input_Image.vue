@@ -81,6 +81,7 @@ export default{
         NumberOfQuestions: localStorage.getItem('NumberOfQuestions'),        
         Image_Time: localStorage.Image_Time,
         Info: localStorage.Info,
+        locked: localStorage.getItem("quizNumber")
     }
   },
   methods:{
@@ -101,7 +102,7 @@ export default{
           this.NumberOfQuestions ++;
           localStorage.setItem('Question_Number', this.NumberOfQuestions)
           localStorage.setItem('NumberOfQuestions', this.NumberOfQuestions)
-          this.Image_Test()
+          this.Image_Test_Button()
           
           localStorage.setItem('Countdown',15);
           this.countDown += 16 - this.countDown; // the button makes the timer reset back to 15 seconds
@@ -128,7 +129,7 @@ export default{
         this.NumberOfQuestions ++;
         localStorage.setItem('Question_Number', this.NumberOfQuestions)
         localStorage.setItem('NumberOfQuestions', this.NumberOfQuestions)
-        this.Image_Test()
+        this.Image_Test_Button()
          
         localStorage.setItem('Countdown',15);
         this.countDown += 16 - this.countDown; // the button makes the timer reset back to 15 seconds
@@ -171,14 +172,16 @@ export default{
         this.Hide_Show_Button()
         this.countDownTimer()
         this.Image_Test()
+
+        localStorage.setItem("Locked" + this.locked, "1")
       },
 
       Show_Hide(){
         if(localStorage.Show_Hide_var == 1){ // Function that starts from mounted so still works when page is refreshed
+          console.log("Mounted worked")
           document.getElementById("Question_Box").style.display = 'block';
           document.getElementById("Info_Box").style.display = 'none';
           localStorage.setItem('OnOff',1)
-          localStorage.setItem('Countdown',16)
         }
       },
 
@@ -188,10 +191,17 @@ export default{
 
 
     Image_Test(){
-      setTimeout(() => {
-        this.URL = this.currentQuestions[this.NumberOfQuestions]["URL"]
-        document.getElementById('URL').src = this.URL
-      })
+      setTimeout(() => { // starts the function but with a delay
+        this.URL = this.currentQuestions[this.NumberOfQuestions]["URL"] // Sets the variable 'URL' 
+        document.getElementById('URL').src = this.URL // Changes the image div to the URL from the database
+      },1000)  
+    },
+
+    Image_Test_Button(){
+      setTimeout(() => { // starts the function without a delay from next question button
+        this.URL = this.currentQuestions[this.NumberOfQuestions]["URL"] // Sets the variable 'URL' 
+        document.getElementById('URL').src = this.URL // Changes the image div to the URL from the database
+      })  
     },
 
     pushData() {

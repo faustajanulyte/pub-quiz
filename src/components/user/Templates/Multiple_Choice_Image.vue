@@ -77,6 +77,10 @@ export default{
         NumberOfQuestions: localStorage.getItem('NumberOfQuestions'),        
         Image_Time: localStorage.Image_Time,
         Info: localStorage.Info,
+        Password: localStorage.Password,
+        Admin: localStorage.Admin,
+
+        locked: localStorage.getItem("quizNumber")
     }
   },
   methods:{
@@ -85,17 +89,18 @@ export default{
         document.getElementById("NoAnswer").innerHTML = "You didn't pick an answer"
       }
       else{
+        localStorage.setItem("Answer"+this.NumberOfQuestions+this.QuizID, this.currentanswer)//Sets the user answer as the localvaraible using the question number and ID to then send to the DB
         if(this.currentQuestions[this.NumberOfQuestions]["Answer"] == this.currentanswer){
             this.score ++;  //adds 1 to the score 
             localStorage.setItem('score', this.score)
-            
+                        
         }
         //this.pushData()
         if(this.NumberOfQuestions< 10){
           this.NumberOfQuestions ++;
           localStorage.setItem('Question_Number', this.NumberOfQuestions)
           localStorage.setItem('NumberOfQuestions', this.NumberOfQuestions)
-          this.Image_Test()
+          this.Image_Test_Button()
           
           localStorage.setItem('Countdown',15);
           this.countDown += 16 - this.countDown; // the button makes the timer reset back to 15 seconds
@@ -104,9 +109,11 @@ export default{
           document.getElementById("NoAnswer").innerHTML = "" // Gets rid of the alert on the screen
         }
         if(this.NumberOfQuestions == 10){
+          this.SendAnswers()
           this.$router.push('Quiz_results');
           localStorage.setItem('OnOff',0)
           localStorage.setItem('Score', this.score)
+          localStorage.setItem('Score'+this.QuizID, this.score)
           localStorage.setItem('Question_Number', 0)
         }
       }
@@ -117,6 +124,7 @@ export default{
     },
 
     timerDone:function () {
+      localStorage.setItem("Answer"+this.NumberOfQuestions+this.QuizID, this.currentanswer)
       if(this.currentQuestions[this.NumberOfQuestions]["Answer"] == this.currentanswer){
         this.score ++;  //adds 1 to the score 
         localStorage.setItem('score', this.score)     
@@ -126,7 +134,7 @@ export default{
         this.NumberOfQuestions ++;
         localStorage.setItem('Question_Number', this.NumberOfQuestions)
         localStorage.setItem('NumberOfQuestions', this.NumberOfQuestions)
-        this.Image_Test()
+        this.Image_Test_Button()
          
         localStorage.setItem('Countdown',15);
         this.countDown += 16 - this.countDown; // the button makes the timer reset back to 15 seconds
@@ -135,9 +143,11 @@ export default{
         document.getElementById("NoAnswer").innerHTML = "" // Gets rid of the alert on the screen
       }
       if(this.NumberOfQuestions == 10){
+        this.SendAnswers()
         this.$router.push('Quiz_results');
         localStorage.setItem('OnOff',0)
         localStorage.setItem('Score', this.score)
+        localStorage.setItem('Score'+this.QuizID, this.score)
         localStorage.setItem('Question_Number', 0)
       }
       document.getElementById("answer1").style.background='white';
@@ -145,6 +155,77 @@ export default{
       document.getElementById("answer3").style.background='white';
       document.getElementById("answer4").style.background='white';
     },
+
+    SendAnswers(){ // Sends the answers from this quiz to the DB
+          console.log("Function worked")
+          localStorage.setItem("Quiz"+this.QuizID, this.QuizID)
+          localStorage.getItem('Score'+this.QuizID)
+
+          axios.put("https://hghjfrvme8.execute-api.eu-west-2.amazonaws.com/dev/",//Link to database api post
+          {
+            Username: this.Username,
+            Password: this.Password,
+            Admin: this.Admin,
+            Results:{
+              Quiz1:{
+                QuizID: localStorage.Quiz1, 
+                Answer1: localStorage.Answer10,
+                Answer2: localStorage.Answer11, 
+                Answer3: localStorage.Answer12,
+                Answer4: localStorage.Answer13,
+                Answer5: localStorage.Answer14,
+                Answer6: localStorage.Answer15,
+                Answer7: localStorage.Answer16,
+                Answer8: localStorage.Answer17,
+                Answer9: localStorage.Answer18,
+                Answer10: localStorage.Answer19,
+                Score: localStorage.Score1
+              },
+              Quiz2:{
+                QuizID: localStorage.Quiz2, 
+                Answer1: localStorage.Answer20,
+                Answer2: localStorage.Answer21, 
+                Answer3: localStorage.Answer22,
+                Answer4: localStorage.Answer23,
+                Answer5: localStorage.Answer24,
+                Answer6: localStorage.Answer25,
+                Answer7: localStorage.Answer26,
+                Answer8: localStorage.Answer27,
+                Answer9: localStorage.Answer28,
+                Answer10: localStorage.Answer29, 
+                Score: localStorage.Score2             
+              },
+              Quiz3:{
+                QuizID: localStorage.Quiz3, 
+                Answer1: localStorage.Answer30,
+                Answer2: localStorage.Answer31, 
+                Answer3: localStorage.Answer32,
+                Answer4: localStorage.Answer33,
+                Answer5: localStorage.Answer34,
+                Answer6: localStorage.Answer35,
+                Answer7: localStorage.Answer36,
+                Answer8: localStorage.Answer37,
+                Answer9: localStorage.Answer38,
+                Answer10: localStorage.Answer39, 
+                Score: localStorage.Score3              
+              },
+              Quiz4:{
+                QuizID: localStorage.Quiz4, 
+                Answer1: localStorage.Answer40,
+                Answer2: localStorage.Answer41, 
+                Answer3: localStorage.Answer42,
+                Answer4: localStorage.Answer43,
+                Answer5: localStorage.Answer44,
+                Answer6: localStorage.Answer45,
+                Answer7: localStorage.Answer46,
+                Answer8: localStorage.Answer47,
+                Answer9: localStorage.Answer48,
+                Answer10: localStorage.Answer49, 
+                Score: localStorage.Score4              
+              }
+            },              
+          },
+        )},
 
     //This is all for the timer
     countDownTimer() {
@@ -172,7 +253,9 @@ export default{
         localStorage.setItem('Countdown',16)
         this.Hide_Show_Button()
         this.countDownTimer()
-        this.Image_Test()
+        this.Image_Test_Button()
+
+        localStorage.setItem("Locked" + this.locked, "1")
       },
 
       Show_Hide(){
@@ -180,7 +263,7 @@ export default{
           document.getElementById("Question_Box").style.display = 'block';
           document.getElementById("Info_Box").style.display = 'none';
           localStorage.setItem('OnOff',1)
-          localStorage.setItem('Countdown',16)
+          this.Image_Test()
         }
       },
 
@@ -189,6 +272,13 @@ export default{
       },
 
     Image_Test(){
+      setTimeout(() => { // starts the function but with a delay
+        this.URL = this.currentQuestions[this.NumberOfQuestions]["URL"] // Sets the variable 'URL' 
+        document.getElementById('URL').src = this.URL // Changes the image div to the URL from the database
+      },1000)  
+    },
+
+    Image_Test_Button(){
       setTimeout(() => { // starts the function but with a delay
         this.URL = this.currentQuestions[this.NumberOfQuestions]["URL"] // Sets the variable 'URL' 
         document.getElementById('URL').src = this.URL // Changes the image div to the URL from the database

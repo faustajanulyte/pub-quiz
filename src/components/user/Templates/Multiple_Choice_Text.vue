@@ -11,7 +11,7 @@
 
       <div class= "buttons_box"> 
         <div class= "TeamName" id="result">
-
+          {{TeamName}}
         </div>
 
         <div>
@@ -72,6 +72,7 @@ export default{
         NumberOfQuestions: localStorage.getItem('NumberOfQuestions'),
         Show_Hide_var: localStorage.Show_Hide_var,
         Info: localStorage.Info,
+        locked: localStorage.getItem("quizNumber")
     }
   },
   methods:{
@@ -164,9 +165,9 @@ export default{
           localStorage.setItem('Countdown',15)
           this.countDownTimer()
           this.timerDone() 
-          }
         }
-      },
+      }
+    },
 
       Show_Hide_button(){ // Function that activates from button to show questions
         document.getElementById("Question_Box").style.display = 'block';
@@ -175,6 +176,8 @@ export default{
         localStorage.setItem('Countdown',16)
         this.Hide_Show_Button()
         this.countDownTimer()
+
+        localStorage.setItem("Locked" + this.locked, "1")
       },
 
       Show_Hide(){
@@ -182,7 +185,6 @@ export default{
           document.getElementById("Question_Box").style.display = 'block';
           document.getElementById("Info_Box").style.display = 'none';
           localStorage.setItem('OnOff',1)
-          localStorage.setItem('Countdown',16)
         }
       },
 
@@ -229,8 +231,10 @@ export default{
     },
     pushData() {
       axios
-        .post("https://uatvc66pz2.execute-api.eu-west-2.amazonaws.com/dev",
-        {
+        .put("https://hghjfrvme8.execute-api.eu-west-2.amazonaws.com/dev/",
+        { 
+          Username: localStorage.teamname,
+          Results: "Test",
           
         })
       }  
