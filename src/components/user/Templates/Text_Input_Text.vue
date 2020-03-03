@@ -66,13 +66,12 @@ export default{
         quizPIN: localStorage.quizPin,
         currentQuestions: [],
         questions: {},
-        currentanswer: ' ',
+        currentanswer: null,
         URL: [] ,
 
         countDown: localStorage.getItem('Countdown'), //Gets the varible from the page before and sets it as countDown
-        score: localStorage.Score,
+        score: null,
         Team1_Id: this.values,//For posting 
-        QuizId: localStorage.getItem('QuizID'),
         AnswerId: this.Question_Number,
 
         TeamAnswer: '',//For posting ^^
@@ -80,22 +79,31 @@ export default{
         NumberOfQuestions: localStorage.getItem('NumberOfQuestions'),        
         Image_Time: localStorage.Image_Time,
         Info: localStorage.Info,
-        locked: localStorage.getItem("quizNumber")
+
+        Username: localStorage.teamname, //Gets team name for posting
+        Password: localStorage.Password, // Gets password for posting
+        Admin: localStorage.Admin,  //Gets admin true or fasle for posting
+        QuizID:localStorage.QuizID,  //Gets QuizID for posting 
+
+        Score1: [],
+        Score2: [],
+        Score3: [],
+        Score4: [],
     }
   },
   methods:{
     handleButton:function () {
       localStorage.setItem('currentanswer',this.currentanswer)
 
-      if(this.currentanswer == ' '){  // checking the user has selected an answer
+      if(this.currentanswer == null){  // checking the user has selected an answer
         document.getElementById("NoAnswer").innerHTML = "You didn't pick an answer"
       }
       else{
-        if(this.currentQuestions[this.NumberOfQuestions]["Answer"] == this.currentanswer){
+        localStorage.setItem("Answer"+this.QuizID+this.NumberOfQuestions, this.currentanswer) 
+        if(this.currentanswer == this.currentQuestions[this.NumberOfQuestions]["Answer"]){
             this.score ++;  //adds 1 to the score 
             localStorage.setItem('score', this.score)
         }
-        this.pushData()
         if(this.NumberOfQuestions< 10){
           this.NumberOfQuestions ++;
           localStorage.setItem('Question_Number', this.NumberOfQuestions)
@@ -103,7 +111,7 @@ export default{
           
           localStorage.setItem('Countdown',15);
           this.countDown += 16 - this.countDown; // the button makes the timer reset back to 15 seconds
-          this.currentanswer=' '; 
+          this.currentanswer=null; 
           localStorage.setItem('currentanswer', 'blank')
           document.getElementById("NoAnswer").innerHTML = "" // Gets rid of the alert on the screen
         }
@@ -111,17 +119,19 @@ export default{
           this.$router.push('Quiz_results');
           localStorage.setItem('OnOff',0)
           localStorage.setItem('Score', this.score)
+          localStorage.setItem('Score'+this.QuizID, localStorage.Score)
+          this.SendAnswers()
           localStorage.setItem('Question_Number', 0)
         }
       }
     },
 
     timerDone:function () {
-      if(this.currentQuestions[this.NumberOfQuestions]["Answer"] == this.currentanswer){
+      localStorage.setItem("Answer"+this.QuizID+this.NumberOfQuestions, this.currentanswer) 
+      if(this.currentanswer == this.currentQuestions[this.NumberOfQuestions]["Answer"]){
         this.score ++;  //adds 1 to the score 
         localStorage.setItem('score', this.score)     
       }
-      this.pushData()
       if(this.NumberOfQuestions< 10){
         this.NumberOfQuestions ++;
         localStorage.setItem('Question_Number', this.NumberOfQuestions)
@@ -129,7 +139,7 @@ export default{
          
         localStorage.setItem('Countdown',15);
         this.countDown += 16 - this.countDown; // the button makes the timer reset back to 15 seconds
-        this.currentanswer=' '; 
+        this.currentanswer = null; 
         localStorage.setItem('currentanswer', 'blank')
         document.getElementById("NoAnswer").innerHTML = "" // Gets rid of the alert on the screen
       }
@@ -137,9 +147,85 @@ export default{
         this.$router.push('Quiz_results');
         localStorage.setItem('OnOff',0)
         localStorage.setItem('Score', this.score)
+        localStorage.setItem('Score'+this.QuizID, localStorage.Score)
+        this.SendAnswers()
         localStorage.setItem('Question_Number', 0)
       }
     },
+
+    SendAnswers(){ // Sends the answers from this quiz to the DB
+          localStorage.setItem("Quiz"+this.QuizID, this.QuizID)
+
+          this.Score1 = parseInt(localStorage.Score1)
+          this.Score2 = parseInt(localStorage.Score2)
+          this.Score3 = parseInt(localStorage.Score3)
+          this.Score4 = parseInt(localStorage.Score4)
+
+          axios.put("https://hghjfrvme8.execute-api.eu-west-2.amazonaws.com/dev/",//Link to database api post
+          {
+            Username: this.Username,
+            Password: this.Password,
+            Admin: this.Admin,
+            Results:{
+              Quiz1:{
+                QuizID: localStorage.Quiz1, 
+                Answer1: localStorage.Answer10,
+                Answer2: localStorage.Answer11, 
+                Answer3: localStorage.Answer12,
+                Answer4: localStorage.Answer13,
+                Answer5: localStorage.Answer14,
+                Answer6: localStorage.Answer15,
+                Answer7: localStorage.Answer16,
+                Answer8: localStorage.Answer17,
+                Answer9: localStorage.Answer18,
+                Answer10: localStorage.Answer19,
+                Score: parseInt(localStorage.Score1)
+              },
+              Quiz2:{
+                QuizID: localStorage.Quiz2, 
+                Answer1: localStorage.Answer20,
+                Answer2: localStorage.Answer21, 
+                Answer3: localStorage.Answer22,
+                Answer4: localStorage.Answer23,
+                Answer5: localStorage.Answer24,
+                Answer6: localStorage.Answer25,
+                Answer7: localStorage.Answer26,
+                Answer8: localStorage.Answer27,
+                Answer9: localStorage.Answer28,
+                Answer10: localStorage.Answer29, 
+                Score: parseInt(localStorage.Score2)          
+              },
+              Quiz3:{
+                QuizID: localStorage.Quiz3, 
+                Answer1: localStorage.Answer30,
+                Answer2: localStorage.Answer31, 
+                Answer3: localStorage.Answer32,
+                Answer4: localStorage.Answer33,
+                Answer5: localStorage.Answer34,
+                Answer6: localStorage.Answer35,
+                Answer7: localStorage.Answer36,
+                Answer8: localStorage.Answer37,
+                Answer9: localStorage.Answer38,
+                Answer10: localStorage.Answer39, 
+                Score: parseInt(localStorage.Score3)            
+              },
+              Quiz4:{
+                QuizID: localStorage.Quiz4, 
+                Answer1: localStorage.Answer40,
+                Answer2: localStorage.Answer41, 
+                Answer3: localStorage.Answer42,
+                Answer4: localStorage.Answer43,
+                Answer5: localStorage.Answer44,
+                Answer6: localStorage.Answer45,
+                Answer7: localStorage.Answer46,
+                Answer8: localStorage.Answer47,
+                Answer9: localStorage.Answer48,
+                Answer10: localStorage.Answer49, 
+                Score: parseInt(localStorage.Score4)            
+              }
+            },              
+          },
+        )},
 
     //This is all for the timer
     countDownTimer() {
@@ -182,23 +268,6 @@ export default{
       Hide_Show_Button(){// Function activates from button and allows it to work if page is refreshed
         localStorage.setItem("Show_Hide_var", 1)
       },
-
-    pushData() {
-      var values = crypto.getRandomValues(new Uint32Array(1));
-      for (var i = 0; i < values.length; i++) {
-        console.log(values[i].toString(16));    
-      }
-      axios
-        .post("https://elur4e042l.execute-api.eu-west-2.amazonaws.com/dev/",
-        {
-          AnswerID: values.toString(16),
-          Team: localStorage.teamname,
-          Quiz: this.QuizID,
-          QuestionNumber: this.NumberOfQuestions,
-          TeamAnswer: localStorage.currentanswer,
-          correctAnswer: this.currentQuestions[this.NumberOfQuestions]["Answer"]
-        })
-      }  
     },
     mounted(){
       axios

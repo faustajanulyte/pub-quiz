@@ -3,27 +3,33 @@
     <div class= "">
         
         <div>
+             {{ currentQuestions[NumberOfQuestions]["Question"] }}
         </div>
 
         <div>
             ------------
         </div>
 
-
         <div>
-            -------------
+             {{ currentQuestions[NumberOfQuestions]["Answer"] }}
         </div>
+
+
+        <div class="buttons_border">
+        <input
+          v-model="currentanswer"
+          type="text"
+          id="currentAnswer"
+          class="Input_Answer1"
+          placeholder=""
+        />
+        <br />
+        <button type= "submit" @click="CheckAnswer()"> Check </button>
+
+        <div id="Check">
         
-        <div>
-            <div v-for="team in teams" v-bind:key="team.Username">
-                <h1> {{  team.Username }} </h1>
-                <p> {{ team.Results.Quiz1 }} </p>
-                <p>Total Score: {{ getTotalScore(team.Username) }}</p>
-            </div>
         </div>
-
-        <button type= "submit" @click="GetData()"> Get Data </button>
-        <button type= "submit" @click="Reset()"> Reset </button>
+      </div> 
     </div>
  </div>
   
@@ -31,20 +37,34 @@
 
 <script >
 import axios from 'axios'
-
 export default{
   data(){
     return{
-        teams: []
+        teams: [],
+
+        x: "4",
+        y: "4",
+        
+        w: null,
+        z: null,
+        Test: localStorage.setItem("Test", 12),
+
+        quizPIN: "2222",
+        quizNumber: "TextQuiz1",
+        NumberOfQuestions: "1",
+        currentanswer: [],
+        currentQuestions: [],
+        
+        
+
     }
   },
   methods:{
     GetData: function(){
-        axios
-        .get("https://uatvc66pz2.execute-api.eu-west-2.amazonaws.com/dev")
-        .then(response=>{
-          this.teams = response.data.body;//sets this.questions as the data from the link       
-      })},
+        console.log(localStorage.Test + 1)
+        console.log("----------------")
+        console.log( parseInt(localStorage.Test) + 1);
+    },
     Reset: function(){
         this.teams = [];
         },
@@ -60,10 +80,37 @@ export default{
             }
         });
         return totalScore;
-        }   
+    },
+    CheckAnswer(){
+        if(this.currentanswer == this.currentQuestions[this.NumberOfQuestions]["Answer"]){
+            document.getElementById("Check").innerHTML = 'Correct';
+        }
+        else{
+            document.getElementById("Check").innerHTML = 'False';
+        }
+    }
+    
     },
     mounted(){
-      this.GetData()
+        axios
+        .get("https://ilxze566s8.execute-api.eu-west-2.amazonaws.com/dev")
+        .then(response=>{
+          this.quizs = response.data.body;//sets this.questions as the data from the link
+          this.quizs.forEach(quiz => {
+            if(quiz.QuizPIN == this.quizPIN && quiz.QuizName == this.quizNumber) {
+              console.log("correct pin")
+                let currentQuiz = quiz;
+                for (let question in currentQuiz.Questions) {
+                    this.currentQuestions.push(currentQuiz.Questions[question]);
+                }
+               
+                console.log( this.currentQuestions[this.NumberOfQuestions]);
+                this.hidden = false;
+            }
+        })
+      })
+       
+
     }
 }     
 </script>

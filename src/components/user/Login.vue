@@ -41,7 +41,6 @@
 <script>
 import axios from "axios";
 
-
 export default {
   name: "app",
   data() {
@@ -76,8 +75,18 @@ export default {
         localStorage.setItem('teamname',this.Username);
         localStorage.setItem('Admin', this.Admin) 
         localStorage.setItem('Password', this.Password)     
+
+        localStorage.setItem('Score1', 0)  
+        localStorage.setItem('Score2', 0)  
+        localStorage.setItem('Score3', 0)  
+        localStorage.setItem('Score4', 0)  
+        
+
         });        
     }
+  },
+  mounted(){
+    localStorage.clear();
   }
 };
 

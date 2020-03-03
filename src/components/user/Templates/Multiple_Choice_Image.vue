@@ -67,20 +67,21 @@ export default{
         URL: [] ,
 
         countDown: localStorage.getItem('Countdown'), //Gets the varible from the page before and sets it as countDown
-        score: localStorage.Score,
-        Team1_Id: this.values,//For posting 
-        QuizId: localStorage.getItem('QuizID'),
-        AnswerId: this.Question_Number,
+        score: 0, // Sets the score to 0 from the previous page
         
-        TeamAnswer: '',//For posting ^^
         TeamName: localStorage.teamname,// gets the team name 
-        NumberOfQuestions: localStorage.getItem('NumberOfQuestions'),        
-        Image_Time: localStorage.Image_Time,
-        Info: localStorage.Info,
-        Password: localStorage.Password,
-        Admin: localStorage.Admin,
+        NumberOfQuestions: localStorage.getItem('NumberOfQuestions'), //Starts the questions from 0      
+        Info: localStorage.Info,//Gets the quiz info for the users at the start of the quiz 
 
-        locked: localStorage.getItem("quizNumber")
+        Username: localStorage.teamname, //Gets team name for posting
+        Password: localStorage.Password, // Gets password for posting
+        Admin: localStorage.Admin,  //Gets admin true or fasle for posting
+        QuizID:localStorage.QuizID,  //Gets QuizID for posting 
+
+        Score1: [],
+        Score2: [],
+        Score3: [],
+        Score4: [],
     }
   },
   methods:{
@@ -89,31 +90,31 @@ export default{
         document.getElementById("NoAnswer").innerHTML = "You didn't pick an answer"
       }
       else{
-        localStorage.setItem("Answer"+this.NumberOfQuestions+this.QuizID, this.currentanswer)//Sets the user answer as the localvaraible using the question number and ID to then send to the DB
+        localStorage.setItem("Answer"+this.QuizID+this.NumberOfQuestions, this.currentanswer)//Sets the user answer as the localvaraible using the question number and ID to then send to the DB
         if(this.currentQuestions[this.NumberOfQuestions]["Answer"] == this.currentanswer){
+            console.log(this.score)
             this.score ++;  //adds 1 to the score 
             localStorage.setItem('score', this.score)
                         
         }
-        //this.pushData()
-        if(this.NumberOfQuestions< 10){
-          this.NumberOfQuestions ++;
-          localStorage.setItem('Question_Number', this.NumberOfQuestions)
-          localStorage.setItem('NumberOfQuestions', this.NumberOfQuestions)
-          this.Image_Test_Button()
+        if(this.NumberOfQuestions< 10){//Checks if this variable is less than more than 10 
+          this.NumberOfQuestions ++; // Adds +1 to the varible to get the next question to appear
+          localStorage.setItem('Question_Number', this.NumberOfQuestions) //Sets the local varaible: Question_Number as NumberOfQuestions
+          localStorage.setItem('NumberOfQuestions', this.NumberOfQuestions) //Sets the local varaible: NumberOfQuestions as NumberOfQuestions
+          this.Image_Test_Button() //Activates the function to get the next image to appear.
           
-          localStorage.setItem('Countdown',15);
+          localStorage.setItem('Countdown',15); // Resets the countdown
           this.countDown += 16 - this.countDown; // the button makes the timer reset back to 15 seconds
           this.currentanswer=' '; 
           localStorage.setItem('currentanswer', 'blank')
           document.getElementById("NoAnswer").innerHTML = "" // Gets rid of the alert on the screen
         }
         if(this.NumberOfQuestions == 10){
-          this.SendAnswers()
           this.$router.push('Quiz_results');
           localStorage.setItem('OnOff',0)
           localStorage.setItem('Score', this.score)
-          localStorage.setItem('Score'+this.QuizID, this.score)
+          localStorage.setItem('Score'+this.QuizID, localStorage.Score)
+          this.SendAnswers()
           localStorage.setItem('Question_Number', 0)
         }
       }
@@ -124,12 +125,11 @@ export default{
     },
 
     timerDone:function () {
-      localStorage.setItem("Answer"+this.NumberOfQuestions+this.QuizID, this.currentanswer)
+      localStorage.setItem("Answer"+this.QuizID+this.NumberOfQuestions, this.currentanswer) 
       if(this.currentQuestions[this.NumberOfQuestions]["Answer"] == this.currentanswer){
         this.score ++;  //adds 1 to the score 
         localStorage.setItem('score', this.score)     
       }
-      //this.pushData()
       if(this.NumberOfQuestions< 10){
         this.NumberOfQuestions ++;
         localStorage.setItem('Question_Number', this.NumberOfQuestions)
@@ -143,11 +143,11 @@ export default{
         document.getElementById("NoAnswer").innerHTML = "" // Gets rid of the alert on the screen
       }
       if(this.NumberOfQuestions == 10){
-        this.SendAnswers()
         this.$router.push('Quiz_results');
         localStorage.setItem('OnOff',0)
         localStorage.setItem('Score', this.score)
-        localStorage.setItem('Score'+this.QuizID, this.score)
+        localStorage.setItem('Score'+this.QuizID, localStorage.Score)
+        this.SendAnswers()
         localStorage.setItem('Question_Number', 0)
       }
       document.getElementById("answer1").style.background='white';
@@ -157,9 +157,13 @@ export default{
     },
 
     SendAnswers(){ // Sends the answers from this quiz to the DB
-          console.log("Function worked")
           localStorage.setItem("Quiz"+this.QuizID, this.QuizID)
-          localStorage.getItem('Score'+this.QuizID)
+
+          console.log("Testing")
+          console.log(parseInt(localStorage.Score1))
+          console.log(parseInt(localStorage.Score2))
+          console.log(parseInt(localStorage.Score3))
+          console.log(parseInt(localStorage.Score4))
 
           axios.put("https://hghjfrvme8.execute-api.eu-west-2.amazonaws.com/dev/",//Link to database api post
           {
@@ -179,7 +183,7 @@ export default{
                 Answer8: localStorage.Answer17,
                 Answer9: localStorage.Answer18,
                 Answer10: localStorage.Answer19,
-                Score: localStorage.Score1
+                Score: parseInt(localStorage.Score1)
               },
               Quiz2:{
                 QuizID: localStorage.Quiz2, 
@@ -193,7 +197,7 @@ export default{
                 Answer8: localStorage.Answer27,
                 Answer9: localStorage.Answer28,
                 Answer10: localStorage.Answer29, 
-                Score: localStorage.Score2             
+                Score: parseInt(localStorage.Score2)          
               },
               Quiz3:{
                 QuizID: localStorage.Quiz3, 
@@ -207,7 +211,7 @@ export default{
                 Answer8: localStorage.Answer37,
                 Answer9: localStorage.Answer38,
                 Answer10: localStorage.Answer39, 
-                Score: localStorage.Score3              
+                Score: parseInt(localStorage.Score3)           
               },
               Quiz4:{
                 QuizID: localStorage.Quiz4, 
@@ -221,7 +225,7 @@ export default{
                 Answer8: localStorage.Answer47,
                 Answer9: localStorage.Answer48,
                 Answer10: localStorage.Answer49, 
-                Score: localStorage.Score4              
+                Score: parseInt(localStorage.Score4)           
               }
             },              
           },
@@ -322,25 +326,7 @@ export default{
       this.currentanswer = this.currentQuestions[this.NumberOfQuestions]["Option 4"]; // Sets the variable currentanswer as the selected option 
       console.log(this.currentanswer) //displays the chosen answer in the console.
     },
-    pushData() {
-      var values = crypto.getRandomValues(new Uint32Array(1));
-      for (var i = 0; i < values.length; i++) {
-        console.log(values[i].toString(16));    
-      }
-      axios
-        .post("https://elur4e042l.execute-api.eu-west-2.amazonaws.com/dev/",
-        {
-          AnswerID: values.toString(16),
-          Team: localStorage.teamname,
-          Quiz: this.QuizId,
-          QuestionNumber: this.NumberOfQuestions,
-          TeamAnswer: localStorage.currentanswer,
-          correctAnswer: this.currentQuestions[this.NumberOfQuestions]["Answer"]
-        })
-    },
-    GetData(){
-    
-    }
+
     },
     mounted(){
       axios

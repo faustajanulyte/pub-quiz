@@ -1,63 +1,67 @@
 <template>
-<table class="table table-responsive table-hover">
-<thead>
-<tr><th>Column</th><th>Column</th><th>Column</th><th>Column</th></tr>
-</thead>
-<tbody>
-<tr class="clickable" data-toggle="collapse" data-target="#group-of-rows-1" aria-expanded="false" aria-controls="group-of-rows-1">
-<td><i class="fa fa-plus" aria-hidden="true"></i></td>
-<td>data</td>
-<td>data</td>  
-<td>data</td>
-</tr>
-</tbody>
-<tbody id="group-of-rows-1" class="collapse">
-<tr>
-<td>- child row</td>
-<td>data 1</td>
-<td>data 1</td>  
-<td>data 1</td>
-</tr>
-<tr>
-<td>- child row</td>
-<td>data 1</td>
-<td>data 1</td>  
-<td>data 1</td>
-</tr>
-</tbody>
-<tbody>
-<tr class="clickable" data-toggle="collapse" data-target="#group-of-rows-2" aria-expanded="false" aria-controls="group-of-rows-2">
-<td><i class="fa fa-plus" aria-hidden="true"></i></td>
-<td>data</td>
-<td>data</td>  
-<td>data</td>
-</tr>
-</tbody>
-<tbody id="group-of-rows-2" class="collapse">
-<tr>
-<td>- child row</td>
-<td>data 2</td>
-<td>data 2</td>  
-<td>data 2</td>
-</tr>
-<tr>
-<td>- child row</td>
-<td>data 2</td>
-<td>data 2</td>  
-<td>data 2</td>
-</tr>
-</tbody>
-</table>
-
+   <div class="col-md-3">
+      <select class="form-control bg-dark text-white">
+        <option selected>Team name</option>
+        <option v-for="team in teams" v-bind:key="team.Username">{{ team.Username }}</option>
+      </select>
+    </div>
 </template>
 
-<script >
-   
+
+<script>
+  import axios from 'axios'
+export default{
+  data(){
+    return{
+        teams: []
+    }
+  },
+  methods:{
+    GetData: function(){
+        axios
+        .get("https://hghjfrvme8.execute-api.eu-west-2.amazonaws.com/dev")
+        .then(response=>{
+          this.teams = this.filterAdminUsers(response.data.body);//sets this.questions as the data from the link       
+      })},
+    Reset: function(){
+        this.teams = [];
+        },
+    getTotalScore: function(teamname) {
+        let totalScore = 0;
+        this.teams.forEach(team => {            
+            if(team.Username === teamname) {
+                if(typeof team.Results !== 'undefined') {
+                    for (let quiz in team.Results) {
+                        totalScore =  totalScore + team.Results[quiz].Score;
+                    }
+                }
+            }
+        });
+        return totalScore;
+        },
+    filterAdminUsers: function(users) {
+      let teams = [];
+      users.forEach(team => {            
+            if(team.Admin == 'false') {
+                teams.push(team);
+            }
+        });
+        return teams;
+    }  
+    },
+    mounted(){
+      this.GetData()
+    }
+} 
 </script>
 
+
 <style>
-.collapsing {
-  -webkit-transition: height .01s ease;
-  transition: height .01s ease
+body {
+  width: 100%;
+  height: 100%;
+  background-image: url('~@/assets/images/questionmark.svg');
+  background-size: 50%;
+  margin: 0px;
 }
 </style>

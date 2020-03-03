@@ -73,30 +73,25 @@ export default {
         .then(response=>{
           this.quizs = response.data.body;//sets this.questions as the data from the link
           this.quizs.forEach(quiz => {
-          if(quiz.QuizPIN == this.quizPin && quiz.QuizName == this.quizNumber) {
-            if(localStorage.getItem("Locked" + this.quizNumber) == this.quizNumber){
-            console.log("You've done this quiz")
-            }
+          if(quiz.QuizPIN == this.quizPin && quiz.QuizName == this.quizNumber) {       
+            this.Quiz_Type = quiz.QuizType // All data sent to the next page
+            this.QuizID = quiz.QuizNumber// The quizes number ID
+            this.Info = quiz.QuizInfo
+            this.$router.push(this.Quiz_Type);    
+            localStorage.setItem("quizPin", this.quizPin)  
+            localStorage.setItem("quizNumber", this.quizNumber) 
+            localStorage.setItem("QuizID", this.QuizID) 
+            localStorage.setItem("Info", this.Info) 
+
+            localStorage.setItem('Countdown', this.countDown)
+            localStorage.setItem('Question_Number', this.Question_Number)
+            localStorage.setItem('score', this.score)
+            localStorage.setItem('NumberOfQuestions', this.NumberOfQuestions)     
+              
+
+            console.log(localStorage.quizPin)
+            console.log(localStorage.quizNumber)
             
-            else{            
-              this.Quiz_Type = quiz.QuizType // All data sent to the next page
-              this.QuizID = quiz.QuizNumber// The quizes number ID
-              this.Info = quiz.QuizInfo
-              this.$router.push(this.Quiz_Type);    
-              localStorage.setItem("quizPin", this.quizPin)  
-              localStorage.setItem("quizNumber", this.quizNumber) 
-              localStorage.setItem("QuizID", this.QuizID) 
-              localStorage.setItem("Info", this.Info) 
-
-              localStorage.setItem('Countdown', this.countDown)
-              localStorage.setItem('Question_Number', this.Question_Number)
-              localStorage.setItem('score', this.score)
-              localStorage.setItem('NumberOfQuestions', this.NumberOfQuestions)     
-                
-
-              console.log(localStorage.quizPin)
-              console.log(localStorage.quizNumber)
-            }
           }
           else {
             document.getElementById("login").style.outline = "thick solid Red"; // if none before are triggered then this will trigger and change the outline to red
@@ -106,7 +101,7 @@ export default {
     }
   },
   mounted(){
-    
+
   }
 }
 
