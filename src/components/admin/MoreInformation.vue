@@ -1,28 +1,34 @@
 <template >
     <div class="results col-12">
-        <h1 class="font-weight-bold pt-3">Results</h1>
+        <h1 class="font-weight-bold pt-3">Team answers</h1>
+            <div>
+                <b-dropdown size="md" text="Team name" variant="dark" class="my-3 mx-3">
+                    <b-dropdown-item-button  v-for="team in teams" v-bind:key="team.Username">{{ team.Username }}</b-dropdown-item-button>
+                </b-dropdown>
+                <b-dropdown size="md" text="Quiz" variant="dark">
+                    <b-dropdown-item-button  v-for="team in teams" v-bind:key="team.Username">{{ team.Results[quiz] }}</b-dropdown-item-button>
+                </b-dropdown>
+            </div>
+            <h3 class="font-weight-bold">Score: 9</h3>
             <table class="table mt-4">
                 <thead class="thead-dark col-14">
                     <tr>
-                        <th scope="col" class="col-md-">Team name</th>
-                        <th scope="col" class="col-md-">Overall score</th>
+                        <th scope="col" class="col-md-">Question</th> 
+                        <th scope="col" class="col-md-">Team answer</th>
+                        <th scope="col" class="col-md-">Correct answer</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="team in teams" v-bind:key="team.Username">
-                        <td class="text-white"> {{ team.Username }} </td>
-                        <td class="text-white">{{ getTotalScore(team.Username) }}</td>
+                    <tr>
+                        <td class="text-white">1</td>
+                        <td class="text-white">Dog</td>
+                        <td class="text-white">Cat</td>
                     </tr>
                 </tbody>
             </table>
-        <div class="btn-group">
-            <form @click="$router.push('Services')">
-                <button type="submit" class="btn btn-inline btn-dark btn-md mt-3 mr-4">Back</button>
-            </form>
-            <form @click="$router.push('MoreInformation')">
-                <button type="submit" class="btn btn-inline btn-dark mt-3 btn-md">Team answers</button>
-            </form>
-        </div>
+        <form @click="$router.push('Results')">
+            <button type="submit" class="btn btn-dark btn-md mt-4">Back</button>
+        </form>
     </div>
 </template>
 
