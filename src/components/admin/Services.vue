@@ -3,7 +3,7 @@
     <h1 class="font-weight-bold pb-5">Welcome to admin portal</h1>
       <div class="container bg-dark pb-5 col-8">
         <router-link class="router-link" to="/Quizes">
-          <div class="img-block mr-3">
+          <div class="img-block mx-3">
             <h1>Quizzes</h1>
               <a class="services-icon">
                 <img src="@/assets/images/pen.png"  class="img-fluid" alt="quizes" />
@@ -19,7 +19,7 @@
           </div>
         </router-link>
         <router-link class="router-link" to="/Users">
-          <div class="img-block ml-3">
+          <div class="img-block mx-3">
             <h1>Users</h1>
               <a class="services-icon">
                 <img src="@/assets/images/plus.png" class="img-fluid" alt="users" />
@@ -63,11 +63,11 @@ export default {
 </script>
 
 <style>
-.services {
+body {
   width: 100%;
-  height: 1500px;
   background-image: url('~@/assets/images/questionmark.svg');
-  background-size: 100%;
+  height: 100%;
+  background-size: 50%;
 }
 .router-link {
   filter: invert(0.0);
@@ -88,7 +88,6 @@ export default {
   text-align: center;
 }
 .container {
-  position: absolute;
   border-radius: 25px;
 }
 .line {
