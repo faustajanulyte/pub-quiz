@@ -2,14 +2,24 @@
     <div v-if="loaded" class="results col-12">
         <h1 class="font-weight-bold pt-3">Team answers</h1>
             <div>
-                <label class="font-weight-bold pt-3" for="teamName">Team Name</label>
-                <select v-model="teamName" class="custom-select bg-dark text-white col-2 mr-sm-2 my-3" id="teamName">
+                <div class="row justify-content-center">
+                <div class="col-sm-5">
+                <label class="font-weight-bold h4">Team name</label>
+                <div>
+                <select v-model="teamName" class="custom-select bg-dark text-white col-8 mr-sm-2 mb-4">
                     <option v-for="team in teams" v-bind:key="team.Username">{{ team.Username }}</option>
                 </select>
-                <label class="font-weight-bold pt-3">Quiz Name</label>
-                <select v-model="quizName" class="custom-select bg-dark text-white col-2 mr-sm-2 my-3" id="inlineFormCustomSelect">
+                </div>
+                </div>
+                <div class="col-sm-5">
+                <label class="font-weight-bold h4">Quiz Name</label>
+                <div>
+                <select v-model="quizName" class="custom-select bg-dark text-white col-8 mr-sm-2 mb-4" id="inlineFormCustomSelect">
                     <option v-for="quiz in filterTeamQuiz(teamName)" v-bind:key="quiz.QuizId">{{ quiz }}</option>
                 </select>
+                </div>
+                </div>
+                </div>
             </div>
             <h3 class="font-weight-bold">Score: {{ quizScore }}</h3>
             <table class="table mt-4">
