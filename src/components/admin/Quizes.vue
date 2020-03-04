@@ -1,7 +1,7 @@
 <template>
   <div class="quizzes">
     <div class="outerBox">
-      <router-link class="createButton" to="/CreateAQuiz" tag="button">Create a quiz</router-link>
+      <!-- <router-link class="createButton" to="/CreateAQuiz" tag="button">Create a quiz</router-link>-->
       <div class="innerBox" id="quizListInnerBox">
           <div class="listQuizObject"> <!-- Top of the Quiz table -->
             <div class="quizNameSect">
@@ -17,14 +17,14 @@
           </div>
           <div class="listQuizObject"> <!-- Top of the Quiz table -->
             <div class="quizNameSect">
-              <h class="textQuizList">Quiz 1</h>
+              <h class="textQuizList" id="q1name">Quiz 1</h>
             </div>
             <div class="quizTypeSect">
-              <h class="textQuizList">Quiz Type</h>
+              <h class="textQuizList" id="q1type">Quiz Type</h>
             </div>
             <div class="quizEditSect">
               <router-link to="/CreateAQuiz">
-              <h class="textQuizList">Edit</h>
+              <h class="textQuizList" @click="SetQNumber(1)">Edit</h>
               </router-link>
             </div>
             <div class="quizDeleteSect">
@@ -33,14 +33,14 @@
           </div>
           <div class="listQuizObject"> <!-- Top of the Quiz table -->
             <div class="quizNameSect">
-              <h class="textQuizList">Quiz 2</h>
+              <h class="textQuizList" id="q2name">Quiz 2</h>
             </div>
             <div class="quizTypeSect">
-              <h class="textQuizList">Quiz Type</h>
+              <h class="textQuizList" id="q2type">Quiz Type</h>
             </div>
             <div class="quizEditSect">
               <router-link to="/CreateAQuiz">
-              <h class="textQuizList">Edit</h>
+              <h class="textQuizList" @click="SetQNumber(2)">Edit</h>
               </router-link>
             </div>
             <div class="quizDeleteSect">
@@ -49,14 +49,14 @@
           </div>
           <div class="listQuizObject"> <!-- Top of the Quiz table -->
             <div class="quizNameSect">
-              <h class="textQuizList">Quiz 3</h>
+              <h class="textQuizList" id="q3name">Quiz 3</h>
             </div>
             <div class="quizTypeSect">
-              <h class="textQuizList">Quiz Type</h>
+              <h class="textQuizList" id="q3type">Quiz Type</h>
             </div>
             <div class="quizEditSect">
               <router-link to="/CreateAQuiz">
-              <h class="textQuizList">Edit</h>
+              <h class="textQuizList" @click="SetQNumber(3)">Edit</h>
               </router-link>
             </div>
             <div class="quizDeleteSect">
@@ -65,14 +65,14 @@
           </div>
           <div class="listQuizObject"> <!-- Top of the Quiz table -->
             <div class="quizNameSect">
-              <h class="textQuizList">Quiz 4</h>
+              <h class="textQuizList" id="q4name">Quiz 4</h>
             </div>
             <div class="quizTypeSect">
-              <h class="textQuizList">Quiz Type</h>
+              <h class="textQuizList" id="q4type">Quiz Type</h>
             </div>
             <div class="quizEditSect">
               <router-link to="/CreateAQuiz">
-              <h class="textQuizList">Edit</h>
+              <h class="textQuizList" @click="SetQNumber(4)">Edit</h>
               </router-link>
             </div>
             <div class="quizDeleteSect">
@@ -87,32 +87,35 @@
 </template>
 
 <script>
+import Axios from 'axios';
 export default {
   name: "app",
   data() {
     return {
-      
+
     };
   },
-  methods:
-  {},
-  /*ReloadQuizzes()
-  {
-    CreateNewListQuizObject("Quiz 1");
-    CreateNewListQuizObject("Quiz 2");
-    CreateNewListQuizObject("Quiz 3");
-    CreateNewListQuizObject("Quiz 4");
+  methods: {
+  GetQuizData: function() {
+        Axios
+        .get("https://ilxze566s8.execute-api.eu-west-2.amazonaws.com/dev")
+        .then(response=>{
+          this.quizs = response.data.body;
+          this.quizs.forEach(quiz => {
+            document.getElementById("q" + quiz.QuizNumber + "name").innerHTML = quiz.QuizName;
+            document.getElementById("q" + quiz.QuizNumber + "type").innerHTML = quiz.QuizType;
+          })
+        })
   },
-  CreateNewListQuizObject(name)
+  SetQNumber: function(number)
   {
-    var newListQuizObject = document.createElement('div');
-    newListQuizObject.textContent = name;
-    newListQuizObject.setAttribute('class','listQuizObject');
-    newListQuizObject.parentNode = document.getElementById("quizListInnerBox");
+    localStorage.setItem("quizNumber", number);
+  }
   },
-  mounted() {
-    this.ReloadQuizzes();
-  },*/
+  mounted: function()
+  {
+    this.GetQuizData()
+  }
 }
 
 
