@@ -1,5 +1,5 @@
 <template >
-  <div class="quiz">
+  <div class="">
     <div class="wrapper" id="Info_Box" style="display: block;">
       <div>
         <img src="@/assets/images/Scroll.png" alt="paper" class="Scroll" > 
@@ -158,13 +158,6 @@ export default{
 
     SendAnswers(){ // Sends the answers from this quiz to the DB
           localStorage.setItem("Quiz"+this.QuizID, this.QuizID)
-
-          console.log("Testing")
-          console.log(parseInt(localStorage.Score1))
-          console.log(parseInt(localStorage.Score2))
-          console.log(parseInt(localStorage.Score3))
-          console.log(parseInt(localStorage.Score4))
-
           axios.put("https://hghjfrvme8.execute-api.eu-west-2.amazonaws.com/dev/",//Link to database api post
           {
             Username: this.Username,
@@ -255,11 +248,10 @@ export default{
         document.getElementById("Info_Box").style.display = 'none';
         localStorage.setItem('OnOff',1)
         localStorage.setItem('Countdown',16)
-        this.Hide_Show_Button()
+        localStorage.setItem("Show_Hide_var", 1)
+
         this.countDownTimer()
         this.Image_Test_Button()
-
-        localStorage.setItem("Locked" + this.locked, "1")
       },
 
       Show_Hide(){
@@ -271,15 +263,12 @@ export default{
         }
       },
 
-      Hide_Show_Button(){// Function activates from button and allows it to work if page is refreshed
-        localStorage.setItem("Show_Hide_var", 1)
-      },
 
     Image_Test(){
       setTimeout(() => { // starts the function but with a delay
         this.URL = this.currentQuestions[this.NumberOfQuestions]["URL"] // Sets the variable 'URL' 
         document.getElementById('URL').src = this.URL // Changes the image div to the URL from the database
-      },1000)  
+      },600)  
     },
 
     Image_Test_Button(){
@@ -356,12 +345,13 @@ export default{
 
 <style>
  
-.quiz {
-  position: fixed;
-  background-image: url('~@/assets/images/treasurehunt.gif');
+body {
   width: 100%;
   height: 100%;
-  background-size: 100%;
+  background-image: url('~@/assets/images/questionmark.svg');
+  background-size: 50%;
+  margin: 0px;
+
 }
 .Quiz_box{
   position: absolute;

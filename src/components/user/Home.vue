@@ -68,12 +68,14 @@ export default {
   methods: {
     authPIN: function() { //creates the function which activates by the button
       console.log(this.quizNumber); 
+      
         axios
         .get("https://ilxze566s8.execute-api.eu-west-2.amazonaws.com/dev")
         .then(response=>{
           this.quizs = response.data.body;//sets this.questions as the data from the link
           this.quizs.forEach(quiz => {
-          if(quiz.QuizPIN == this.quizPin && quiz.QuizName == this.quizNumber) {       
+          if(quiz.QuizPIN == this.quizPin && quiz.QuizName == this.quizNumber) { 
+            
             this.Quiz_Type = quiz.QuizType // All data sent to the next page
             this.QuizID = quiz.QuizNumber// The quizes number ID
             this.Info = quiz.QuizInfo
@@ -87,11 +89,7 @@ export default {
             localStorage.setItem('Question_Number', this.Question_Number)
             localStorage.setItem('score', this.score)
             localStorage.setItem('NumberOfQuestions', this.NumberOfQuestions)     
-              
-
-            console.log(localStorage.quizPin)
-            console.log(localStorage.quizNumber)
-            
+                          
           }
           else {
             document.getElementById("login").style.outline = "thick solid Red"; // if none before are triggered then this will trigger and change the outline to red
@@ -101,7 +99,12 @@ export default {
     }
   },
   mounted(){
-
+    axios
+        .get("https://hghjfrvme8.execute-api.eu-west-2.amazonaws.com/dev/")
+        .then(response=>{
+          this.users = response.data.body;
+          console.log(this.users[1].Results.Quiz1.Done)
+        })
   }
 }
 
@@ -110,13 +113,6 @@ export default {
 <style scoped>
 @import url('https://fonts.googleapis.com/css?family=Satisfy&display=swap');
 
-.home {
-  position: fixed;
-  background-image: url('~@/assets/images/treasurehunt.gif');
-  width: 100%;
-  height: 100%;
-  background-size: 100%;
-}
 .holder{
   position:fixed;
   margin:1%;
@@ -180,5 +176,12 @@ export default {
   margin-top:7%;
   font-size:5vw;;
   color:white;
+}
+body {
+  width: 100%;
+  height: 100%;
+  background-image: url('~@/assets/images/questionmark.svg');
+  background-size: 50%;
+  margin: 0px;
 }
 </style>

@@ -160,11 +160,6 @@ export default{
     SendAnswers(){ // Sends the answers from this quiz to the DB
           localStorage.setItem("Quiz"+this.QuizID, this.QuizID)
 
-          this.Score1 = parseInt(localStorage.Score1)
-          this.Score2 = parseInt(localStorage.Score2)
-          this.Score3 = parseInt(localStorage.Score3)
-          this.Score4 = parseInt(localStorage.Score4)
-
           axios.put("https://hghjfrvme8.execute-api.eu-west-2.amazonaws.com/dev/",//Link to database api post
           {
             Username: this.Username,
@@ -256,32 +251,26 @@ export default{
         document.getElementById("Info_Box").style.display = 'none';
         localStorage.setItem('OnOff',1)
         localStorage.setItem('Countdown',16)
-        this.Hide_Show_Button()
-        this.countDownTimer()
-        this.Image_Test()
+        localStorage.setItem("Show_Hide_var", 1)
 
-        localStorage.setItem("Locked" + this.locked, "1")
+        this.countDownTimer()
+        this.Image_Test_Button()
       },
 
       Show_Hide(){
         if(localStorage.Show_Hide_var == 1){ // Function that starts from mounted so still works when page is refreshed
-          console.log("Mounted worked")
           document.getElementById("Question_Box").style.display = 'block';
           document.getElementById("Info_Box").style.display = 'none';
           localStorage.setItem('OnOff',1)
+          this.Image_Test()
         }
       },
-
-      Hide_Show_Button(){// Function activates from button and allows it to work if page is refreshed
-        localStorage.setItem("Show_Hide_var", 1)
-      },
-
 
     Image_Test(){
       setTimeout(() => { // starts the function but with a delay
         this.URL = this.currentQuestions[this.NumberOfQuestions]["URL"] // Sets the variable 'URL' 
         document.getElementById('URL').src = this.URL // Changes the image div to the URL from the database
-      },1000)  
+      },600)  
     },
 
     Image_Test_Button(){
@@ -317,13 +306,7 @@ export default{
 </script>
 
 <style>
-.quiz {
-  position: fixed;
-  background-image: url('~@/assets/images/treasurehunt.gif');
-  width: 100%;
-  height: 100%;
-  background-size: 100%;
-}
+
 .Quiz_box{
   position: absolute;
   background-color: rgba(100, 97, 97, 0.9);

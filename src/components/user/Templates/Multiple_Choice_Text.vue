@@ -164,12 +164,6 @@ export default{
 
     SendAnswers(){ // Sends the answers from this quiz to the DB
           localStorage.setItem("Quiz"+this.QuizID, this.QuizID)
-
-          this.Score1 = parseInt(localStorage.Score1)
-          this.Score2 = parseInt(localStorage.Score2)
-          this.Score3 = parseInt(localStorage.Score3)
-          this.Score4 = parseInt(localStorage.Score4)
-
           axios.put("https://hghjfrvme8.execute-api.eu-west-2.amazonaws.com/dev/",//Link to database api post
           {
             Username: this.Username,
@@ -342,14 +336,7 @@ export default{
 </script>
 
 <style>
- 
-.quiz {
-  position: fixed;
-  background-image: url('~@/assets/images/treasurehunt.gif');
-  width: 100%;
-  height: 100%;
-  background-size: 100%;
-}
+
 .Quiz_box{
   position: absolute;
   background-color: rgba(100, 97, 97, 0.9);

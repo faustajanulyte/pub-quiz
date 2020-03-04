@@ -127,7 +127,9 @@ export default{
     },
 
     timerDone:function () {
+
       localStorage.setItem("Answer"+this.QuizID+this.NumberOfQuestions, this.currentanswer) 
+
       if(this.currentanswer == this.currentQuestions[this.NumberOfQuestions]["Answer"]){
         this.score ++;  //adds 1 to the score 
         localStorage.setItem('score', this.score)     
@@ -147,20 +149,16 @@ export default{
         this.$router.push('Quiz_results');
         localStorage.setItem('OnOff',0)
         localStorage.setItem('Score', this.score)
+
         localStorage.setItem('Score'+this.QuizID, localStorage.Score)
         this.SendAnswers()
+        
         localStorage.setItem('Question_Number', 0)
       }
     },
 
     SendAnswers(){ // Sends the answers from this quiz to the DB
           localStorage.setItem("Quiz"+this.QuizID, this.QuizID)
-
-          this.Score1 = parseInt(localStorage.Score1)
-          this.Score2 = parseInt(localStorage.Score2)
-          this.Score3 = parseInt(localStorage.Score3)
-          this.Score4 = parseInt(localStorage.Score4)
-
           axios.put("https://hghjfrvme8.execute-api.eu-west-2.amazonaws.com/dev/",//Link to database api post
           {
             Username: this.Username,
@@ -296,13 +294,6 @@ export default{
 
 <style>
  
-.quiz {
-  position: fixed;
-  background-image: url('~@/assets/images/treasurehunt.gif');
-  width: 100%;
-  height: 100%;
-  background-size: 100%;
-}
 .Quiz_box{
   position: absolute;
   background-color: rgba(100, 97, 97, 0.9);
