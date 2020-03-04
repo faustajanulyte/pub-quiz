@@ -1,5 +1,5 @@
 <template >
-  <div class="quiz">
+  <div class="">
     <div class="wrapper" id="Info_Box" style="display: block;">
       <div>
         <img src="@/assets/images/Scroll.png" alt="paper" class="Scroll" > 
@@ -67,16 +67,21 @@ export default{
         URL: [] ,
 
         countDown: localStorage.getItem('Countdown'), //Gets the varible from the page before and sets it as countDown
-        score: localStorage.Score,
-        Team1_Id: this.values,//For posting 
-        QuizId: localStorage.getItem('QuizID'),
-        AnswerId: this.Question_Number,
+        score: 0, // Sets the score to 0 from the previous page
         
-        TeamAnswer: '',//For posting ^^
         TeamName: localStorage.teamname,// gets the team name 
-        NumberOfQuestions: localStorage.getItem('NumberOfQuestions'),        
-        Image_Time: localStorage.Image_Time,
-        Info: localStorage.Info,
+        NumberOfQuestions: localStorage.getItem('NumberOfQuestions'), //Starts the questions from 0      
+        Info: localStorage.Info,//Gets the quiz info for the users at the start of the quiz 
+
+        Username: localStorage.teamname, //Gets team name for posting
+        Password: localStorage.Password, // Gets password for posting
+        Admin: localStorage.Admin,  //Gets admin true or fasle for posting
+        QuizID:localStorage.QuizID,  //Gets QuizID for posting 
+
+        Score1: [],
+        Score2: [],
+        Score3: [],
+        Score4: [],
     }
   },
   methods:{
@@ -85,19 +90,20 @@ export default{
         document.getElementById("NoAnswer").innerHTML = "You didn't pick an answer"
       }
       else{
+        localStorage.setItem("Answer"+this.QuizID+this.NumberOfQuestions, this.currentanswer)//Sets the user answer as the localvaraible using the question number and ID to then send to the DB
         if(this.currentQuestions[this.NumberOfQuestions]["Answer"] == this.currentanswer){
+            console.log(this.score)
             this.score ++;  //adds 1 to the score 
             localStorage.setItem('score', this.score)
-            
+                        
         }
-        //this.pushData()
-        if(this.NumberOfQuestions< 10){
-          this.NumberOfQuestions ++;
-          localStorage.setItem('Question_Number', this.NumberOfQuestions)
-          localStorage.setItem('NumberOfQuestions', this.NumberOfQuestions)
-          this.Image_Test()
+        if(this.NumberOfQuestions< 10){//Checks if this variable is less than more than 10 
+          this.NumberOfQuestions ++; // Adds +1 to the varible to get the next question to appear
+          localStorage.setItem('Question_Number', this.NumberOfQuestions) //Sets the local varaible: Question_Number as NumberOfQuestions
+          localStorage.setItem('NumberOfQuestions', this.NumberOfQuestions) //Sets the local varaible: NumberOfQuestions as NumberOfQuestions
+          this.Image_Test_Button() //Activates the function to get the next image to appear.
           
-          localStorage.setItem('Countdown',15);
+          localStorage.setItem('Countdown',15); // Resets the countdown
           this.countDown += 16 - this.countDown; // the button makes the timer reset back to 15 seconds
           this.currentanswer=' '; 
           localStorage.setItem('currentanswer', 'blank')
@@ -107,6 +113,8 @@ export default{
           this.$router.push('Quiz_results');
           localStorage.setItem('OnOff',0)
           localStorage.setItem('Score', this.score)
+          localStorage.setItem('Score'+this.QuizID, localStorage.Score)
+          this.SendAnswers()
           localStorage.setItem('Question_Number', 0)
         }
       }
@@ -117,16 +125,16 @@ export default{
     },
 
     timerDone:function () {
+      localStorage.setItem("Answer"+this.QuizID+this.NumberOfQuestions, this.currentanswer) 
       if(this.currentQuestions[this.NumberOfQuestions]["Answer"] == this.currentanswer){
         this.score ++;  //adds 1 to the score 
         localStorage.setItem('score', this.score)     
       }
-      //this.pushData()
       if(this.NumberOfQuestions< 10){
         this.NumberOfQuestions ++;
         localStorage.setItem('Question_Number', this.NumberOfQuestions)
         localStorage.setItem('NumberOfQuestions', this.NumberOfQuestions)
-        this.Image_Test()
+        this.Image_Test_Button()
          
         localStorage.setItem('Countdown',15);
         this.countDown += 16 - this.countDown; // the button makes the timer reset back to 15 seconds
@@ -138,6 +146,8 @@ export default{
         this.$router.push('Quiz_results');
         localStorage.setItem('OnOff',0)
         localStorage.setItem('Score', this.score)
+        localStorage.setItem('Score'+this.QuizID, localStorage.Score)
+        this.SendAnswers()
         localStorage.setItem('Question_Number', 0)
       }
       document.getElementById("answer1").style.background='white';
@@ -145,6 +155,74 @@ export default{
       document.getElementById("answer3").style.background='white';
       document.getElementById("answer4").style.background='white';
     },
+
+    SendAnswers(){ // Sends the answers from this quiz to the DB
+          localStorage.setItem("Quiz"+this.QuizID, this.QuizID)
+          axios.put("https://hghjfrvme8.execute-api.eu-west-2.amazonaws.com/dev/",//Link to database api post
+          {
+            Username: this.Username,
+            Password: this.Password,
+            Admin: this.Admin,
+            Results:{
+              Quiz1:{
+                QuizID: localStorage.Quiz1, 
+                Answer1: localStorage.Answer10,
+                Answer2: localStorage.Answer11, 
+                Answer3: localStorage.Answer12,
+                Answer4: localStorage.Answer13,
+                Answer5: localStorage.Answer14,
+                Answer6: localStorage.Answer15,
+                Answer7: localStorage.Answer16,
+                Answer8: localStorage.Answer17,
+                Answer9: localStorage.Answer18,
+                Answer10: localStorage.Answer19,
+                Score: parseInt(localStorage.Score1)
+              },
+              Quiz2:{
+                QuizID: localStorage.Quiz2, 
+                Answer1: localStorage.Answer20,
+                Answer2: localStorage.Answer21, 
+                Answer3: localStorage.Answer22,
+                Answer4: localStorage.Answer23,
+                Answer5: localStorage.Answer24,
+                Answer6: localStorage.Answer25,
+                Answer7: localStorage.Answer26,
+                Answer8: localStorage.Answer27,
+                Answer9: localStorage.Answer28,
+                Answer10: localStorage.Answer29, 
+                Score: parseInt(localStorage.Score2)          
+              },
+              Quiz3:{
+                QuizID: localStorage.Quiz3, 
+                Answer1: localStorage.Answer30,
+                Answer2: localStorage.Answer31, 
+                Answer3: localStorage.Answer32,
+                Answer4: localStorage.Answer33,
+                Answer5: localStorage.Answer34,
+                Answer6: localStorage.Answer35,
+                Answer7: localStorage.Answer36,
+                Answer8: localStorage.Answer37,
+                Answer9: localStorage.Answer38,
+                Answer10: localStorage.Answer39, 
+                Score: parseInt(localStorage.Score3)           
+              },
+              Quiz4:{
+                QuizID: localStorage.Quiz4, 
+                Answer1: localStorage.Answer40,
+                Answer2: localStorage.Answer41, 
+                Answer3: localStorage.Answer42,
+                Answer4: localStorage.Answer43,
+                Answer5: localStorage.Answer44,
+                Answer6: localStorage.Answer45,
+                Answer7: localStorage.Answer46,
+                Answer8: localStorage.Answer47,
+                Answer9: localStorage.Answer48,
+                Answer10: localStorage.Answer49, 
+                Score: parseInt(localStorage.Score4)           
+              }
+            },              
+          },
+        )},
 
     //This is all for the timer
     countDownTimer() {
@@ -170,9 +248,10 @@ export default{
         document.getElementById("Info_Box").style.display = 'none';
         localStorage.setItem('OnOff',1)
         localStorage.setItem('Countdown',16)
-        this.Hide_Show_Button()
+        localStorage.setItem("Show_Hide_var", 1)
+
         this.countDownTimer()
-        this.Image_Test()
+        this.Image_Test_Button()
       },
 
       Show_Hide(){
@@ -180,15 +259,19 @@ export default{
           document.getElementById("Question_Box").style.display = 'block';
           document.getElementById("Info_Box").style.display = 'none';
           localStorage.setItem('OnOff',1)
-          localStorage.setItem('Countdown',16)
+          this.Image_Test()
         }
       },
 
-      Hide_Show_Button(){// Function activates from button and allows it to work if page is refreshed
-        localStorage.setItem("Show_Hide_var", 1)
-      },
 
     Image_Test(){
+      setTimeout(() => { // starts the function but with a delay
+        this.URL = this.currentQuestions[this.NumberOfQuestions]["URL"] // Sets the variable 'URL' 
+        document.getElementById('URL').src = this.URL // Changes the image div to the URL from the database
+      },600)  
+    },
+
+    Image_Test_Button(){
       setTimeout(() => { // starts the function but with a delay
         this.URL = this.currentQuestions[this.NumberOfQuestions]["URL"] // Sets the variable 'URL' 
         document.getElementById('URL').src = this.URL // Changes the image div to the URL from the database
@@ -232,25 +315,7 @@ export default{
       this.currentanswer = this.currentQuestions[this.NumberOfQuestions]["Option 4"]; // Sets the variable currentanswer as the selected option 
       console.log(this.currentanswer) //displays the chosen answer in the console.
     },
-    pushData() {
-      var values = crypto.getRandomValues(new Uint32Array(1));
-      for (var i = 0; i < values.length; i++) {
-        console.log(values[i].toString(16));    
-      }
-      axios
-        .post("https://elur4e042l.execute-api.eu-west-2.amazonaws.com/dev/",
-        {
-          AnswerID: values.toString(16),
-          Team: localStorage.teamname,
-          Quiz: this.QuizId,
-          QuestionNumber: this.NumberOfQuestions,
-          TeamAnswer: localStorage.currentanswer,
-          correctAnswer: this.currentQuestions[this.NumberOfQuestions]["Answer"]
-        })
-    },
-    GetData(){
-    
-    }
+
     },
     mounted(){
       axios
@@ -280,12 +345,13 @@ export default{
 
 <style>
  
-.quiz {
-  position: fixed;
-  background-image: url('~@/assets/images/treasurehunt.gif');
+body {
   width: 100%;
   height: 100%;
-  background-size: 100%;
+  background-image: url('~@/assets/images/questionmark.svg');
+  background-size: 50%;
+  margin: 0px;
+
 }
 .Quiz_box{
   position: absolute;
