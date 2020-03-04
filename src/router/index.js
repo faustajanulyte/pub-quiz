@@ -21,7 +21,6 @@ import Add_Data from '@/components/user/Add_Data'
 import Test_Questions from '@/components/user/Test_Questions'
 import Users from '@/components/admin/Users'
 import MoreInformation from '@/components/admin/MoreInformation'
-import table from '@/components/admin/table'
 
 Vue.use(VueRouter)
 
@@ -131,11 +130,6 @@ export default new VueRouter({
       path: '/MoreInformation',
       name: 'MoreInformation',
       component: MoreInformation
-    },
-    {
-      path:'/table',
-      name: 'table',
-      component: table
     }
   ]
 })
