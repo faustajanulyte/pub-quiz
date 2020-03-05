@@ -22,7 +22,7 @@
       </div>
     </div>
 
-    <div class= "" id="Question_Box" style="display: none;">      
+    <div class= "Quiz_box" id="Question_Box" style="display: none;">      
       <div class="buttons_border">
 
 

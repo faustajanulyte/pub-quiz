@@ -1,42 +1,45 @@
 <template>
-  <div class="home">
-    <div class="holder">
-      <div>
-        <img src="@/assets/images/paper.png" alt="paper" class="welcome"> 
-          <p class="message">Ahoy me hearties, welcome to the all new Treasure Hunt Quiz Hub!
+  <div class="hOME">
+    <div class="card">
+      <div class="card-body font-weight-bold text-white">
+        <h3>Ahoy me hearties, 
+          <br>Welcome to the all new Treasure Hunt Quiz Hub!
           Grab yourselves some beverages, take a pew and have a go at the quizzes.
-          One quiz per pub and to launch them you will need to have found the Password as indicated in the clues sheet. There are 10 points on offer here,
-          so good luck.
-          </p>
+          One quiz per pub and to launch them you will need to have found the Password as indicated in the clues sheet. There are 10 points on offer here. 
+          <br>Good luck!</h3>
       </div>
-
-      <div class="pin-overlay" >
-          <div class="pin-wrapper" id="login">
-            <form class="form-access" >
-              <h2 class="pin_heading">Please enter the Quiz Name</h2>
-                <input
-                  class="pin_input"
-                  v-model="quizNumber"
-                  type="text"
-                  id="inputPIN"
-                  placeholder="Please select a quiz"
-                  required
-                />
-              <br/>
-              
-              <h2 class="pin_heading">Please enter the Quiz Pin</h2>
-                <input
-                  v-model="quizPin"
-                  type="text"
-                  id="inputquizname"
-                  class="pin_input"
-                  placeholder="Please enter the Quiz Pin"
-                  required
-                />
-              <br />
-              <button class="pin_button"  type="submit" @click="authPIN()">Submit</button>          
-            </form>
-        </div>  
+    </div>
+    <div class="pin-overlay">
+      <div class="pin-wrapper col-8 bg-dark pb-4">
+        <form class="form-login">
+          <h4 class="form-pin-heading py-3">Please enter the Quiz Name</h4>
+          <div class="input-group" id="quiz">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="inputGroup-sizing-default">Quiz name</span>
+            </div>
+          <input
+            v-model="quizNumber"
+            type="text"
+            class="form-control"
+            required
+          />
+          </div>
+          <br>
+          <div class="input-group" id="pin">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="inputGroup-sizing-default">Quiz PIN</span>
+            </div>
+          <input
+            v-model="quizPin"
+            type="text"
+            class="form-control"
+            required
+          />
+          </div>
+        </form>
+      </div>
+      <div class="col-12">
+        <button type="submit" class="btn btn-dark btn-md mt-4" @click="authPIN()">Submit</button>
       </div>
     </div>
   </div>
@@ -87,7 +90,8 @@ export default {
             console.log(this.QuizID)
             if(this.QuizID === "1"){
               if(localStorage.Completed1 === "1"){
-                this.x ++;               
+                this.x ++;            
+                alert("Already completed this quiz!")   
               }
               else{
                 console.log("Quiz1 not completed")
@@ -95,7 +99,8 @@ export default {
             }
             else if (this.QuizID === "2"){
               if(localStorage.Completed2 === "1"){
-                this.x ++;                 
+                this.x ++;   
+                alert("Already completed this quiz!")                
               }
               else{
                 console.log("Quiz2 not completed")
@@ -103,15 +108,18 @@ export default {
             }
             else if (this.QuizID === "3"){
               if(localStorage.Completed3 === "1"){
-                this.x ++;                 
+                this.x ++;            
+                alert("Already completed this quiz!")     
               }
               else{
                 console.log("Quiz3 not completed")
+                
               }
             }
             else if (this.QuizID === "4"){
               if(localStorage.Completed4 === "1"){
-                this.x ++;                
+                this.x ++;    
+                alert("Already completed this quiz!")            
               }
               else{
                 console.log("Quiz4 not completed")
@@ -134,7 +142,8 @@ export default {
           }
           }
           else {
-            document.getElementById("login").style.outline = "thick solid Red"; // if none before are triggered then this will trigger and change the outline to red
+            document.getElementById("quiz").style.outline = "thick solid Red"; // if none before are triggered then this will trigger and change the outline to red
+            document.getElementById("pin").style.outline = "thick solid Red";
           }
           })
         })
@@ -231,77 +240,32 @@ export default {
 </script>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css?family=Satisfy&display=swap');
 
-.holder{
-  position:fixed;
-  margin:1%;
-  width: 98%;
-  height: 97%;
-}
-.welcome {
-  position: fixed;
-  width: 90%;
-  height: 60%;
-  max-width:6000px;
-  max-height: 1000px;
-  left:5%;
-}
-.message {
-    position: fixed;
-    color: black;
-    left:20%;
-    right:15%;
-    top:8%;
-    font-size: 2.7vh;   
-}
-.pin_input {
-  position:fixed;  
-  height: 5%;
-  width: 50%;
-  left:25%;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  font-size: 2vh;;
-}
-.pin_button{  
-  position: fixed;
-  margin-top: 3vh;
-  margin-left: -20%;
-  height: 5%;
-  width: 40%;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  padding: 0%;
-  font-size: 2vh;;
-}
-.pin-overlay {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-}
-.form-access{
-  height: 90%;
-}
-.pin-wrapper {
-  position: fixed;
-  background-color: rgba(150, 150, 150, 0.8);
-  width: 70%;
-  height: 30%;
-  left:15%;
-  bottom:8%;
-
-}
-.pin_heading{
-  margin-top:7%;
-  font-size:5vw;;
-  color:white;
-}
 body {
   width: 100%;
   height: 100%;
   background-image: url('~@/assets/images/questionmark.svg');
   background-size: 50%;
   margin: 0px;
+}
+.pin-wrapper {
+  background-color: rgba(0, 0, 0, 0.65);
+  margin-top: 10%;
+  margin-left: 17%;
+  border-radius: 25px
+}
+.form-login {
+  height: auto;
+  padding: 10px;
+  margin: 0 auto;
+}
+.form-pin-heading {
+  color: white;
+}
+.card {
+  margin-top: 10%;
+  background-color: rgba(43, 41, 41, 0.8);
+  margin-right: 10%;
+  margin-left: 10%;
 }
 </style>
