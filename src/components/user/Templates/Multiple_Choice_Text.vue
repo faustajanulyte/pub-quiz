@@ -28,10 +28,10 @@
             <div>
                 <div class="title" ref="questions"> {{ currentQuestions[NumberOfQuestions].Question }} </div>
                 <!-- <p v-for="option in currentQuestions[currentQuestion].Options" v-bind:key="option"> {{ option }}</p> -->
-                <div @click="answer1()" class= "answer1" id="answer1"> {{ currentQuestions[NumberOfQuestions]["Option 1"] }} </div>
-                <div @click="answer2()" class= "answer2" id="answer2"> {{ currentQuestions[NumberOfQuestions]["Option 2"] }} </div>
-                <div @click="answer3()" class= "answer3" id="answer3"> {{ currentQuestions[NumberOfQuestions]["Option 3"] }} </div>
-                <div @click="answer4()" class= "answer4" id="answer4"> {{ currentQuestions[NumberOfQuestions]["Option 4"] }} </div>
+                <div @click="answer1()" class= "answer1" id="answer1"> {{ currentQuestions[NumberOfQuestions]["Option1"] }} </div>
+                <div @click="answer2()" class= "answer2" id="answer2"> {{ currentQuestions[NumberOfQuestions]["Option2"] }} </div>
+                <div @click="answer3()" class= "answer3" id="answer3"> {{ currentQuestions[NumberOfQuestions]["Option3"] }} </div>
+                <div @click="answer4()" class= "answer4" id="answer4"> {{ currentQuestions[NumberOfQuestions]["Option4"] }} </div>
             </div>
         </div>
 
@@ -284,8 +284,8 @@ export default{
       document.getElementById("answer4").style.background='white'; //sets the option has white
       document.getElementById("answer3").style.background='white'; //sets the option has white
       document.getElementById("answer2").style.background='white'; //sets the option has white
-      localStorage.setItem('currentanswer',this.currentQuestions[this.NumberOfQuestions]["Option 1"])
-      this.currentanswer = this.currentQuestions[this.NumberOfQuestions]["Option 1"]; // Sets the variable currentanswer as the selected option 
+      localStorage.setItem('currentanswer',this.currentQuestions[this.NumberOfQuestions]["Option1"])
+      this.currentanswer = this.currentQuestions[this.NumberOfQuestions]["Option1"]; // Sets the variable currentanswer as the selected option 
       console.log(this.currentanswer) //displays the chosen answer in the console.
 
     },
@@ -294,8 +294,8 @@ export default{
       document.getElementById("answer1").style.background='white'; //sets the option has white
       document.getElementById("answer3").style.background='white'; //sets the option has white
       document.getElementById("answer4").style.background='white'; //sets the option has white
-      localStorage.setItem('currentanswer',this.currentQuestions[this.NumberOfQuestions]["Option 2"])
-      this.currentanswer = this.currentQuestions[this.NumberOfQuestions]["Option 2"]; // Sets the variable currentanswer as the selected option 
+      localStorage.setItem('currentanswer',this.currentQuestions[this.NumberOfQuestions]["Option2"])
+      this.currentanswer = this.currentQuestions[this.NumberOfQuestions]["Option2"]; // Sets the variable currentanswer as the selected option 
       console.log(this.currentanswer) //displays the chosen answer in the console.
     },
     answer3:function() {
@@ -303,8 +303,8 @@ export default{
       document.getElementById("answer1").style.background='white'; //sets the option has white
       document.getElementById("answer4").style.background='white'; //sets the option has white
       document.getElementById("answer2").style.background='white'; //sets the option has white
-      localStorage.setItem('currentanswer',this.currentQuestions[this.NumberOfQuestions]["Option 3"])
-      this.currentanswer = this.currentQuestions[this.NumberOfQuestions]["Option 3"]; // Sets the variable currentanswer as the selected option 
+      localStorage.setItem('currentanswer',this.currentQuestions[this.NumberOfQuestions]["Option3"])
+      this.currentanswer = this.currentQuestions[this.NumberOfQuestions]["Option3"]; // Sets the variable currentanswer as the selected option 
       console.log(this.currentanswer) //displays the chosen answer in the console.
     },
     answer4:function() {
@@ -312,8 +312,8 @@ export default{
       document.getElementById("answer1").style.background='white'; //sets the option has white
       document.getElementById("answer3").style.background='white'; //sets the option has white
       document.getElementById("answer2").style.background='white'; //sets the option has white
-      localStorage.setItem('currentanswer',this.currentQuestions[this.NumberOfQuestions]["Option 4"])
-      this.currentanswer = this.currentQuestions[this.NumberOfQuestions]["Option 4"]; // Sets the variable currentanswer as the selected option 
+      localStorage.setItem('currentanswer',this.currentQuestions[this.NumberOfQuestions]["Option4"])
+      this.currentanswer = this.currentQuestions[this.NumberOfQuestions]["Option4"]; // Sets the variable currentanswer as the selected option 
       console.log(this.currentanswer) //displays the chosen answer in the console.
     }, 
     },
