@@ -1,5 +1,5 @@
 <template >
-  <div class="quiz">
+  <div class="">
     <div class="wrapper" id="Info_Box" style="display: block;">
       <div>
         <img src="@/assets/images/Scroll.png" alt="paper" class="Scroll" > 
@@ -22,7 +22,7 @@
       </div>
     </div>
 
-    <div class= "Quiz_box" id="Question_Box" style="display: none;">
+    <div class= " " id="Question_Box" style="display: none;">
                 
         <div v-if="!hidden">
             <div>

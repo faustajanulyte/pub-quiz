@@ -34,8 +34,7 @@
                   required
                 />
               <br />
-              <button class="pin_button"  type="submit" @click="authPIN()">Submit</button>     
-              <button class=""  type="" @click="Test()">Test</button>        
+              <button class="pin_button"  type="submit" @click="authPIN()">Submit</button>          
             </form>
         </div>  
       </div>

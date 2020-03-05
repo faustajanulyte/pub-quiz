@@ -1,5 +1,5 @@
 <template>
-  <div class="quiz">
+  <div class="">
     <div class="box">
         <div class="text">
             RESULTS
@@ -44,12 +44,6 @@ export default {
 </script>
 
 <style scoped>
-.quiz {
-    background-image: url('~@/assets/images/treasurehunt.gif');
-    width: 100%;
-    height: 800px;
-    background-size: 100%;
-}
 .box{
     position: fixed;
     top:5%;

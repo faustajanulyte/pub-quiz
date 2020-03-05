@@ -1,5 +1,5 @@
 <template >
-  <div class="quiz">
+  <div class="">
     <div class="wrapper" id="Info_Box" style="display: block;">
       <div>
         <img src="@/assets/images/Scroll.png" alt="paper" class="Scroll" > 
