@@ -62,7 +62,7 @@ export default{
         questions: {},
         currentanswer: ' ',
         countDown: localStorage.getItem('Countdown'), //Gets the varible from the page before and sets it as countDown
-        score: null,
+        score: 0,
         Team1_Id: this.values,//For posting 
         AnswerId: this.Question_Number,
         
@@ -110,6 +110,7 @@ export default{
           localStorage.setItem('OnOff',0)
           localStorage.setItem('Score', this.score)
           localStorage.setItem('Score'+this.QuizID, localStorage.Score)
+          localStorage.setItem("Completed"+this.QuizID, "1")
           this.SendAnswers()
           localStorage.setItem('Question_Number', 0)
           
@@ -149,6 +150,7 @@ export default{
         localStorage.setItem('OnOff',0)
         localStorage.setItem('Score', this.score)
         localStorage.setItem('Score'+this.QuizID, localStorage.Score)
+        localStorage.setItem("Completed"+this.QuizID, "1")
         this.SendAnswers()
         localStorage.setItem('Question_Number', 0)
       }
@@ -182,7 +184,8 @@ export default{
                 Answer8: localStorage.Answer17,
                 Answer9: localStorage.Answer18,
                 Answer10: localStorage.Answer19,
-                Score: parseInt(localStorage.Score1)
+                Score: parseInt(localStorage.Score1),
+                Completed: localStorage.Completed1
               },
               Quiz2:{
                 QuizID: localStorage.Quiz2, 
@@ -196,7 +199,8 @@ export default{
                 Answer8: localStorage.Answer27,
                 Answer9: localStorage.Answer28,
                 Answer10: localStorage.Answer29, 
-                Score: parseInt(localStorage.Score2)           
+                Score: parseInt(localStorage.Score2),
+                Completed: localStorage.Completed2           
               },
               Quiz3:{
                 QuizID: localStorage.Quiz3, 
@@ -210,7 +214,8 @@ export default{
                 Answer8: localStorage.Answer37,
                 Answer9: localStorage.Answer38,
                 Answer10: localStorage.Answer39, 
-                Score: parseInt(localStorage.Score3)             
+                Score: parseInt(localStorage.Score3),
+                Completed: localStorage.Completed3             
               },
               Quiz4:{
                 QuizID: localStorage.Quiz4, 
@@ -224,7 +229,8 @@ export default{
                 Answer8: localStorage.Answer47,
                 Answer9: localStorage.Answer48,
                 Answer10: localStorage.Answer49, 
-                Score: parseInt(localStorage.Score4)          
+                Score: parseInt(localStorage.Score4),
+                Completed: localStorage.Completed4         
               }
             },              
           },
