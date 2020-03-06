@@ -5,14 +5,8 @@
       <textarea rows="1" placeholder="Enter Pin" class="pinInputBox" id="qpininput"></textarea>
       <textarea rows="2" cols="50" placeholder="Enter Description" class="descriptionInputBox" id="qdescinput"></textarea>
       <textarea rows="1" placeholder="Quiz Name" class="quizNameInputBox" id="qquiznameinput"></textarea>
-      <select class="quizTypeInput" id="qquiztypeinput">
-        <option value="0">Select Type:</option>
-        <option value="2">Multiple_Choice_Image</option>
-        <option value="3">Multiple_Choice_Text</option>
-        <option value="4">Text_Input_Text</option>
-        <option value="5">Text_Input_Image</option>
-      </select>
-      <h class="textQuizList">Fill as required</h>
+      <textarea rows="1" class="quizTypeInput" id="qquiztypeinput"></textarea>
+      <h class="textQuizList">Fill all boxes</h>
       <div class="innerBox" id="quizListInnerBox">
           <div class="listQuizObject"> <!-- Top of the Quiz table -->
             <div class="QuestSect">
@@ -315,82 +309,82 @@ export default {
               document.getElementById("qr1c1").innerHTML = quiz.Questions[1].Question;
               document.getElementById("qr1c2").innerHTML = quiz.Questions[1].URL;
               document.getElementById("qr1c3").innerHTML = quiz.Questions[1].Answer;
-              document.getElementById("qr1c4").innerHTML = quiz.Questions[1]["Option 1"];
-              document.getElementById("qr1c5").innerHTML = quiz.Questions[1]["Option 2"];
-              document.getElementById("qr1c6").innerHTML = quiz.Questions[1]["Option 3"];
-              document.getElementById("qr1c7").innerHTML = quiz.Questions[1]["Option 4"];
+              document.getElementById("qr1c4").innerHTML = quiz.Questions[1]["Option1"];
+              document.getElementById("qr1c5").innerHTML = quiz.Questions[1]["Option2"];
+              document.getElementById("qr1c6").innerHTML = quiz.Questions[1]["Option3"];
+              document.getElementById("qr1c7").innerHTML = quiz.Questions[1]["Option4"];
               // Question 2
               document.getElementById("qr2c1").innerHTML = quiz.Questions[2].Question;
               document.getElementById("qr2c2").innerHTML = quiz.Questions[2].URL;
               document.getElementById("qr2c3").innerHTML = quiz.Questions[2].Answer;
-              document.getElementById("qr2c4").innerHTML = quiz.Questions[2]["Option 1"];
-              document.getElementById("qr2c5").innerHTML = quiz.Questions[2]["Option 2"];
-              document.getElementById("qr2c6").innerHTML = quiz.Questions[2]["Option 3"];
-              document.getElementById("qr2c7").innerHTML = quiz.Questions[2]["Option 4"];
+              document.getElementById("qr2c4").innerHTML = quiz.Questions[2]["Option1"];
+              document.getElementById("qr2c5").innerHTML = quiz.Questions[2]["Option2"];
+              document.getElementById("qr2c6").innerHTML = quiz.Questions[2]["Option3"];
+              document.getElementById("qr2c7").innerHTML = quiz.Questions[2]["Option4"];
               // Question 3
               document.getElementById("qr3c1").innerHTML = quiz.Questions[3].Question;
               document.getElementById("qr3c2").innerHTML = quiz.Questions[3].URL;
               document.getElementById("qr3c3").innerHTML = quiz.Questions[3].Answer;
-              document.getElementById("qr3c4").innerHTML = quiz.Questions[3]["Option 1"];
-              document.getElementById("qr3c5").innerHTML = quiz.Questions[3]["Option 2"];
-              document.getElementById("qr3c6").innerHTML = quiz.Questions[3]["Option 3"];
-              document.getElementById("qr3c7").innerHTML = quiz.Questions[3]["Option 4"];
+              document.getElementById("qr3c4").innerHTML = quiz.Questions[3]["Option1"];
+              document.getElementById("qr3c5").innerHTML = quiz.Questions[3]["Option2"];
+              document.getElementById("qr3c6").innerHTML = quiz.Questions[3]["Option3"];
+              document.getElementById("qr3c7").innerHTML = quiz.Questions[3]["Option4"];
               // Question 4
               document.getElementById("qr4c1").innerHTML = quiz.Questions[4].Question;
               document.getElementById("qr4c2").innerHTML = quiz.Questions[4].URL;
               document.getElementById("qr4c3").innerHTML = quiz.Questions[4].Answer;
-              document.getElementById("qr4c4").innerHTML = quiz.Questions[4]["Option 1"];
-              document.getElementById("qr4c5").innerHTML = quiz.Questions[4]["Option 2"];
-              document.getElementById("qr4c6").innerHTML = quiz.Questions[4]["Option 3"];
-              document.getElementById("qr4c7").innerHTML = quiz.Questions[4]["Option 4"];
+              document.getElementById("qr4c4").innerHTML = quiz.Questions[4]["Option1"];
+              document.getElementById("qr4c5").innerHTML = quiz.Questions[4]["Option2"];
+              document.getElementById("qr4c6").innerHTML = quiz.Questions[4]["Option3"];
+              document.getElementById("qr4c7").innerHTML = quiz.Questions[4]["Option4"];
               // Question 5
               document.getElementById("qr5c1").innerHTML = quiz.Questions[5].Question;
               document.getElementById("qr5c2").innerHTML = quiz.Questions[5].URL;
               document.getElementById("qr5c3").innerHTML = quiz.Questions[5].Answer;
-              document.getElementById("qr5c4").innerHTML = quiz.Questions[5]["Option 1"];
-              document.getElementById("qr5c5").innerHTML = quiz.Questions[5]["Option 2"];
-              document.getElementById("qr5c6").innerHTML = quiz.Questions[5]["Option 3"];
-              document.getElementById("qr5c7").innerHTML = quiz.Questions[5]["Option 4"];
+              document.getElementById("qr5c4").innerHTML = quiz.Questions[5]["Option1"];
+              document.getElementById("qr5c5").innerHTML = quiz.Questions[5]["Option2"];
+              document.getElementById("qr5c6").innerHTML = quiz.Questions[5]["Option3"];
+              document.getElementById("qr5c7").innerHTML = quiz.Questions[5]["Option4"];
               // Question 6
               document.getElementById("qr6c1").innerHTML = quiz.Questions[6].Question;
               document.getElementById("qr6c2").innerHTML = quiz.Questions[6].URL;
               document.getElementById("qr6c3").innerHTML = quiz.Questions[6].Answer;
-              document.getElementById("qr6c4").innerHTML = quiz.Questions[6]["Option 1"];
-              document.getElementById("qr6c5").innerHTML = quiz.Questions[6]["Option 2"];
-              document.getElementById("qr6c6").innerHTML = quiz.Questions[6]["Option 3"];
-              document.getElementById("qr6c7").innerHTML = quiz.Questions[6]["Option 4"];
+              document.getElementById("qr6c4").innerHTML = quiz.Questions[6]["Option1"];
+              document.getElementById("qr6c5").innerHTML = quiz.Questions[6]["Option2"];
+              document.getElementById("qr6c6").innerHTML = quiz.Questions[6]["Option3"];
+              document.getElementById("qr6c7").innerHTML = quiz.Questions[6]["Option4"];
               // Question 7
               document.getElementById("qr7c1").innerHTML = quiz.Questions[7].Question;
               document.getElementById("qr7c2").innerHTML = quiz.Questions[7].URL;
               document.getElementById("qr7c3").innerHTML = quiz.Questions[7].Answer;
-              document.getElementById("qr7c4").innerHTML = quiz.Questions[7]["Option 1"];
-              document.getElementById("qr7c5").innerHTML = quiz.Questions[7]["Option 2"];
-              document.getElementById("qr7c6").innerHTML = quiz.Questions[7]["Option 3"];
-              document.getElementById("qr7c7").innerHTML = quiz.Questions[7]["Option 4"];
+              document.getElementById("qr7c4").innerHTML = quiz.Questions[7]["Option1"];
+              document.getElementById("qr7c5").innerHTML = quiz.Questions[7]["Option2"];
+              document.getElementById("qr7c6").innerHTML = quiz.Questions[7]["Option3"];
+              document.getElementById("qr7c7").innerHTML = quiz.Questions[7]["Option4"];
               // Question 8
               document.getElementById("qr8c1").innerHTML = quiz.Questions[8].Question;
               document.getElementById("qr8c2").innerHTML = quiz.Questions[8].URL;
               document.getElementById("qr8c3").innerHTML = quiz.Questions[8].Answer;
-              document.getElementById("qr8c4").innerHTML = quiz.Questions[8]["Option 1"];
-              document.getElementById("qr8c5").innerHTML = quiz.Questions[8]["Option 2"];
-              document.getElementById("qr8c6").innerHTML = quiz.Questions[8]["Option 3"];
-              document.getElementById("qr8c7").innerHTML = quiz.Questions[8]["Option 4"];
+              document.getElementById("qr8c4").innerHTML = quiz.Questions[8]["Option1"];
+              document.getElementById("qr8c5").innerHTML = quiz.Questions[8]["Option2"];
+              document.getElementById("qr8c6").innerHTML = quiz.Questions[8]["Option3"];
+              document.getElementById("qr8c7").innerHTML = quiz.Questions[8]["Option4"];
               // Question 9
               document.getElementById("qr9c1").innerHTML = quiz.Questions[9].Question;
               document.getElementById("qr9c2").innerHTML = quiz.Questions[9].URL;
               document.getElementById("qr9c3").innerHTML = quiz.Questions[9].Answer;
-              document.getElementById("qr9c4").innerHTML = quiz.Questions[9]["Option 1"];
-              document.getElementById("qr9c5").innerHTML = quiz.Questions[9]["Option 2"];
-              document.getElementById("qr9c6").innerHTML = quiz.Questions[9]["Option 3"];
-              document.getElementById("qr9c7").innerHTML = quiz.Questions[9]["Option 4"];
+              document.getElementById("qr9c4").innerHTML = quiz.Questions[9]["Option1"];
+              document.getElementById("qr9c5").innerHTML = quiz.Questions[9]["Option2"];
+              document.getElementById("qr9c6").innerHTML = quiz.Questions[9]["Option3"];
+              document.getElementById("qr9c7").innerHTML = quiz.Questions[9]["Option4"];
               // Question 10
               document.getElementById("qr10c1").innerHTML = quiz.Questions[10].Question;
               document.getElementById("qr10c2").innerHTML = quiz.Questions[10].URL;
               document.getElementById("qr10c3").innerHTML = quiz.Questions[10].Answer;
-              document.getElementById("qr10c4").innerHTML = quiz.Questions[10]["Option 1"];
-              document.getElementById("qr10c5").innerHTML = quiz.Questions[10]["Option 2"];
-              document.getElementById("qr10c6").innerHTML = quiz.Questions[10]["Option 3"];
-              document.getElementById("qr10c7").innerHTML = quiz.Questions[10]["Option 4"];
+              document.getElementById("qr10c4").innerHTML = quiz.Questions[10]["Option1"];
+              document.getElementById("qr10c5").innerHTML = quiz.Questions[10]["Option2"];
+              document.getElementById("qr10c6").innerHTML = quiz.Questions[10]["Option3"];
+              document.getElementById("qr10c7").innerHTML = quiz.Questions[10]["Option4"];
 
             }
           })
@@ -398,8 +392,6 @@ export default {
   },
   SetQuizQuestionData: function()
   {
-        if(localStorage.getItem("quizNumber") == 4)
-        {
             Axios
             .post("https://ilxze566s8.execute-api.eu-west-2.amazonaws.com/dev",
             {
@@ -407,102 +399,102 @@ export default {
               QuizNumber: localStorage.getItem("quizNumber"),
               QuizInfo: document.getElementById("qdescinput").value,
               QuizPIN: document.getElementById("qpininput").value,
-              QuizType: "Text_Input_Image",
-              /*Questions:{
+              QuizType: document.getElementById("qquiztypeinput").value,
+              Questions:{
                 1:{
                   Question: document.getElementById("qr1c1").value,
                   URL: document.getElementById("qr1c2").value,
                   Answer: document.getElementById("qr1c3").value,
-                  ["Option 1"]: document.getElementById("qr1c4").value,
-                  ["Option 2"]: document.getElementById("qr1c5").value,
-                  ["Option 3"]: document.getElementById("qr1c6").value,
-                  ["Option 4"]: document.getElementById("qr1c7").value,
+                  ["Option1"]: document.getElementById("qr1c4").value,
+                  ["Option2"]: document.getElementById("qr1c5").value,
+                  ["Option3"]: document.getElementById("qr1c6").value,
+                  ["Option4"]: document.getElementById("qr1c7").value,
                 },
                 2:{
                   Question: document.getElementById("qr2c1").value,
                   URL: document.getElementById("qr2c2").value,
                   Answer: document.getElementById("qr2c3").value,
-                  ["Option 1"]: document.getElementById("qr2c4").value,
-                  ["Option 2"]: document.getElementById("qr2c5").value,
-                  ["Option 3"]: document.getElementById("qr2c6").value,
-                  ["Option 4"]: document.getElementById("qr2c7").value,
+                  ["Option1"]: document.getElementById("qr2c4").value,
+                  ["Option2"]: document.getElementById("qr2c5").value,
+                  ["Option3"]: document.getElementById("qr2c6").value,
+                  ["Option4"]: document.getElementById("qr2c7").value,
                 },
                 3:{
                   Question: document.getElementById("qr3c1").value,
                   URL: document.getElementById("qr3c2").value,
                   Answer: document.getElementById("qr3c3").value,
-                  ["Option 1"]: document.getElementById("qr3c4").value,
-                  ["Option 2"]: document.getElementById("qr3c5").value,
-                  ["Option 3"]: document.getElementById("qr3c6").value,
-                  ["Option 4"]: document.getElementById("qr3c7").value,
+                  ["Option1"]: document.getElementById("qr3c4").value,
+                  ["Option2"]: document.getElementById("qr3c5").value,
+                  ["Option3"]: document.getElementById("qr3c6").value,
+                  ["Option4"]: document.getElementById("qr3c7").value,
                 },
                 4:{
                   Question: document.getElementById("qr4c1").value,
                   URL: document.getElementById("qr4c2").value,
                   Answer: document.getElementById("qr4c3").value,
-                  ["Option 1"]: document.getElementById("qr4c4").value,
-                  ["Option 2"]: document.getElementById("qr4c5").value,
-                  ["Option 3"]: document.getElementById("qr4c6").value,
-                  ["Option 4"]: document.getElementById("qr4c7").value,
+                  ["Option1"]: document.getElementById("qr4c4").value,
+                  ["Option2"]: document.getElementById("qr4c5").value,
+                  ["Option3"]: document.getElementById("qr4c6").value,
+                  ["Option4"]: document.getElementById("qr4c7").value,
                 },
                 5:{
                   Question: document.getElementById("qr5c1").value,
                   URL: document.getElementById("qr5c2").value,
                   Answer: document.getElementById("qr5c3").value,
-                  ["Option 1"]: document.getElementById("qr5c4").value,
-                  ["Option 2"]: document.getElementById("qr5c5").value,
-                  ["Option 3"]: document.getElementById("qr5c6").value,
-                  ["Option 4"]: document.getElementById("qr5c7").value,
+                  ["Option1"]: document.getElementById("qr5c4").value,
+                  ["Option2"]: document.getElementById("qr5c5").value,
+                  ["Option3"]: document.getElementById("qr5c6").value,
+                  ["Option4"]: document.getElementById("qr5c7").value,
                 },
                 6:{
                   Question: document.getElementById("qr6c1").value,
                   URL: document.getElementById("qr6c2").value,
                   Answer: document.getElementById("qr6c3").value,
-                  ["Option 1"]: document.getElementById("qr6c4").value,
-                  ["Option 2"]: document.getElementById("qr6c5").value,
-                  ["Option 3"]: document.getElementById("qr6c6").value,
-                  ["Option 4"]: document.getElementById("qr6c7").value,
+                  ["Option1"]: document.getElementById("qr6c4").value,
+                  ["Option2"]: document.getElementById("qr6c5").value,
+                  ["Option3"]: document.getElementById("qr6c6").value,
+                  ["Option4"]: document.getElementById("qr6c7").value,
                 },
                 7:{
                   Question: document.getElementById("qr7c1").value,
                   URL: document.getElementById("qr7c2").value,
                   Answer: document.getElementById("qr7c3").value,
-                  ["Option 1"]: document.getElementById("qr7c4").value,
-                  ["Option 2"]: document.getElementById("qr7c5").value,
-                  ["Option 3"]: document.getElementById("qr7c6").value,
-                  ["Option 4"]: document.getElementById("qr7c7").value,
+                  ["Option1"]: document.getElementById("qr7c4").value,
+                  ["Option2"]: document.getElementById("qr7c5").value,
+                  ["Option3"]: document.getElementById("qr7c6").value,
+                  ["Option4"]: document.getElementById("qr7c7").value,
                 },
                 8:{
                   Question: document.getElementById("qr8c1").value,
                   URL: document.getElementById("qr8c2").value,
                   Answer: document.getElementById("qr8c3").value,
-                  ["Option 1"]: document.getElementById("qr8c4").value,
-                  ["Option 2"]: document.getElementById("qr8c5").value,
-                  ["Option 3"]: document.getElementById("qr8c6").value,
-                  ["Option 4"]: document.getElementById("qr8c7").value,
+                  ["Option1"]: document.getElementById("qr8c4").value,
+                  ["Option2"]: document.getElementById("qr8c5").value,
+                  ["Option3"]: document.getElementById("qr8c6").value,
+                  ["Option4"]: document.getElementById("qr8c7").value,
                 },
                 9:{
                   Question: document.getElementById("qr9c1").value,
                   URL: document.getElementById("qr9c2").value,
                   Answer: document.getElementById("qr9c3").value,
-                  ["Option 1"]: document.getElementById("qr9c4").value,
-                  ["Option 2"]: document.getElementById("qr9c5").value,
-                  ["Option 3"]: document.getElementById("qr9c6").value,
-                  ["Option 4"]: document.getElementById("qr9c7").value,
+                  ["Option1"]: document.getElementById("qr9c4").value,
+                  ["Option2"]: document.getElementById("qr9c5").value,
+                  ["Option3"]: document.getElementById("qr9c6").value,
+                  ["Option4"]: document.getElementById("qr9c7").value,
                 },
                 10:{
                   Question: document.getElementById("qr10c1").value,
                   URL: document.getElementById("qr10c2").value,
                   Answer: document.getElementById("qr10c3").value,
-                  ["Option 1"]: document.getElementById("qr10c4").value,
-                  ["Option 2"]: document.getElementById("qr10c5").value,
-                  ["Option 3"]: document.getElementById("qr10c6").value,
-                  ["Option 4"]: document.getElementById("qr10c7").value,
+                  ["Option1"]: document.getElementById("qr10c4").value,
+                  ["Option2"]: document.getElementById("qr10c5").value,
+                  ["Option3"]: document.getElementById("qr10c6").value,
+                  ["Option4"]: document.getElementById("qr10c7").value,
                 }
 
-              }*/
+              }
             })
-        }
+            location.reload();
   },
   },
   mounted()

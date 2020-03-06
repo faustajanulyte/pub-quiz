@@ -12,8 +12,6 @@
             </div>
             <div class="quizEditSect">
             </div>
-            <div class="quizDeleteSect">
-            </div>
           </div>
           <div class="listQuizObject"> <!-- Top of the Quiz table -->
             <div class="quizNameSect">
@@ -26,9 +24,6 @@
               <router-link to="/CreateAQuiz">
               <h class="textQuizList" @click="SetQNumber(1)">Edit</h>
               </router-link>
-            </div>
-            <div class="quizDeleteSect">
-              <button class="textQuizList">Delete</button>
             </div>
           </div>
           <div class="listQuizObject"> <!-- Top of the Quiz table -->
@@ -43,9 +38,6 @@
               <h class="textQuizList" @click="SetQNumber(2)">Edit</h>
               </router-link>
             </div>
-            <div class="quizDeleteSect">
-              <button class="textQuizList">Delete</button>
-            </div>
           </div>
           <div class="listQuizObject"> <!-- Top of the Quiz table -->
             <div class="quizNameSect">
@@ -59,9 +51,6 @@
               <h class="textQuizList" @click="SetQNumber(3)">Edit</h>
               </router-link>
             </div>
-            <div class="quizDeleteSect">
-              <button class="textQuizList">Delete</button>
-            </div>
           </div>
           <div class="listQuizObject"> <!-- Top of the Quiz table -->
             <div class="quizNameSect">
@@ -74,9 +63,6 @@
               <router-link to="/CreateAQuiz">
               <h class="textQuizList" @click="SetQNumber(4)">Edit</h>
               </router-link>
-            </div>
-            <div class="quizDeleteSect">
-              <button class="textQuizList">Delete</button>
             </div>
           </div>
 
@@ -166,7 +152,7 @@ body {
   position: absolute;
   background-color: rgba(100, 97, 97, 0.9);
   height: 5vh;
-  width: 25%;
+  width: 33%;
   left: 0%;
   border-style: solid;
   border-top: 0px;
@@ -177,8 +163,8 @@ body {
   position: absolute;
   background-color: rgba(100, 97, 97, 0.9);
   height: 5vh;
-  width: 25%;
-  left: 25%;
+  width: 33%;
+  left: 33%;
   border-style: solid;
   border-top: 0px;
   border-left: 0px;
@@ -189,22 +175,10 @@ body {
   position: absolute;
   background-color: rgba(100, 97, 97, 0.9);
   height: 5vh;
-  width: 25%;
-  left: 50%;
+  width: 34%;
+  left: 66%;
   border-style: solid;
   border-top: 0px;
-  border-left: 0px;
-}
-
-.quizDeleteSect {
-  position: absolute;
-  background-color: rgba(100, 97, 97, 0.9);
-  height: 5vh;
-  width: 25%;
-  left: 75%;
-  border-style: solid;
-  border-top: 0px;
-  border-right: 0px;
   border-left: 0px;
 }
 
@@ -226,6 +200,14 @@ body {
 {
   text-align: center;
   font-size: 25px;
+  color:ghostwhite;
+}
+
+.textButtonThing
+{
+  text-align: center;
+  font-size: 25px;
+  color:black;
 }
 
 </style>
