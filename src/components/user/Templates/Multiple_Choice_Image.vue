@@ -33,10 +33,10 @@
                 <div class="title" ref="questions"> {{ currentQuestions[NumberOfQuestions]["Question"] }} </div>
                 <img src= "" class="Image_question" id="URL" /> 
                 <!-- <p v-for="option in currentQuestions[currentQuestion].Options" v-bind:key="option"> {{ option }}</p> -->
-                <div @click="answer1()" class= "answer11" id="answer1"> {{ currentQuestions[NumberOfQuestions]["Option 1"] }} </div>
-                <div @click="answer2()" class= "answer21" id="answer2"> {{ currentQuestions[NumberOfQuestions]["Option 2"] }} </div>
-                <div @click="answer3()" class= "answer31" id="answer3"> {{ currentQuestions[NumberOfQuestions]["Option 3"] }} </div>
-                <div @click="answer4()" class= "answer41" id="answer4"> {{ currentQuestions[NumberOfQuestions]["Option 4"] }} </div>
+                <div @click="answer1()" class= "answer11" id="answer1"> {{ currentQuestions[NumberOfQuestions]["Option1"] }} </div>
+                <div @click="answer2()" class= "answer21" id="answer2"> {{ currentQuestions[NumberOfQuestions]["Option2"] }} </div>
+                <div @click="answer3()" class= "answer31" id="answer3"> {{ currentQuestions[NumberOfQuestions]["Option3"] }} </div>
+                <div @click="answer4()" class= "answer41" id="answer4"> {{ currentQuestions[NumberOfQuestions]["Option4"] }} </div>
             </div>
         </div>
        
@@ -63,7 +63,7 @@ export default{
         quizPIN: localStorage.quizPin,
         currentQuestions: [],
         questions: {},
-        currentanswer: ' ',
+        currentanswer: null,
         URL: [] ,
 
         countDown: localStorage.getItem('Countdown'), //Gets the varible from the page before and sets it as countDown
@@ -86,7 +86,7 @@ export default{
   },
   methods:{
     handleButton:function () {
-      if(this.currentanswer == ' '){  // checking the user has selected an answer
+      if(this.currentanswer == null){  // checking the user has selected an answer
         document.getElementById("NoAnswer").innerHTML = "You didn't pick an answer"
       }
       else{
@@ -105,7 +105,7 @@ export default{
           
           localStorage.setItem('Countdown',15); // Resets the countdown
           this.countDown += 16 - this.countDown; // the button makes the timer reset back to 15 seconds
-          this.currentanswer=' '; 
+          this.currentanswer = null; 
           localStorage.setItem('currentanswer', 'blank')
           document.getElementById("NoAnswer").innerHTML = "" // Gets rid of the alert on the screen
         }
@@ -114,6 +114,7 @@ export default{
           localStorage.setItem('OnOff',0)
           localStorage.setItem('Score', this.score)
           localStorage.setItem('Score'+this.QuizID, localStorage.Score)
+          localStorage.setItem("Completed"+this.QuizID, "1")
           this.SendAnswers()
           localStorage.setItem('Question_Number', 0)
         }
@@ -138,7 +139,7 @@ export default{
          
         localStorage.setItem('Countdown',15);
         this.countDown += 16 - this.countDown; // the button makes the timer reset back to 15 seconds
-        this.currentanswer=' '; 
+        this.currentanswer=null; 
         localStorage.setItem('currentanswer', 'blank')
         document.getElementById("NoAnswer").innerHTML = "" // Gets rid of the alert on the screen
       }
@@ -147,6 +148,7 @@ export default{
         localStorage.setItem('OnOff',0)
         localStorage.setItem('Score', this.score)
         localStorage.setItem('Score'+this.QuizID, localStorage.Score)
+        localStorage.setItem("Completed"+this.QuizID, "1")
         this.SendAnswers()
         localStorage.setItem('Question_Number', 0)
       }
@@ -176,7 +178,8 @@ export default{
                 Answer8: localStorage.Answer17,
                 Answer9: localStorage.Answer18,
                 Answer10: localStorage.Answer19,
-                Score: parseInt(localStorage.Score1)
+                Score: parseInt(localStorage.Score1),
+                Completed: localStorage.Completed1
               },
               Quiz2:{
                 QuizID: localStorage.Quiz2, 
@@ -190,7 +193,8 @@ export default{
                 Answer8: localStorage.Answer27,
                 Answer9: localStorage.Answer28,
                 Answer10: localStorage.Answer29, 
-                Score: parseInt(localStorage.Score2)          
+                Score: parseInt(localStorage.Score2), 
+                Completed: localStorage.Completed2         
               },
               Quiz3:{
                 QuizID: localStorage.Quiz3, 
@@ -204,7 +208,8 @@ export default{
                 Answer8: localStorage.Answer37,
                 Answer9: localStorage.Answer38,
                 Answer10: localStorage.Answer39, 
-                Score: parseInt(localStorage.Score3)           
+                Score: parseInt(localStorage.Score3),
+                Completed: localStorage.Completed3           
               },
               Quiz4:{
                 QuizID: localStorage.Quiz4, 
@@ -218,7 +223,8 @@ export default{
                 Answer8: localStorage.Answer47,
                 Answer9: localStorage.Answer48,
                 Answer10: localStorage.Answer49, 
-                Score: parseInt(localStorage.Score4)           
+                Score: parseInt(localStorage.Score4),
+                Completed: localStorage.Completed4          
               }
             },              
           },
@@ -284,8 +290,8 @@ export default{
       document.getElementById("answer4").style.background='white'; //sets the option has white
       document.getElementById("answer3").style.background='white'; //sets the option has white
       document.getElementById("answer2").style.background='white'; //sets the option has white
-      localStorage.setItem('currentanswer',this.currentQuestions[this.NumberOfQuestions]["Option 1"])
-      this.currentanswer = this.currentQuestions[this.NumberOfQuestions]["Option 1"]; // Sets the variable currentanswer as the selected option 
+      localStorage.setItem('currentanswer',this.currentQuestions[this.NumberOfQuestions]["Option1"])
+      this.currentanswer = this.currentQuestions[this.NumberOfQuestions]["Option1"]; // Sets the variable currentanswer as the selected option 
       console.log(this.currentanswer) //displays the chosen answer in the console.
     },
      answer2:function() {
@@ -293,8 +299,8 @@ export default{
       document.getElementById("answer1").style.background='white'; //sets the option has white
       document.getElementById("answer3").style.background='white'; //sets the option has white
       document.getElementById("answer4").style.background='white'; //sets the option has white
-      localStorage.setItem('currentanswer',this.currentQuestions[this.NumberOfQuestions]["Option 2"])
-      this.currentanswer = this.currentQuestions[this.NumberOfQuestions]["Option 2"]; // Sets the variable currentanswer as the selected option 
+      localStorage.setItem('currentanswer',this.currentQuestions[this.NumberOfQuestions]["Option2"])
+      this.currentanswer = this.currentQuestions[this.NumberOfQuestions]["Option2"]; // Sets the variable currentanswer as the selected option 
       console.log(this.currentanswer) //displays the chosen answer in the console.
     },
     answer3:function() {
@@ -302,8 +308,8 @@ export default{
       document.getElementById("answer1").style.background='white'; //sets the option has white
       document.getElementById("answer4").style.background='white'; //sets the option has white
       document.getElementById("answer2").style.background='white'; //sets the option has white
-      localStorage.setItem('currentanswer',this.currentQuestions[this.NumberOfQuestions]["Option 3"])
-      this.currentanswer = this.currentQuestions[this.NumberOfQuestions]["Option 3"]; // Sets the variable currentanswer as the selected option 
+      localStorage.setItem('currentanswer',this.currentQuestions[this.NumberOfQuestions]["Option3"])
+      this.currentanswer = this.currentQuestions[this.NumberOfQuestions]["Option3"]; // Sets the variable currentanswer as the selected option 
       console.log(this.currentanswer) //displays the chosen answer in the console.
     },
     answer4:function() {
@@ -311,8 +317,8 @@ export default{
       document.getElementById("answer1").style.background='white'; //sets the option has white
       document.getElementById("answer3").style.background='white'; //sets the option has white
       document.getElementById("answer2").style.background='white'; //sets the option has white
-      localStorage.setItem('currentanswer',this.currentQuestions[this.NumberOfQuestions]["Option 4"])
-      this.currentanswer = this.currentQuestions[this.NumberOfQuestions]["Option 4"]; // Sets the variable currentanswer as the selected option 
+      localStorage.setItem('currentanswer',this.currentQuestions[this.NumberOfQuestions]["Option4"])
+      this.currentanswer = this.currentQuestions[this.NumberOfQuestions]["Option4"]; // Sets the variable currentanswer as the selected option 
       console.log(this.currentanswer) //displays the chosen answer in the console.
     },
 

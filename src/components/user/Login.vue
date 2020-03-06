@@ -100,11 +100,6 @@ body {
   background-size: 50%;
   margin: 0px;
 }
-.login-overlay {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-}
 .login-wrapper {
   background-color: rgba(0, 0, 0, 0.65);
   margin-top: 10%;
@@ -115,21 +110,7 @@ body {
   color: white;
 }
 .form-login .form-control {
-  position: relative;
   height: auto;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
   padding: 10px;
-  font-size: 16px;
-}
-.form-login input[type="team name"] {
-  margin-bottom: 0px;
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0;
-}
-.form-login input[type="password"] {
-  margin-bottom: 0px;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
 }
 </style>
