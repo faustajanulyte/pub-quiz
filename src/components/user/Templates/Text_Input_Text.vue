@@ -1,26 +1,18 @@
 <template >
-  <div class="">
-    <div class="wrapper" id="Info_Box" style="display: block;">
+  <div>
+    <div class="infoPage">
+      <h1 class="text-dark font-weight-bold my-4" id="result">{{ TeamName }}</h1>
+        <div class="card mx-4 bg-dark" id="Info_Box">
+          <div class="card-body font-weight-bold text-white">
+            <h3>{{ Info }}</h3>
+          </div>
+        </div>
       <div>
-        <img src="@/assets/images/Scroll.png" alt="paper" class="Scroll" > 
-        <div class="paragraph">
-          {{Info}}
-        </div>  
-
-      </div>
-
-      <div class= "buttons_box"> 
-        <div class= "TeamName" id="result">
-          {{TeamName}}
-        </div>
-
-        <div>
-
-        <button type="submit" class="Start_button" @click= Show_Hide_button>Start</button>
-        
-        </div>
+        <button type="submit" class="btn btn-dark btn-lg mt-4" @click= Show_Hide_button>Start</button>
       </div>
     </div>
+    
+   
 
 
     <div class= "Quiz_box" id="Question_Box" style="display: none;">

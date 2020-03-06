@@ -1,5 +1,5 @@
 <template>
-  <div class="hOME">
+  <div class="home">
     <div class="card">
       <div class="card-body font-weight-bold text-white">
         <h3>Ahoy me hearties, 
@@ -38,8 +38,11 @@
           </div>
         </form>
       </div>
-      <div class="col-12">
-        <button type="submit" class="btn btn-dark btn-md mt-4" @click="authPIN()">Submit</button>
+      <div class="btn-group">
+        <button type="submit" class="btn btn-dark btn-md my-4 mx-4" @click="authPIN()">Submit</button>
+      <form @click="$router.push('/')">
+        <button id="back" type="submit" class="btn btn-dark btn-md my-4">Log out</button>
+      </form>
       </div>
     </div>
   </div>
@@ -134,11 +137,13 @@ export default {
             localStorage.setItem("quizNumber", this.quizNumber) 
             localStorage.setItem("QuizID", this.QuizID) 
             localStorage.setItem("Info", this.Info) 
+            localStorage.setItem('OnOff',0)
 
             localStorage.setItem('Countdown', this.countDown)
             localStorage.setItem('Question_Number', this.Question_Number)
             localStorage.setItem('score', this.score)
             localStorage.setItem('NumberOfQuestions', this.NumberOfQuestions)     
+            localStorage.setItem("Show_Hide_var", 0)
           }
           }
           else {
@@ -240,7 +245,6 @@ export default {
 </script>
 
 <style scoped>
-
 body {
   width: 100%;
   height: 100%;

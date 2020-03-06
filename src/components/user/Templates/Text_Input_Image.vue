@@ -1,40 +1,26 @@
 <template >
-  <div class="">
-    <div class="wrapper" id="Info_Box" style="display: block;">
+  <div>
+    <div class="infoPage">
+      <h1 class="text-dark font-weight-bold my-4" id="result">{{ TeamName }}</h1>
+        <div class="card mx-4 bg-dark" id="Info_Box">
+          <div class="card-body font-weight-bold text-white">
+            <h3>{{ Info }}</h3>
+          </div>
+        </div>
       <div>
-        <img src="@/assets/images/Scroll.png" alt="paper" class="Scroll" > 
-        <div class="paragraph">
-          {{Info}}
-        </div>  
-
-      </div>
-
-      <div class= "buttons_box"> 
-        <div class= "TeamName" id="result">
-          {{TeamName}}
-        </div>
-
-        <div>
-
-        <button type="submit" class="Start_button" @click= Show_Hide_button>Start</button>
-        
-        </div>
+        <button type="submit" class="btn btn-dark btn-lg mt-4" @click= Show_Hide_button>Start</button>
       </div>
     </div>
-
-
+    <div class="textInputImagePage">
+      
+    </div>
+  
     <div class= "Quiz_box" id="Question_Box" style="display: none;">
-      
       <div class="title2" ref="questions">
-
         <div class="title" ref="questions"> {{ currentQuestions[NumberOfQuestions].Question }} </div>
-
         <img src= "" class="Image_question" id="URL" />  
-      
       <div class="timer_text" id="timer"> </div>
-      
-      </div>    
-
+      </div>
       <div class="buttons_border">
         <input
           v-model="currentanswer"
@@ -45,7 +31,6 @@
         />
         <br />
       </div> 
-      
       <div id="NoAnswer" class="NoAnswer_Text"> </div>
       <div>
         <button class="submit2" @click="handleButton"> Submit </button>
@@ -303,7 +288,6 @@ export default{
             }
         })
       })
-      this.countDownTimer() //initializes the countdown function 
       this.Image_Test()
       this.Show_Hide()
       document.getElementById("result").innerHTML = localStorage.teamname ;
@@ -312,31 +296,45 @@ export default{
 </script>
 
 <style>
+body {
+  width: 100%;
+  height: 100%;
+  background-image: url('~@/assets/images/questionmark.svg');
+  background-size: 50%;
+  margin: 0px;
+}
+.card {
+  margin-top: 10%;
+  background-color: rgba(43, 41, 41, 0.8);
+  margin-right: 10%;
+  margin-left: 10%;
+  margin-bottom: 10%;
+}
 
 .Quiz_box{
   position: absolute;
-  background-color: rgba(100, 97, 97, 0.9);
+  background-color: green;
   top:2%;
   left:4%;
   width: 93%;
   height: 90vh;
   border-style: solid;
   border-width: 4px;
-  border-color: white;
+  border-color: red;
 }
 .title2{
   position:relative;
   font-size:9vw;
   text-align: left; 
   width: 75%;
-  color:white;  
+  color: yellow;  
   left:5%;
   top:5%;
   word-wrap: break-word; /** makes the text wrap inside the div */
 }
 .timer_text{
   font-size:8vw;
-  color:rgba(250, 152, 71, 0.9);
+  color:blue;
   position: fixed;
   left: 80%;
   text-align: center;
@@ -346,7 +344,7 @@ export default{
   padding-right:2%;
   border-style: solid;
   border-width: 4px;
-  border-color: white;
+  border-color: orange;
 }
 .buttons_border{
   position: relative;
@@ -365,8 +363,8 @@ export default{
   height: 15%;
   top:43%;
   left:10%;
-  color: rgb(48, 49, 54);
-  background-color: white;
+  color: pink;
+  background-color: purple;
 }
 .answer21{
   position: fixed;
@@ -379,8 +377,8 @@ export default{
   height:15%;
   left:60%;
   top:43%;
-  color: rgb(48, 49, 54);
-  background-color: white;
+  color: pink;
+  background-color: purple;
 }
 .answer31{
   position: fixed;
@@ -393,8 +391,8 @@ export default{
   height: 15%;
   top:61%;
   left:10%;
-  color: rgb(48, 49, 54);
-  background-color: white;
+  color: pink;
+  background-color: purple;
 }
 .answer41{
   position: fixed;
@@ -407,8 +405,8 @@ export default{
   height: 15%;
   left:60%;
   top:61%;
-  color: rgb(48, 49, 54);
-  background-color: white;
+  color: pink;
+  background-color: purple;
 }
 .submit2{
   position:fixed;
@@ -422,16 +420,16 @@ export default{
   position:relative;
   text-align:right;
   font-size: 40px;
-  color:white;
+  color:rgb(43, 192, 202);
   padding-left: 80%;
 }
 .score{
   font-size:4vh;
-  color:white;
+  color:rgb(65, 167, 18);
 }
 .NoAnswer_Text{
   font-size:5vh;
-  color: orange;
+  color: rgb(0, 255, 179);
   position: fixed;
   width:80%;
   right:10%;

@@ -1,5 +1,9 @@
 <template>
-  <div class="">
+  <div>
+    <div class="container bg-dark pb-5 col-8 my-4">
+      <h1 class="text-white font-weight-bold py-4">RESULTS</H1>
+    </div>
+    <button type="submit" class="btn btn-dark btn-lg mt-2" @click="back_to_home">Back</button>
     <div class="box">
         <div class="text">
             RESULTS
