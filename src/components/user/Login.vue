@@ -4,7 +4,7 @@
       <div class="login-wrapper col-8 bg-dark pb-4">
         <form class="form-login">
           <h2 class="form-login-heading py-3">Please sign in</h2>
-          <div class="input-group">
+          <div class="input-group" id="username">
             <div class="input-group-prepend">
               <span class="input-group-text" id="inputGroup-sizing-default">Username</span>
             </div>
@@ -17,7 +17,7 @@
           />
           </div>
           <br>
-          <div class="input-group">
+          <div class="input-group" id="password">
             <div class="input-group-prepend">
               <span class="input-group-text" id="inputGroup-sizing-default">Password</span>
             </div>
@@ -32,7 +32,7 @@
         </form>
       </div>
       <div class="col-12">
-        <button type="submit" class="btn btn-dark btn-md mt-4" @click="authUsers()">Sign in</button>
+        <button type="submit" class="btn btn-dark btn-md my-4" @click="authUsers()">Sign in</button>
       </div>
     </div>
   </div>
@@ -70,7 +70,8 @@ export default {
           } else if(response.data.valid) {
             this.$router.push('Home');
           } else {
-            alert("Failed to sign in!");
+            document.getElementById("username").style.outline = "thick solid Red";
+            document.getElementById("password").style.outline = "thick solid Red";
         }
         localStorage.setItem('teamname',this.Username);
         localStorage.setItem('Admin', this.Admin) 

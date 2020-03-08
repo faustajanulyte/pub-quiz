@@ -1,8 +1,8 @@
 <template >
   <div>
-    <div class="infoPage">
+    <div class="infoPage" id="Info_Box">
       <h1 class="text-dark font-weight-bold my-4" id="result">{{ TeamName }}</h1>
-        <div class="card mx-4 bg-dark" id="Info_Box">
+        <div class="card mx-4 bg-dark">
           <div class="card-body font-weight-bold text-white">
             <h3>{{ Info }}</h3>
           </div>
@@ -11,33 +11,30 @@
         <button type="submit" class="btn btn-dark btn-lg mt-4" @click= Show_Hide_button>Start</button>
       </div>
     </div>
-    <div class="textInputImagePage">
-      
+    <div class="Text_Input_Image" v-if="!hidden">
+      <div class="container bg-dark pb-3 col-10 my-4" id="Question_Box" style="display: none;">
+        <h3 class="text-white font-weight-bold pt-4" ref="questions">{{ currentQuestions[NumberOfQuestions].Question }}</h3>
+          <div class="text-dark font-weight-bold h1 bg-light rounded-circle my-4 col-md- circle">
+            <a class="py-1 px-3" id="timer"></a>
+          </div>
+          <div class="col-12">
+            <img src= "" class="Image_question img-fluid mb-4" id="URL"/>
+          </div>
+            <div class="inputAnswer" id="quiz">
+              <input
+                v-model="currentanswer"
+                type="text"
+                id="currentAnswer"
+                class="Input_Answer1 rounded col-md-6 my-4"
+              />
+            </div>  
+              <div id="NoAnswer" class="NoAnswer_Text text-danger mb-4"> </div>
+              <div class="col-15">
+                <button type="submit" class="submit btn btn-light btn-md mb-4" @click="handleButton">Submit</button>
+              </div>
+            </div>
+        </div>
     </div>
-  
-    <div class= "Quiz_box" id="Question_Box" style="display: none;">
-      <div class="title2" ref="questions">
-        <div class="title" ref="questions"> {{ currentQuestions[NumberOfQuestions].Question }} </div>
-        <img src= "" class="Image_question" id="URL" />  
-      <div class="timer_text" id="timer"> </div>
-      </div>
-      <div class="buttons_border">
-        <input
-          v-model="currentanswer"
-          type="text"
-          id="currentAnswer"
-          class="Input_Answer1"
-          placeholder=""
-        />
-        <br />
-      </div> 
-      <div id="NoAnswer" class="NoAnswer_Text"> </div>
-      <div>
-        <button class="submit2" @click="handleButton"> Submit </button>
-      </div>
-    </div>
- </div>
-  
 </template>
 
 <script >
@@ -303,157 +300,14 @@ body {
   background-size: 50%;
   margin: 0px;
 }
-.card {
-  margin-top: 10%;
-  background-color: rgba(43, 41, 41, 0.8);
-  margin-right: 10%;
-  margin-left: 10%;
-  margin-bottom: 10%;
+.circle {
+  height: 80px;
+  width: 80px;
+  display: table;
+  margin: 20px auto;
 }
-
-.Quiz_box{
-  position: absolute;
-  background-color: green;
-  top:2%;
-  left:4%;
-  width: 93%;
-  height: 90vh;
-  border-style: solid;
-  border-width: 4px;
-  border-color: red;
-}
-.title2{
-  position:relative;
-  font-size:9vw;
-  text-align: left; 
-  width: 75%;
-  color: yellow;  
-  left:5%;
-  top:5%;
-  word-wrap: break-word; /** makes the text wrap inside the div */
-}
-.timer_text{
-  font-size:8vw;
-  color:blue;
-  position: fixed;
-  left: 80%;
-  text-align: center;
-  top:5%;
-  width:13%;
-  padding-left: 2%;
-  padding-right:2%;
-  border-style: solid;
-  border-width: 4px;
-  border-color: orange;
-}
-.buttons_border{
-  position: relative;
-  margin:3%;
-  width: 90%;
-  height: 400px;
-  top: 10%;
-}
-.answer11{
-  position: fixed;
-  white-space: wrap; 
-  overflow: hidden;
-  font-size: 5vw;
-  padding: 1vw;
-  width:30%;
-  height: 15%;
-  top:43%;
-  left:10%;
-  color: pink;
-  background-color: purple;
-}
-.answer21{
-  position: fixed;
-  white-space: wrap; 
-  overflow: hidden; 
-  text-align: center;
-  font-size: 5vw;
-  padding: 1vw;
-  width:30%;
-  height:15%;
-  left:60%;
-  top:43%;
-  color: pink;
-  background-color: purple;
-}
-.answer31{
-  position: fixed;
-  white-space: wrap; 
-  overflow: hidden;
-  text-align: center;
-  font-size: 5vw;
-  padding: 1vw;
-  width:30%;
-  height: 15%;
-  top:61%;
-  left:10%;
-  color: pink;
-  background-color: purple;
-}
-.answer41{
-  position: fixed;
-  white-space: wrap; 
-  overflow: hidden;
-  text-align: center;
-  font-size: 5vw;
-  padding: 1vw;
-  width:30%;
-  height: 15%;
-  left:60%;
-  top:61%;
-  color: pink;
-  background-color: purple;
-}
-.submit2{
-  position:fixed;
-  bottom:25%;
-  right:10%;
-  font-size: 8vw;
-  padding-left:1vw;
-  padding-right:1vw;
-}
-.timer{
-  position:relative;
-  text-align:right;
-  font-size: 40px;
-  color:rgb(43, 192, 202);
-  padding-left: 80%;
-}
-.score{
-  font-size:4vh;
-  color:rgb(65, 167, 18);
-}
-.NoAnswer_Text{
-  font-size:5vh;
-  color: rgb(0, 255, 179);
-  position: fixed;
-  width:80%;
-  right:10%;
-  left: 10%;
-  bottom: 10%;
-}
-.Image_question{
-  position:fixed;
-  top:20%;
-  left:10%;
-  height: 20%;
-  width:80%;
-}
-.test{
-  position:fixed;
-  top: 60%;
-}
-.Input_Answer1{
-  position:fixed;
-  top: 50%;
-  left: 15%;
-  width:70%;
-  height: 15%;
-  font-size:4vh;
-  text-align: center;
+.circle a {
+  vertical-align: middle;
+  display: table-cell;
 }
 </style>

@@ -17,10 +17,10 @@
             </table>
         <div class="btn-group">
             <form @click="$router.push('Services')">
-                <button type="submit" class="btn btn-inline btn-dark btn-md mt-3 mr-4">Back</button>
+                <button type="submit" class="btn btn-inline btn-dark btn-md my-3 mr-4">Back</button>
             </form>
             <form @click="$router.push('MoreInformation')">
-                <button type="submit" class="btn btn-inline btn-dark mt-3 btn-md">Team answers</button>
+                <button type="submit" class="btn btn-inline btn-dark my-3 btn-md">Team answers</button>
             </form>
         </div>
     </div>

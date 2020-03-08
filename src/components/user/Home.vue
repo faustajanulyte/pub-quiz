@@ -39,7 +39,7 @@
         </form>
       </div>
       <div class="btn-group">
-        <button type="submit" class="btn btn-dark btn-md my-4 mx-4" @click="authPIN()">Submit</button>
+        <button type="submit" class="btn btn-dark btn-md my-4 mr-4 rounded" @click="authPIN()">Submit</button>
       <form @click="$router.push('/')">
         <button id="back" type="submit" class="btn btn-dark btn-md my-4">Log out</button>
       </form>
