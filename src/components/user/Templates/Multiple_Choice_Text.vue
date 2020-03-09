@@ -18,16 +18,16 @@
             <a class="py-1 px-3" id="timer"></a>
           </div>
             <div class="btn-group-vertical col-12">
-              <button @click="answer1()" class="answer1 btn btn-lg btn-light bg-light text-dark my-4 rounded" id="answer1">{{ currentQuestions[NumberOfQuestions]["Option1"] }}</button>
-              <button @click="answer2()" class="answer2 btn btn-lg btn-light bg-light text-dark rounded" id="answer2">{{ currentQuestions[NumberOfQuestions]["Option2"] }}</button>
+              <button @click="answer1()" class="answer1 font-weight-bold btn btn-lg btn-light bg-light text-dark my-4 rounded" id="answer1">{{ currentQuestions[NumberOfQuestions]["Option1"] }}</button>
+              <button @click="answer2()" class="answer2 font-weight-bold btn btn-lg btn-light bg-light text-dark rounded" id="answer2">{{ currentQuestions[NumberOfQuestions]["Option2"] }}</button>
             </div>
             <div class="btn-group-vertical col-12 mb-4">
-              <button @click="answer3()" class="answer3 btn btn-lg btn-light bg-light text-dark my-4 rounded" id="answer3">{{ currentQuestions[NumberOfQuestions]["Option3"] }}</button>
-              <button @click="answer4()" class="answer4 btn btn-lg btn-light bg-light text-dark rounded" id="answer4">{{ currentQuestions[NumberOfQuestions]["Option4"] }}</button>
+              <button @click="answer3()" class="answer3 font-weight-bold btn btn-lg btn-light bg-light text-dark my-4 rounded" id="answer3">{{ currentQuestions[NumberOfQuestions]["Option3"] }}</button>
+              <button @click="answer4()" class="answer4 font-weight-bold btn btn-lg btn-light bg-light text-dark rounded" id="answer4">{{ currentQuestions[NumberOfQuestions]["Option4"] }}</button>
             </div>  
               <div id="NoAnswer" class="NoAnswer_Text text-danger mb-4"> </div>
               <div class="col-15">
-                <button type="submit" class="submit btn btn-light btn-md mb-4" @click="handleButton">Submit</button>
+                <button type="submit" class="submit font-weight-bold btn btn-light btn-md mb-4" @click="handleButton">Submit</button>
               </div>
             </div>
         </div>

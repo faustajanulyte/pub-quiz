@@ -30,7 +30,7 @@
             </div>  
               <div id="NoAnswer" class="NoAnswer_Text text-danger mb-4"> </div>
               <div class="col-15">
-                <button type="submit" class="submit btn btn-light btn-md mb-4" @click="handleButton">Submit</button>
+                <button type="submit" class="submit font-weight-bold btn btn-light btn-md mb-4" @click="handleButton">Submit</button>
               </div>
             </div>
         </div>
