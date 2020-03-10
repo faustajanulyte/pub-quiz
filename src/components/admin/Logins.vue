@@ -1,30 +1,24 @@
 <template >
     <div class="users col-12">
-        <h1 class="font-weight-bold pt-3">List of users</h1>
+        <div class= "btn-group">
+            <h1 class="font-weight-bold pt-3 text-md">Logins</h1>
+        </div>
             <table class="table mt-4">
                 <thead class="thead-dark col-14">
                     <tr>
                     <th scope="col" class="col-md-">Username</th>
-                    <th scope="col" class="col-md-">Password</th>
-                    <th scope="col" class="col-md-">Admin</th>
+                    <th scope="col" class="col-md-">Login</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr v-for="User in Users" v-bind:key="User.Username">
                     <td class="text-white"> {{ User.Username }} </td>
-                    <td class="text-white"> {{ User.Password }} </td>
-                    <td class="text-white"> {{ User.Admin }} </td>
+                    <td class="text-white"> {{ User.Date }} </td>
                     </tr>
                 </tbody>
             </table>
         <div class="btn-group">
-            <form @click="$router.push('AddUser')">
-                <button type="submit" class="btn btn-inline btn-dark btn-md mt-3 mr-4">Add user</button>
-            </form>
-            <form @click="$router.push('Logins')">
-                <button type="submit" class="btn btn-inline btn-dark mt-3 mr-4 btn-md">Logins</button>
-            </form>
-            <form @click="$router.push('Services')">
+            <form @click="$router.push('Users')">
                 <button type="submit" class="btn btn-inline btn-dark mt-3 btn-md">Back</button>
             </form>
             
@@ -44,7 +38,7 @@ export default{
   },
   methods:{
     GetUsers: function(){
-        axios.get("https://hghjfrvme8.execute-api.eu-west-2.amazonaws.com/dev")
+        axios.get(" https://qhwdqbjutb.execute-api.eu-west-2.amazonaws.com/Dev/")
         .then(response=>{
           this.Users = response.data.body;//sets this.questions as the data from the link       
       })},

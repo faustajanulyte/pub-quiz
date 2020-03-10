@@ -21,6 +21,7 @@ import Add_Data from '@/components/user/Add_Data'
 import Test_Questions from '@/components/user/Test_Questions'
 import Users from '@/components/admin/Users'
 import MoreInformation from '@/components/admin/MoreInformation'
+import Logins from '@/components/admin/Logins'
 
 Vue.use(VueRouter)
 
@@ -130,6 +131,11 @@ export default new VueRouter({
       path: '/MoreInformation',
       name: 'MoreInformation',
       component: MoreInformation
+    },
+    {
+      path: '/Logins',
+      name: 'Logins',
+      component: Logins
     }
   ]
 })

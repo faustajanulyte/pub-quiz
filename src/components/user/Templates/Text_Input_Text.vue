@@ -254,10 +254,9 @@ export default{
         document.getElementById("Info_Box").style.display = 'none';
         localStorage.setItem('OnOff',1)
         localStorage.setItem('Countdown',16)
-        this.Hide_Show_Button()
-        this.countDownTimer()
+        localStorage.setItem("Show_Hide_var", 1)
 
-        localStorage.setItem("Locked" + this.locked, "1")
+        this.countDownTimer()
       },
 
       Show_Hide(){
@@ -266,10 +265,6 @@ export default{
           document.getElementById("Info_Box").style.display = 'none';
           localStorage.setItem('OnOff',1)
         }
-      },
-
-      Hide_Show_Button(){// Function activates from button and allows it to work if page is refreshed
-        localStorage.setItem("Show_Hide_var", 1)
       },
     },
     mounted(){

@@ -148,9 +148,6 @@ export default {
           })
         })
     },
-    Test(){
-      console.log(localStorage.Completed1)
-    }
   },
   mounted(){
     axios

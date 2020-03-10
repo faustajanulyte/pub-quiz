@@ -49,13 +49,17 @@ export default {
       Password: '',
       Admin: '',
       valid: '',
+
+      x:[],
+      date:[],
+      h:[],
+      m:[],
+      s:[],
     };
   },
   methods: {
     authUsers: function() {
-      console.log(this.Username);
-      console.log(this.Password);
-      console.log(this.Admin);
+      localStorage.setItem("teamname", this.Username)
       axios.post("https://hghjfrvme8.execute-api.eu-west-2.amazonaws.com/dev/auth", {
             Username: this.Username,
             Password: this.Password,
@@ -69,6 +73,7 @@ export default {
             this.$router.push('Services');
           } else if(response.data.valid) {
             this.$router.push('Home');
+            this.Send_Time()
           } else {
             alert("Failed to sign in!");
         }
@@ -83,6 +88,19 @@ export default {
         
 
         });        
+    },
+    Send_Time(){ 
+      this.x = new Date();
+      this.h = this.x.getHours();
+      this.m = this.x.getMinutes();
+      this.s = this.x.getSeconds();
+
+
+      this.date = this.x.getFullYear()+'-'+this.x.getDate()+'-'+(this.x.getMonth()+1)+'  '+ this.h + ':' + this.m + ':' + this.s;
+      axios.post("https://qhwdqbjutb.execute-api.eu-west-2.amazonaws.com/Dev/", {
+        Date: this.date,
+        Username: localStorage.teamname
+      })     
     }
   },
   mounted(){
