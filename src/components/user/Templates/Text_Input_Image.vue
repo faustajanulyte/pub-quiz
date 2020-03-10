@@ -1,58 +1,40 @@
 <template >
-  <div class="">
-    <div class="wrapper" id="Info_Box" style="display: block;">
+  <div>
+    <div class="infoPage" id="Info_Box">
+      <h1 class="text-dark font-weight-bold my-4" id="result">{{ TeamName }}</h1>
+        <div class="card mx-4 bg-dark">
+          <div class="card-body font-weight-bold text-white">
+            <h3>{{ Info }}</h3>
+          </div>
+        </div>
       <div>
-        <img src="@/assets/images/Scroll.png" alt="paper" class="Scroll" > 
-        <div class="paragraph">
-          {{Info}}
-        </div>  
-
-      </div>
-
-      <div class= "buttons_box"> 
-        <div class= "TeamName" id="result">
-          {{TeamName}}
-        </div>
-
-        <div>
-
-        <button type="submit" class="Start_button" @click= Show_Hide_button>Start</button>
-        
-        </div>
+        <button type="submit" class="btn btn-dark btn-lg mt-4" @click= Show_Hide_button>Start</button>
       </div>
     </div>
-
-
-    <div class= "Quiz_box" id="Question_Box" style="display: none;">
-      
-      <div class="title2" ref="questions">
-
-        <div class="title" ref="questions"> {{ currentQuestions[NumberOfQuestions].Question }} </div>
-
-        <img src= "" class="Image_question" id="URL" />  
-      
-      <div class="timer_text" id="timer"> </div>
-      
-      </div>    
-
-      <div class="buttons_border">
-        <input
-          v-model="currentanswer"
-          type="text"
-          id="currentAnswer"
-          class="Input_Answer1"
-          placeholder=""
-        />
-        <br />
-      </div> 
-      
-      <div id="NoAnswer" class="NoAnswer_Text"> </div>
-      <div>
-        <button class="submit2" @click="handleButton"> Submit </button>
-      </div>
+    <div class="Text_Input_Image" v-if="!hidden">
+      <div class="container bg-dark pb-3 col-10 my-4" id="Question_Box" style="display: none;">
+        <h3 class="text-white font-weight-bold pt-4" ref="questions">{{ currentQuestions[NumberOfQuestions].Question }}</h3>
+          <div class="text-dark font-weight-bold h1 bg-light rounded-circle my-4 col-md- circle">
+            <a class="py-1 px-3" id="timer"></a>
+          </div>
+          <div class="col-12">
+            <img src= "" class="Image_question img-fluid mb-4" id="URL"/>
+          </div>
+            <div class="inputAnswer" id="quiz">
+              <input
+                v-model="currentanswer"
+                type="text"
+                id="currentAnswer"
+                class="Input_Answer1 rounded col-md-6 my-4"
+              />
+            </div>  
+              <div id="NoAnswer" class="NoAnswer_Text text-danger mb-4"> </div>
+              <div class="col-15">
+                <button type="submit" class="submit font-weight-bold btn btn-light btn-md mb-4" @click="handleButton">Submit</button>
+              </div>
+            </div>
+        </div>
     </div>
- </div>
-  
 </template>
 
 <script >
@@ -303,7 +285,6 @@ export default{
             }
         })
       })
-      this.countDownTimer() //initializes the countdown function 
       this.Image_Test()
       this.Show_Hide()
       document.getElementById("result").innerHTML = localStorage.teamname ;
@@ -312,150 +293,21 @@ export default{
 </script>
 
 <style>
-
-.Quiz_box{
-  position: absolute;
-  background-color: rgba(100, 97, 97, 0.9);
-  top:2%;
-  left:4%;
-  width: 93%;
-  height: 90vh;
-  border-style: solid;
-  border-width: 4px;
-  border-color: white;
+body {
+  width: 100%;
+  height: 100%;
+  background-image: url('~@/assets/images/questionmark.svg');
+  background-size: 50%;
+  margin: 0px;
 }
-.title2{
-  position:relative;
-  font-size:9vw;
-  text-align: left; 
-  width: 75%;
-  color:white;  
-  left:5%;
-  top:5%;
-  word-wrap: break-word; /** makes the text wrap inside the div */
+.circle {
+  height: 80px;
+  width: 80px;
+  display: table;
+  margin: 20px auto;
 }
-.timer_text{
-  font-size:8vw;
-  color:rgba(250, 152, 71, 0.9);
-  position: fixed;
-  left: 80%;
-  text-align: center;
-  top:5%;
-  width:13%;
-  padding-left: 2%;
-  padding-right:2%;
-  border-style: solid;
-  border-width: 4px;
-  border-color: white;
-}
-.buttons_border{
-  position: relative;
-  margin:3%;
-  width: 90%;
-  height: 400px;
-  top: 10%;
-}
-.answer11{
-  position: fixed;
-  white-space: wrap; 
-  overflow: hidden;
-  font-size: 5vw;
-  padding: 1vw;
-  width:30%;
-  height: 15%;
-  top:43%;
-  left:10%;
-  color: rgb(48, 49, 54);
-  background-color: white;
-}
-.answer21{
-  position: fixed;
-  white-space: wrap; 
-  overflow: hidden; 
-  text-align: center;
-  font-size: 5vw;
-  padding: 1vw;
-  width:30%;
-  height:15%;
-  left:60%;
-  top:43%;
-  color: rgb(48, 49, 54);
-  background-color: white;
-}
-.answer31{
-  position: fixed;
-  white-space: wrap; 
-  overflow: hidden;
-  text-align: center;
-  font-size: 5vw;
-  padding: 1vw;
-  width:30%;
-  height: 15%;
-  top:61%;
-  left:10%;
-  color: rgb(48, 49, 54);
-  background-color: white;
-}
-.answer41{
-  position: fixed;
-  white-space: wrap; 
-  overflow: hidden;
-  text-align: center;
-  font-size: 5vw;
-  padding: 1vw;
-  width:30%;
-  height: 15%;
-  left:60%;
-  top:61%;
-  color: rgb(48, 49, 54);
-  background-color: white;
-}
-.submit2{
-  position:fixed;
-  bottom:25%;
-  right:10%;
-  font-size: 8vw;
-  padding-left:1vw;
-  padding-right:1vw;
-}
-.timer{
-  position:relative;
-  text-align:right;
-  font-size: 40px;
-  color:white;
-  padding-left: 80%;
-}
-.score{
-  font-size:4vh;
-  color:white;
-}
-.NoAnswer_Text{
-  font-size:5vh;
-  color: orange;
-  position: fixed;
-  width:80%;
-  right:10%;
-  left: 10%;
-  bottom: 10%;
-}
-.Image_question{
-  position:fixed;
-  top:20%;
-  left:10%;
-  height: 20%;
-  width:80%;
-}
-.test{
-  position:fixed;
-  top: 60%;
-}
-.Input_Answer1{
-  position:fixed;
-  top: 50%;
-  left: 15%;
-  width:70%;
-  height: 15%;
-  font-size:4vh;
-  text-align: center;
+.circle a {
+  vertical-align: middle;
+  display: table-cell;
 }
 </style>

@@ -19,13 +19,13 @@
             </table>
         <div class="btn-group">
             <form @click="$router.push('AddUser')">
-                <button type="submit" class="btn btn-inline btn-dark btn-md mt-3 mr-4">Add user</button>
+                <button type="submit" class="btn btn-inline btn-dark btn-md my-3 mr-4">Add user</button>
             </form>
             <form @click="$router.push('Logins')">
                 <button type="submit" class="btn btn-inline btn-dark mt-3 mr-4 btn-md">Logins</button>
             </form>
             <form @click="$router.push('Services')">
-                <button type="submit" class="btn btn-inline btn-dark mt-3 btn-md">Back</button>
+                <button type="submit" class="btn btn-inline btn-dark my-3 btn-md">Back</button>
             </form>
             
             

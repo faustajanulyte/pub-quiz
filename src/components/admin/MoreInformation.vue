@@ -31,7 +31,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="response in getQuizResponses()" v-bind:key="response">
+                    <tr v-for="response in getQuizResponses(teams, quizs)" v-bind:key="response">
                         <td class="text-white">{{ response.questionNo }}</td>
                         <td class="text-white">{{ response.answer }}</td>
                         <td class="text-white">{{ response.correctAnswer }}</td>
@@ -39,7 +39,7 @@
                 </tbody>
             </table>
         <form @click="$router.push('Results')">
-            <button type="submit" class="btn btn-dark btn-md mt-4">Back</button>
+            <button type="submit" class="btn btn-dark btn-md my-4">Back</button>
         </form>
     </div>
 </template>
@@ -69,10 +69,17 @@ export default{
           let responseTwo = responses[1];
 
           this.teams = this.filterAdminUsers(responseOne.data.body);//sets this.questions as the data from the link     
-          this.teamName = this.teams[0].Username;
           
-          this.quizName = this.objectToKey(this.teams[0].Results)[0];
-
+          for (let index = 0; index < this.teams.length; index++) {
+              console.log(this.teams[index]);
+              
+              if(typeof (this.teams[index].Results) !== 'undefined') {
+                  this.teamName = this.teams[index].Username;
+                  this.quizName = this.objectToKey(this.teams[index].Results)[0];
+                  break;
+              }          
+          }
+          
           this.quizs = responseTwo.data.body;
           this.loaded = true;
       }));
@@ -115,12 +122,12 @@ export default{
         }) 
         return quizNames;
     },
-    getQuizResponses: function() {
+    getQuizResponses: function(teams, quizs) {
         let quizId;
         let currentTeamQuiz = {};
         let currentQuizResponse = {};
 
-        this.teams.forEach(team => {
+        teams.forEach(team => {
             if(team.Username === this.teamName) {
                 currentTeamQuiz = team.Results[this.quizName];
                 this.quizScore = team.Results[this.quizName].Score;
@@ -129,7 +136,7 @@ export default{
             }
         })
 
-        this.quizs.forEach(quiz => {
+        quizs.forEach(quiz => {
             if(quiz.QuizNumber === quizId) {
                 currentQuizResponse = quiz;
             }

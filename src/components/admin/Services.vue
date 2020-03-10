@@ -29,7 +29,7 @@
     </div>
     <div class="col-15">
     <form @click="$router.push('/')">
-      <button type="submit" class="btn btn-dark btn-md mt-4">Log out</button>
+      <button type="submit" class="btn btn-dark btn-md my-4">Log out</button>
     </form>
     </div>
   </div>
