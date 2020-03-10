@@ -19,7 +19,7 @@
             </table>
         <div class="btn-group">
             <form @click="$router.push('Users')">
-                <button type="submit" class="btn btn-inline btn-dark mt-3 btn-md">Back</button>
+                <button type="submit" class="btn btn-inline btn-dark mt-3 btn-md  mb-4">Back</button>
             </form>
             
             
