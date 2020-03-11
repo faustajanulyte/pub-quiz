@@ -3,10 +3,6 @@ import VueRouter from 'vue-router'
 import Login from '@/components/user/Login'
 import Services from '@/components/admin/Services'
 import Home from '@/components/user/Home'
-import Quiz_1 from '@/components/user/Quizes/Quiz_1'
-import Quiz_2 from '@/components/user/Quizes/Quiz_2'
-import Quiz_3 from '@/components/user/Quizes/Quiz_3'
-import Quiz_4 from '@/components/user/Quizes/Quiz_4'
 import Multiple_Choice_Text from '@/components/user/Templates/Multiple_Choice_Text'
 import Multiple_Choice_Image from '@/components/user/Templates/Multiple_Choice_Image'
 import Text_Input_Text from '@/components/user/Templates/Text_Input_Text'
@@ -21,6 +17,7 @@ import Add_Data from '@/components/user/Add_Data'
 import Test_Questions from '@/components/user/Test_Questions'
 import Users from '@/components/admin/Users'
 import MoreInformation from '@/components/admin/MoreInformation'
+import Logins from '@/components/admin/Logins'
 
 Vue.use(VueRouter)
 
@@ -40,26 +37,6 @@ export default new VueRouter({
       path: '/home',
       name: 'Home',
       component: Home
-    },
-    {
-      path: '/Quiz_1',
-      name: 'Quiz_1',
-      component: Quiz_1
-    },
-    {
-      path: '/Quiz_2',
-      name: 'Quiz_2',
-      component: Quiz_2
-    },
-    {
-      path: '/Quiz_3',
-      name: 'Quiz_3',
-      component: Quiz_3
-    },
-    {
-      path: '/Quiz_4',
-      name: 'Quiz_4',
-      component: Quiz_4
     },
     {
       path: '/Multiple_Choice_Text',
@@ -130,6 +107,11 @@ export default new VueRouter({
       path: '/MoreInformation',
       name: 'MoreInformation',
       component: MoreInformation
+    },
+    {
+      path: '/Logins',
+      name: 'Logins',
+      component: Logins
     }
   ]
 })

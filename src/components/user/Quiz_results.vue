@@ -1,15 +1,12 @@
 <template>
-  <div class="">
-    <div class="box">
-        <div class="text">
-            RESULTS
-        </div>
-
-        <div class="score" id="Score"> </div> <div class="score1"> /10</div>
-
-        <button class="back" @click="back_to_home"> Back </button>
-
+  <div>
+    <div class="container bg-dark pb-5 col-8 mt-4">
+      <h1 class="text-white font-weight-bold py-4">RESULTS</h1>
+      <h2 class="text-white font-weight-bold pt-4" id="Score">{{ Score }}</h2>
+      <h2 class="text-white font-weight-bold">out of</h2>
+      <h2 class="text-white font-weight-bold">10</h2>
     </div>
+    <button type="submit" class="btn btn-dark btn-lg my-4" @click="back_to_home">Back</button>
   </div>
 </template>
 
@@ -40,39 +37,7 @@ export default {
     }
   },
 };
-
 </script>
 
-<style scoped>
-.box{
-    position: fixed;
-    top:5%;
-    left:10%;
-    bottom:10%;
-    right:10%;
-    background:rgba(100, 97, 97, 0.9);
-    border-style: solid;
-    border-width: 4px;
-    border-color: white;
-}
-.text{
-    font-size: 9vh;
-    color: white;
-    top:10px;
-}
-
-.score{
-    font-size: 10vh;
-    color: white;
-}
-.score1{
-    font-size: 10vh;
-    color: rgb(0, 0, 0);
-}
-.back{
-    font-size: 4vh;
-    position: fixed;
-    margin-left:-9%;
-    bottom:25%;
-}
+<style>
 </style>

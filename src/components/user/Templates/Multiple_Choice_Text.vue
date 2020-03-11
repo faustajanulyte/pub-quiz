@@ -1,50 +1,37 @@
 <template >
-  <div class="">
-    <div class="wrapper" id="Info_Box" style="display: block;">
+  <div>
+    <div class="infoPage" id="Info_Box">
+      <h1 class="text-dark font-weight-bold my-4" id="result">{{ TeamName }}</h1>
+        <div class="card mx-4 bg-dark">
+          <div class="card-body font-weight-bold text-white">
+            <h3>{{ Info }}</h3>
+          </div>
+        </div>
       <div>
-        <img src="@/assets/images/Scroll.png" alt="paper" class="Scroll" > 
-        <div class="paragraph">
-          {{Info}}
-        </div>  
-
-      </div>
-
-      <div class= "buttons_box"> 
-        <div class= "TeamName" id="result">
-          {{TeamName}}
-        </div>
-
-        <div>
-
-        <button type="submit" class="Start_button" @click= Show_Hide_button>Start</button>
-        
-        </div>
+        <button type="submit" class="btn btn-dark btn-lg mt-4" @click= Show_Hide_button>Start</button>
       </div>
     </div>
-
-    <div class= "Quiz_box" id="Question_Box" style="display: none;">
-                
-        <div v-if="!hidden">
-            <div>
-                <div class="title" ref="questions"> {{ currentQuestions[NumberOfQuestions].Question }} </div>
-                <!-- <p v-for="option in currentQuestions[currentQuestion].Options" v-bind:key="option"> {{ option }}</p> -->
-                <div @click="answer1()" class= "answer1" id="answer1"> {{ currentQuestions[NumberOfQuestions]["Option1"] }} </div>
-                <div @click="answer2()" class= "answer2" id="answer2"> {{ currentQuestions[NumberOfQuestions]["Option2"] }} </div>
-                <div @click="answer3()" class= "answer3" id="answer3"> {{ currentQuestions[NumberOfQuestions]["Option3"] }} </div>
-                <div @click="answer4()" class= "answer4" id="answer4"> {{ currentQuestions[NumberOfQuestions]["Option4"] }} </div>
+    <div class="Multiple_Choice_Text" v-if="!hidden">
+      <div class="container bg-dark pb-3 col-10 my-4" id="Question_Box" style="display: none;">
+        <h3 class="text-white font-weight-bold pt-4" ref="questions">{{ currentQuestions[NumberOfQuestions].Question }}</h3>
+          <div class="text-dark font-weight-bold h1 bg-light rounded-circle my-4 col-md- circle">
+            <a class="py-1 px-3" id="timer"></a>
+          </div>
+            <div class="btn-group-vertical col-12">
+              <button @click="answer1()" class="answer1 font-weight-bold btn btn-lg btn-light bg-light text-dark my-4 rounded" id="answer1">{{ currentQuestions[NumberOfQuestions]["Option1"] }}</button>
+              <button @click="answer2()" class="answer2 font-weight-bold btn btn-lg btn-light bg-light text-dark rounded" id="answer2">{{ currentQuestions[NumberOfQuestions]["Option2"] }}</button>
+            </div>
+            <div class="btn-group-vertical col-12 mb-4">
+              <button @click="answer3()" class="answer3 font-weight-bold btn btn-lg btn-light bg-light text-dark my-4 rounded" id="answer3">{{ currentQuestions[NumberOfQuestions]["Option3"] }}</button>
+              <button @click="answer4()" class="answer4 font-weight-bold btn btn-lg btn-light bg-light text-dark rounded" id="answer4">{{ currentQuestions[NumberOfQuestions]["Option4"] }}</button>
+            </div>  
+              <div id="NoAnswer" class="NoAnswer_Text text-danger mb-4"> </div>
+              <div class="col-15">
+                <button type="submit" class="submit font-weight-bold btn btn-light btn-md mb-4" @click="handleButton">Submit</button>
+              </div>
             </div>
         </div>
-
-        <div class="timer_text" id="timer"> </div>
-        
-
-        <div id="NoAnswer" class="NoAnswer_Text"> </div>
-      <div>
-        <button class="submit" @click="handleButton"> Submit </button>
-      </div>
     </div>
- </div>
-  
 </template>
 
 <script >
@@ -60,7 +47,7 @@ export default{
         currentQuestions: [],
         
         questions: {},
-        currentanswer: ' ',
+        currentanswer: null,
         countDown: localStorage.getItem('Countdown'), //Gets the varible from the page before and sets it as countDown
         score: 0,
         Team1_Id: this.values,//For posting 
@@ -68,7 +55,7 @@ export default{
         
         TeamName: localStorage.teamname,// gets the team name 
         NumberOfQuestions: localStorage.getItem('NumberOfQuestions'),
-        Show_Hide_var: localStorage.Show_Hide_var,
+        Show_Hide_var: [],
         Info: localStorage.Info,
 
         Username: localStorage.teamname, //Gets team name for posting
@@ -84,7 +71,7 @@ export default{
   },
   methods:{
     handleButton:function () {
-      if(this.currentanswer == ' '){  // checking the user has selected an answer
+      if(this.currentanswer == null){  // checking the user has selected an answer
         document.getElementById("NoAnswer").innerHTML = "You didn't pick an answer"
       }
       else{
@@ -101,7 +88,7 @@ export default{
           
           localStorage.setItem('Countdown',15);
           this.countDown += 16 - this.countDown; // the button makes the timer reset back to 15 seconds
-          this.currentanswer=' '; 
+          this.currentanswer= null; 
           localStorage.setItem('currentanswer', 'blank')
           document.getElementById("NoAnswer").innerHTML = "" // Gets rid of the alert on the screen
         }
@@ -140,7 +127,7 @@ export default{
          
         localStorage.setItem('Countdown',15);
         this.countDown += 16 - this.countDown; // the button makes the timer reset back to 15 seconds
-        this.currentanswer=' '; 
+        this.currentanswer= null; 
         localStorage.setItem('currentanswer', 'blank')
         document.getElementById("NoAnswer").innerHTML = "" // Gets rid of the alert on the screen
       }
@@ -260,6 +247,7 @@ export default{
         document.getElementById("Question_Box").style.display = 'block';
         document.getElementById("Info_Box").style.display = 'none';
         localStorage.setItem('OnOff',1)
+        localStorage.setItem('Show_Hide_var',1)
         localStorage.setItem('Countdown',16)
         this.Hide_Show_Button()
         this.countDownTimer()
@@ -268,11 +256,13 @@ export default{
       },
 
       Show_Hide(){
+        setTimeout(() => { // starts the function but with a delay
         if(localStorage.Show_Hide_var == 1){ // Function that starts from mounted so still works when page is refreshed
           document.getElementById("Question_Box").style.display = 'block';
           document.getElementById("Info_Box").style.display = 'none';
           localStorage.setItem('OnOff',1)
         }
+      },600)  
       },
 
       Hide_Show_Button(){// Function activates from button and allows it to work if page is refreshed
@@ -336,195 +326,28 @@ export default{
       })
       this.countDownTimer() //initializes the countdown function 
       this.Show_Hide()
+      localStorage.setItem('OnOff',0)
       document.getElementById("result").innerHTML = localStorage.teamname ;
     }
 }     
 </script>
 
 <style>
-
-.Quiz_box{
-  position: absolute;
-  background-color: rgba(100, 97, 97, 0.9);
-  top:2%;
-  left:4%;
-  width: 93%;
-  height: 90vh;
-  border-style: solid;
-  border-width: 4px;
-  border-color: white;
-}
-.title{
-  position:relative;
-  font-size:7vw;
-  text-align: left; 
-  width: 75%;
-  color:white;  
-  left:5%;
-  top:0%;
-  word-wrap: break-word; /** makes the text wrap inside the div */
-}
-.timer_text{
-  font-size:8vw;
-  color:rgba(250, 152, 71, 0.9);
-  position: fixed;
-  left: 80%;
-  text-align: center;
-  top:5%;
-  width:13%;
-  padding-left: 2%;
-  padding-right:2%;
-  border-style: solid;
-  border-width: 4px;
-  border-color: white;
-  
-}
-.buttons_border{
-  position: relative;
-  margin:3%;
-  width: 90%;
-  height: 400px;
-  top: 10%;
-  
-}
-.answer1{
-  position: fixed;
-  white-space: wrap; 
-  overflow: hidden;
-  font-size: 5vw;
-  padding: 1vw;
-  width:30%;
-  height: 15%;
-  top:30%;
-  left:10%;
-  color: rgb(48, 49, 54);
-  background-color: white;
-}
-.answer2{
-  position: fixed;
-  white-space: wrap; 
-  overflow: hidden; 
-  text-align: center;
-  font-size: 5vw;
-  padding: 1vw;
-  width:30%;
-  height:15%;
-  left:60%;
-  top:30%;
-  color: rgb(48, 49, 54);
-  background-color: white;
-  
-}
-.answer3{
-  position: fixed;
-  white-space: wrap; 
-  overflow: hidden;
-  text-align: center;
-  font-size: 5vw;
-  padding: 1vw;
-  width:30%;
-  height: 15%;
-  top:55%;
-  left:10%;
-  color: rgb(48, 49, 54);
-  background-color: white;
-  
-}
-.answer4{
-  position: fixed;
-  white-space: wrap; 
-  overflow: hidden;
-  text-align: center;
-  font-size: 5vw;
-  padding: 1vw;
-  width:30%;
-  height: 15%;
-  left:60%;
-  top:55%;
-  color: rgb(48, 49, 54);
-  background-color: white;
-  
-}
-.submit{
-  position:fixed;
-  bottom:12%;
-  right:10%;
-  font-size: 5vw;
-  padding-left:1vw;
-  padding-right:1vw;
-}
-.timer{
-  position:relative;
-  text-align:right;
-  font-size: 40px;
-  color:white;
-  padding-left: 80%;
-}
-.score{
-  font-size:4vh;
-  color:white;
-}
-.NoAnswer_Text{
-  font-size:4vh;
-  color: orange;
-  position: fixed;
-  width:60%;
-  right:50%;
-  left: 8%;
-  bottom: 12%;
-}
-.wrapper{
-  position:fixed;
-  margin:0.5%;
-  width:99%;
-  height:98%;
-}
-.Scroll {
-  position:fixed;
-  left: 0%;
-  top: 12%;
-  height: 70%;
+body {
   width: 100%;
-  max-width: 700px;
+  height: 100%;
+  background-image: url('~@/assets/images/questionmark.svg');
+  background-size: 50%;
+  margin: 0px;
 }
-.paragraph{
-  position: absolute;
-  left:23%;
-  right:23%;
-  top:24%;
-  bottom:42%;
-  font-size:3.5vh;
+.circle {
+  height: 80px;
+  width: 80px;
+  display: table;
+  margin: 20px auto;
 }
-.buttons_box{
-  position:fixed;
-  top:2%;
-  bottom:2%;
-  left:5%;
-  right:5%;   
-}
-.TeamName{
-  position:static;
-  background-color: rgba(100,97,97, 0.9);
-  width:auto;
-  text-align: center;
-  margin:auto;
-  color:white;
-  border-style: solid;
-  border-width: 4px;
-  border-color: white;
-  font-size: 3.5vh;
-}
-.Start_button{
-  position:fixed;
-  width:70%;
-  top:80%;
-  left:15%;
-  font-size: 4vh;
-  color: white;
-  background-color: rgba(100,97,97, 0.9);
-  border-style: solid;
-  border-width: 4px;
-  border-color: white;
-  font-family: 'Dosis', sans-serif;
+.circle a {
+  vertical-align: middle;
+  display: table-cell;
 }
 </style>
