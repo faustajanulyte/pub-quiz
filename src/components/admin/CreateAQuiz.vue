@@ -380,8 +380,8 @@ export default {
             Axios
             .post("https://ilxze566s8.execute-api.eu-west-2.amazonaws.com/dev",
             {
-              QuizName: document.getElementById("qquiznameinput").value,
               QuizNumber: localStorage.getItem("quizNumber"),
+              QuizName: document.getElementById("qquiznameinput").value,
               QuizInfo: document.getElementById("qdescinput").value,
               QuizPIN: document.getElementById("qpininput").value,
               QuizType: document.getElementById("qquiztypeinput").value,
