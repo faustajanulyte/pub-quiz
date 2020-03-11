@@ -289,22 +289,7 @@ export default {
               document.getElementById("qpininput").innerHTML = quiz.QuizPIN;
               document.getElementById("qdescinput").innerHTML = quiz.QuizInfo;
               document.getElementById("qquiznameinput").innerHTML = quiz.QuizName;
-              if(quiz.QuizNumber == 4)
-              {
-                document.getElementById("qquiztypeinput").innerHTML = "Text_Input_Image";
-              }
-              else if(quiz.QuizNumber == 3)
-              {
-                document.getElementById("qquiztypeinput").innerHTML = "Text_Input_Text";
-              }
-              else if(quiz.QuizNumber == 2)
-              {
-                document.getElementById("qquiztypeinput").innerHTML = "Multiple_Choice_Text";
-              }
-              else
-              {
-                document.getElementById("qquiztypeinput").innerHTML = "Multiple_Choice_Image";
-              }
+              document.getElementById("qquiztypeinput").innerHTML = quiz.QuizType;
               // Question 1
               document.getElementById("qr1c1").innerHTML = quiz.Questions[1].Question;
               document.getElementById("qr1c2").innerHTML = quiz.Questions[1].URL;
