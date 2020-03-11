@@ -96,7 +96,14 @@ export default {
       this.m = this.x.getMinutes();
       this.s = this.x.getSeconds();
 
+      if(this.s < 10){
+        this.s = "0"+this.s
+      }
 
+      if(this.m < 10){
+        this.m = "0"+this.m
+      }
+      
       this.date = this.x.getFullYear()+'-'+this.x.getDate()+'-'+(this.x.getMonth()+1)+'  '+ this.h + ':' + this.m + ':' + this.s;
       axios.post("https://qhwdqbjutb.execute-api.eu-west-2.amazonaws.com/Dev/", {
         Date: this.date,

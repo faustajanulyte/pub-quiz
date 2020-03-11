@@ -47,7 +47,7 @@ export default{
         currentQuestions: [],
         
         questions: {},
-        currentanswer: ' ',
+        currentanswer: null,
         countDown: localStorage.getItem('Countdown'), //Gets the varible from the page before and sets it as countDown
         score: 0,
         Team1_Id: this.values,//For posting 
@@ -55,7 +55,7 @@ export default{
         
         TeamName: localStorage.teamname,// gets the team name 
         NumberOfQuestions: localStorage.getItem('NumberOfQuestions'),
-        Show_Hide_var: localStorage.Show_Hide_var,
+        Show_Hide_var: [],
         Info: localStorage.Info,
 
         Username: localStorage.teamname, //Gets team name for posting
@@ -71,7 +71,7 @@ export default{
   },
   methods:{
     handleButton:function () {
-      if(this.currentanswer == ' '){  // checking the user has selected an answer
+      if(this.currentanswer == null){  // checking the user has selected an answer
         document.getElementById("NoAnswer").innerHTML = "You didn't pick an answer"
       }
       else{
@@ -88,7 +88,7 @@ export default{
           
           localStorage.setItem('Countdown',15);
           this.countDown += 16 - this.countDown; // the button makes the timer reset back to 15 seconds
-          this.currentanswer=' '; 
+          this.currentanswer= null; 
           localStorage.setItem('currentanswer', 'blank')
           document.getElementById("NoAnswer").innerHTML = "" // Gets rid of the alert on the screen
         }
@@ -127,7 +127,7 @@ export default{
          
         localStorage.setItem('Countdown',15);
         this.countDown += 16 - this.countDown; // the button makes the timer reset back to 15 seconds
-        this.currentanswer=' '; 
+        this.currentanswer= null; 
         localStorage.setItem('currentanswer', 'blank')
         document.getElementById("NoAnswer").innerHTML = "" // Gets rid of the alert on the screen
       }
@@ -247,6 +247,7 @@ export default{
         document.getElementById("Question_Box").style.display = 'block';
         document.getElementById("Info_Box").style.display = 'none';
         localStorage.setItem('OnOff',1)
+        localStorage.setItem('Show_Hide_var',1)
         localStorage.setItem('Countdown',16)
         this.Hide_Show_Button()
         this.countDownTimer()
@@ -255,11 +256,13 @@ export default{
       },
 
       Show_Hide(){
+        setTimeout(() => { // starts the function but with a delay
         if(localStorage.Show_Hide_var == 1){ // Function that starts from mounted so still works when page is refreshed
           document.getElementById("Question_Box").style.display = 'block';
           document.getElementById("Info_Box").style.display = 'none';
           localStorage.setItem('OnOff',1)
         }
+      },600)  
       },
 
       Hide_Show_Button(){// Function activates from button and allows it to work if page is refreshed
@@ -323,6 +326,7 @@ export default{
       })
       this.countDownTimer() //initializes the countdown function 
       this.Show_Hide()
+      localStorage.setItem('OnOff',0)
       document.getElementById("result").innerHTML = localStorage.teamname ;
     }
 }     
