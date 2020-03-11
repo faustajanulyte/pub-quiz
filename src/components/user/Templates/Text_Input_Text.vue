@@ -240,11 +240,13 @@ export default{
       },
 
       Show_Hide(){
+        setTimeout(() => { // starts the function but with a delay
         if(localStorage.Show_Hide_var == 1){ // Function that starts from mounted so still works when page is refreshed
           document.getElementById("Question_Box").style.display = 'block';
           document.getElementById("Info_Box").style.display = 'none';
           localStorage.setItem('OnOff',1)
         }
+      },600)  
       },
     },
     mounted(){

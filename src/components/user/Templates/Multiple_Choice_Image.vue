@@ -18,7 +18,7 @@
             <a class="py-1 px-3" id="timer"></a>
           </div>
           <div class="col-12">
-            <img src= "" class="Image_question img-fluid mb-4" id="URL"/>
+            <img src= "" class="Image_question img-fluid mb-4 " id="URL"/>
           </div>
           <div class="btn-group-vertical col-12">
               <button @click="answer1()" class="answer11 font-weight-bold btn btn-lg btn-light bg-light text-dark my-4 rounded" id="answer1">{{ currentQuestions[NumberOfQuestions]["Option1"] }}</button>
@@ -244,16 +244,18 @@ export default{
 
         this.countDownTimer()
         this.Image_Test_Button()
-      },
+    },
 
-      Show_Hide(){
+    Show_Hide(){
+      setTimeout(() => { // starts the function but with a delay
         if(localStorage.Show_Hide_var == 1){ // Function that starts from mounted so still works when page is refreshed
           document.getElementById("Question_Box").style.display = 'block';
           document.getElementById("Info_Box").style.display = 'none';
           localStorage.setItem('OnOff',1)
           this.Image_Test()
         }
-      },
+      },600)  
+    },
 
 
     Image_Test(){
