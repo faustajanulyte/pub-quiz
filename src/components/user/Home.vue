@@ -36,6 +36,8 @@
             required
           />
           </div>
+          <div>   </div>
+          <div id="Invalid" class="NoAnswer_Text text-danger"> </div>
         </form>
       </div>
       <div class="btn-group">
@@ -43,6 +45,7 @@
         <button id="back" type="submit" class="btn btn-dark btn-md my-4 mr-4">Log out</button>
       </form>
         <button type="submit" class="btn btn-dark btn-md my-4 rounded" @click="authPIN()">Submit</button>
+        
       </div>
     </div>
   </div>
@@ -93,8 +96,7 @@ export default {
             console.log(this.QuizID)
             if(this.QuizID === "1"){
               if(localStorage.Completed1 === "1"){
-                this.x ++;            
-                alert("Already completed this quiz!")   
+                this.x ++;             
               }
               else{
                 console.log("Quiz1 not completed")
@@ -102,8 +104,7 @@ export default {
             }
             else if (this.QuizID === "2"){
               if(localStorage.Completed2 === "1"){
-                this.x ++;   
-                alert("Already completed this quiz!")                
+                this.x ++;                
               }
               else{
                 console.log("Quiz2 not completed")
@@ -111,8 +112,7 @@ export default {
             }
             else if (this.QuizID === "3"){
               if(localStorage.Completed3 === "1"){
-                this.x ++;            
-                alert("Already completed this quiz!")     
+                this.x ++;                
               }
               else{
                 console.log("Quiz3 not completed")
@@ -121,8 +121,7 @@ export default {
             }
             else if (this.QuizID === "4"){
               if(localStorage.Completed4 === "1"){
-                this.x ++;    
-                alert("Already completed this quiz!")            
+                this.x ++;               
               }
               else{
                 console.log("Quiz4 not completed")
@@ -147,6 +146,13 @@ export default {
           }
           }
           else {
+            if(this.x == 1){
+              document.getElementById("Invalid").innerHTML = "Already completed" 
+            }
+            else{
+              document.getElementById("Invalid").innerHTML = "Invalid values" 
+            }
+            //document.getElementById("Invalid").innerHTML = "The values were invalid"
             document.getElementById("quiz").style.outline = "thick solid Red"; // if none before are triggered then this will trigger and change the outline to red
             document.getElementById("pin").style.outline = "thick solid Red";
           }
@@ -268,5 +274,10 @@ body {
   background-color: rgba(43, 41, 41, 0.8);
   margin-right: 10%;
   margin-left: 10%;
+}
+.NoAnswer_Text{
+  position: inherit;
+  margin-top: 5%;
+  margin-bottom: -10%;
 }
 </style>

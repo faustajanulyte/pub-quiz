@@ -262,7 +262,7 @@ export default{
       setTimeout(() => { // starts the function but with a delay
         this.URL = this.currentQuestions[this.NumberOfQuestions]["URL"] // Sets the variable 'URL' 
         document.getElementById('URL').src = this.URL // Changes the image div to the URL from the database
-      },600)  
+      },500)  
     },
 
     Image_Test_Button(){
