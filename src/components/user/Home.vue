@@ -10,7 +10,7 @@
       </div>
     </div>
     <div class="pin-overlay">
-      <div class="pin-wrapper col-8 bg-dark pb-4">
+      <div class="pin-wrapper col-8 bg-dark">
         <form class="form-login">
           <h4 class="form-pin-heading py-3">Please enter the Quiz Name</h4>
           <div class="input-group" id="quiz">
@@ -37,7 +37,7 @@
           />
           </div>
           <div>   </div>
-          <div id="Invalid" class="NoAnswer_Text text-danger"> </div>
+          <div id="Invalid" class="NoAnswer_Text text-danger mt-4 mb-2"> </div>
         </form>
       </div>
       <div class="btn-group">
@@ -273,10 +273,5 @@ body {
   background-color: rgba(43, 41, 41, 0.8);
   margin-right: 10%;
   margin-left: 10%;
-}
-.NoAnswer_Text{
-  position: inherit;
-  margin-top: 5%;
-  margin-bottom: -10%;
 }
 </style>

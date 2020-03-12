@@ -1,7 +1,7 @@
 <template>
   <div class="login">
     <div class="login-overlay">
-      <div class="login-wrapper col-8 bg-dark pb-4">
+      <div class="login-wrapper col-8 bg-dark">
         <form class="form-login">
           <h2 class="form-login-heading py-3">Please sign in</h2>
           <div class="input-group" id="username">
@@ -29,6 +29,7 @@
             required
           />
           </div>
+          <div id="Invalid" class="NoAnswer_Text text-danger my-4"> </div>
         </form>
       </div>
       <div class="col-12">
@@ -78,6 +79,7 @@ export default {
           } else {
             document.getElementById("username").style.outline = "thick solid Red";
             document.getElementById("password").style.outline = "thick solid Red";
+            document.getElementById("Invalid").innerHTML = "Invalid values" 
         }
         localStorage.setItem('teamname',this.Username);
         localStorage.setItem('Admin', this.Admin) 
