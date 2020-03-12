@@ -7,13 +7,15 @@
                 <thead class="thead-dark col-14">
                     <tr>
                     <th scope="col" class="col-md-">Username</th>
-                    <th scope="col" class="col-md-">Login</th>
+                    <th scope="col" class="col-md-">Login Date</th>
+                    <th scope="col" class="col-md-">Login Time</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr v-for="User in Users" v-bind:key="User.Username">
                     <td class="text-white"> {{ User.Username }} </td>
                     <td class="text-white"> {{ User.Date }} </td>
+                    <td class="text-white"> {{ User.Time }} </td>
                     </tr>
                 </tbody>
             </table>

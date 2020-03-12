@@ -52,6 +52,7 @@ export default {
 
       x:[],
       date:[],
+      time:[],
       h:[],
       m:[],
       s:[],
@@ -104,9 +105,12 @@ export default {
         this.m = "0"+this.m
       }
       
-      this.date = this.x.getFullYear()+'-'+this.x.getDate()+'-'+(this.x.getMonth()+1)+'  '+ this.h + ':' + this.m + ':' + this.s;
+      this.date = this.x.getFullYear()+'-'+this.x.getDate()+'-'+(this.x.getMonth()+1);
+      this.time = this.h + ':' + this.m + ':' + this.s
+      
       axios.post("https://qhwdqbjutb.execute-api.eu-west-2.amazonaws.com/Dev/", {
         Date: this.date,
+        Time: this.time,
         Username: localStorage.teamname
       })     
     }
