@@ -79,7 +79,7 @@ export default {
           } else {
             document.getElementById("username").style.outline = "thick solid Red";
             document.getElementById("password").style.outline = "thick solid Red";
-            document.getElementById("Invalid").innerHTML = "Invalid values" 
+            document.getElementById("Invalid").innerHTML = "Invalid Username or Password" 
         }
         localStorage.setItem('teamname',this.Username);
         localStorage.setItem('Admin', this.Admin) 

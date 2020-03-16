@@ -21,12 +21,12 @@
             <img src= "" class="Image_question img-fluid mb-4 " id="URL"/>
           </div>
           <div class="btn-group-vertical col-12">
-              <button @click="answer1()" class="answer11 font-weight-bold btn btn-lg btn-light bg-light text-dark my-4 rounded" id="answer1">{{ currentQuestions[NumberOfQuestions]["Option1"] }}</button>
-              <button @click="answer2()" class="answer21 font-weight-bold btn btn-lg btn-light bg-light text-dark rounded" id="answer2">{{ currentQuestions[NumberOfQuestions]["Option2"] }}</button>
+              <button @click="answer1()" class="answer11 font-weight-bold btn btn-lg btn-light text-dark my-4 rounded" id="answer1">{{ currentQuestions[NumberOfQuestions]["Option1"] }}</button>
+              <button @click="answer2()" class="answer21 font-weight-bold btn btn-lg btn-light text-dark rounded" id="answer2">{{ currentQuestions[NumberOfQuestions]["Option2"] }}</button>
             </div>
             <div class="btn-group-vertical col-12 mb-4">
-              <button @click="answer3()" class="answer31 font-weight-bold btn btn-lg btn-light bg-light text-dark my-4 rounded" id="answer3">{{ currentQuestions[NumberOfQuestions]["Option3"] }}</button>
-              <button @click="answer4()" class="answer41 font-weight-bold btn btn-lg btn-light bg-light text-dark rounded" id="answer4">{{ currentQuestions[NumberOfQuestions]["Option4"] }}</button>
+              <button @click="answer3()" class="answer31 font-weight-bold btn btn-lg btn-light text-dark my-4 rounded" id="answer3">{{ currentQuestions[NumberOfQuestions]["Option3"] }}</button>
+              <button @click="answer4()" class="answer41 font-weight-bold btn btn-lg btn-light text-dark rounded" id="answer4">{{ currentQuestions[NumberOfQuestions]["Option4"] }}</button>
             </div>
               <div id="NoAnswer" class="NoAnswer_Text text-danger mb-4"> </div>
               <div class="col-15">

@@ -73,17 +73,18 @@
 </template>
 
 <script>
-import Axios from 'axios';
+import axios from 'axios';
 export default {
   name: "app",
   data() {
     return {
 
+
     };
   },
   methods: {
   GetQuizData: function() {
-        Axios
+        axios
         .get("https://ilxze566s8.execute-api.eu-west-2.amazonaws.com/dev")
         .then(response=>{
           this.quizs = response.data.body;

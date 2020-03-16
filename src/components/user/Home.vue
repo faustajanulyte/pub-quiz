@@ -149,7 +149,7 @@ export default {
               document.getElementById("Invalid").innerHTML = "Already completed" 
             }
             else{
-              document.getElementById("Invalid").innerHTML = "Invalid values" 
+              document.getElementById("Invalid").innerHTML = "Invalid Quiz name or Quiz PIN" 
             }
             //document.getElementById("Invalid").innerHTML = "The values were invalid"
             document.getElementById("quiz").style.outline = "thick solid Red"; // if none before are triggered then this will trigger and change the outline to red

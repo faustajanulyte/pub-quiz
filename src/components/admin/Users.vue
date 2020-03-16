@@ -26,9 +26,7 @@
             </form>
             <form @click="$router.push('Services')">
                 <button type="submit" class="btn btn-inline btn-dark my-3 btn-md">Back</button>
-            </form>
-            
-            
+            </form> 
         </div>
     </div>
 </template>

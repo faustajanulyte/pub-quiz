@@ -84,6 +84,7 @@ export default{
           this.loaded = true;
       }));
       },
+      
     Reset: function(){
         this.teams = [];
         },
