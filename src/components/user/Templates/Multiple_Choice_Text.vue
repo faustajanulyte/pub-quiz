@@ -23,7 +23,7 @@
             </div>
             <div class="btn-group-vertical col-12 mb-4">
               <button @click="answer3()" class="answer3 font-weight-bold btn btn-lg btn-light text-dark rounded mb-4" id="answer3">{{ currentQuestions[NumberOfQuestions]["Option3"] }}</button>
-              <button @click="answer4()" class="answer4 font-weight-bold btn btn-lg btn-light text-dark rounded mb-4" id="answer4">{{ currentQuestions[NumberOfQuestions]["Option4"] }}</button>
+              <button @click="answer4()" class="answer4 font-weight-bold btn btn-lg btn-light text-dark rounded" id="answer4">{{ currentQuestions[NumberOfQuestions]["Option4"] }}</button>
             </div>  
               <div id="NoAnswer" class="NoAnswer_Text text-danger mb-4"> </div>
               <div class="col-15">

@@ -2,11 +2,11 @@
   <div class="home">
     <div class="card">
       <div class="card-body font-weight-bold text-white">
-        <h3>Ahoy me hearties, 
-          <br>Welcome to the all new Treasure Hunt Quiz Hub!
-          Grab yourselves some beverages, take a pew and have a go at the quizzes.
-          One quiz per pub and to launch them you will need to have found the Password as indicated in the clues sheet. There are 10 points on offer here. 
-          <br>Good luck!</h3>
+        <h3>Hello quiz lovers! 
+          <br>Thank you for participating in this event! Hope you will learn something new and will amuse yourself at leaast for a litle while. 
+          <br>You will be presented with 4 multiple choise quizzes. Each quiz will have 10 question and each question is worth 1 point. You will have 15 seconds to chose your answer.
+          <br>Get ready and 
+          <br>good luck!</h3>
       </div>
     </div>
     <div class="pin-overlay">
