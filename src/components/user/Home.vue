@@ -67,7 +67,7 @@ export default {
       NumberOfQuestions: 0,
       Quiz_Type: "",
 
-      countDown: 16,
+      countDown: 21,
       Question_Number: 0,
       score: 0,
       Username: localStorage.teamname,

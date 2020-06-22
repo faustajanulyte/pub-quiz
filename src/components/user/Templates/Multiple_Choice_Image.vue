@@ -89,8 +89,8 @@ export default{
           localStorage.setItem('NumberOfQuestions', this.NumberOfQuestions) //Sets the local varaible: NumberOfQuestions as NumberOfQuestions
           this.Image_Test_Button() //Activates the function to get the next image to appear.
           
-          localStorage.setItem('Countdown',15); // Resets the countdown
-          this.countDown += 16 - this.countDown; // the button makes the timer reset back to 15 seconds
+          localStorage.setItem('Countdown',20); // Resets the countdown
+          this.countDown += 21 - this.countDown; // the button makes the timer reset back to 15 seconds
           this.currentanswer = null; 
           localStorage.setItem('currentanswer', 'blank')
           document.getElementById("NoAnswer").innerHTML = "" // Gets rid of the alert on the screen
@@ -123,8 +123,8 @@ export default{
         localStorage.setItem('NumberOfQuestions', this.NumberOfQuestions)
         this.Image_Test_Button()
          
-        localStorage.setItem('Countdown',15);
-        this.countDown += 16 - this.countDown; // the button makes the timer reset back to 15 seconds
+        localStorage.setItem('Countdown',20);
+        this.countDown += 21 - this.countDown; // the button makes the timer reset back to 15 seconds
         this.currentanswer=null; 
         localStorage.setItem('currentanswer', 'blank')
         document.getElementById("NoAnswer").innerHTML = "" // Gets rid of the alert on the screen
@@ -228,7 +228,7 @@ export default{
           }, 1000) //Delays the function by 1 second 
         }
         else if(localStorage.getItem('Countdown') < 1){ // checks to see if the countdown is less than 1
-          localStorage.setItem('Countdown',15) //sets the local variable 'Countdown' to 15
+          localStorage.setItem('Countdown',20) //sets the local variable 'Countdown' to 15
           this.countDownTimer() // Starts the timer again
           this.timerDone() //starts the timer done function
         }
@@ -239,7 +239,7 @@ export default{
         document.getElementById("Question_Box").style.display = 'block';
         document.getElementById("Info_Box").style.display = 'none';
         localStorage.setItem('OnOff',1)
-        localStorage.setItem('Countdown',16)
+        localStorage.setItem('Countdown',21)
         localStorage.setItem("Show_Hide_var", 1)
 
         this.countDownTimer()

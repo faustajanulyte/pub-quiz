@@ -94,8 +94,8 @@ export default{
           localStorage.setItem('NumberOfQuestions', this.NumberOfQuestions)
           this.Image_Test_Button()
           
-          localStorage.setItem('Countdown',15);
-          this.countDown += 16 - this.countDown; // the button makes the timer reset back to 15 seconds
+          localStorage.setItem('Countdown',20);
+          this.countDown += 21 - this.countDown; // the button makes the timer reset back to 15 seconds
           this.currentanswer = null; 
           localStorage.setItem('currentanswer', 'blank')
           document.getElementById("NoAnswer").innerHTML = "" // Gets rid of the alert on the screen
@@ -227,7 +227,7 @@ export default{
           }, 1000)
         }
         else if(localStorage.getItem('Countdown') < 1){
-          localStorage.setItem('Countdown',15)
+          localStorage.setItem('Countdown',20)
           this.countDownTimer()
           this.timerDone() 
         }
@@ -238,7 +238,7 @@ export default{
         document.getElementById("Question_Box").style.display = 'block';
         document.getElementById("Info_Box").style.display = 'none';
         localStorage.setItem('OnOff',1)
-        localStorage.setItem('Countdown',16)
+        localStorage.setItem('Countdown',21)
         localStorage.setItem("Show_Hide_var", 1)
 
         this.countDownTimer()
