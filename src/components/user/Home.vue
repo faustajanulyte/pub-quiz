@@ -4,7 +4,7 @@
       <div class="card-body font-weight-bold text-white">
         <h3>Hello quiz lovers! 
           <br>Thank you for participating in this event! Hope you will learn something new and will amuse yourself at least for a little while. 
-          <br>You will be presented with 4 multiple choice quizzes. Each quiz will have 10 question and each question is worth 1 point. You will have 15 seconds to pick your answer.
+          <br>You will be presented with 4 multiple choice quizzes. Each quiz will have 10 question and each question is worth 1 point. You will have 20 seconds to pick your answer.
           <br>Get ready and 
           <br>good luck!</h3>
       </div>
